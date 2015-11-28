@@ -1,0 +1,53 @@
+Package: Stela
+Type: Package
+Version: 0.0.0.9000
+Title: Tools for analyzing macromolecular feature distributions with Rosetta
+Description: A Stela is a slab, such as the Rosetta stone, that
+    illustrates small symbols or diagrams showing rules or
+    patterns. This package supports the analysis of molecular energy
+    function by comparing distributions of local geometric features,
+    often obtained from native or Rosetta-simulated macromolecular
+    conformations.
+Authors@R: person("Matthew", "O'Meara", email = "mattjomeara@gmail.com",
+    role = c("aut", "cre"))
+URL: http://github.com/momeara/Stela
+BugReports: https://github.com/momeara/Stela/issues
+Depends:
+   R (>= 3.1.2)
+Imports:
+    assertthat,
+    assertr,
+    plyr,
+    dplyr,
+    magrittr,
+    stringr,
+    optparse,
+    reshape,
+    proto,
+    ggplot2,
+    RSQLite,
+    logspline,
+    plotrix,
+    polynom,
+    jsonlite,
+    xtable,
+    scales,
+    doMC,
+    viridis
+Collage:
+    'sample_sources.R',
+    'methods.R',
+    'density_estimation.R',
+    'primary_modes.R',
+    'features_analysis.R',
+    'ggplot2_geom_indicator.R',
+    'ggplot2_scales.R',
+    'instancer.R',
+    'output_formats.R',
+    'save_plots.R',
+    'save_tables.R',
+    'coordinate_normalizations.R',
+    'comparison_statistics.R',
+    'generate_plot_webpage.R',
+    'vector_math.R',
+    'color_palettes.R',

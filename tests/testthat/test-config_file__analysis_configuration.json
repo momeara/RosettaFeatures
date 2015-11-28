@@ -1,0 +1,22 @@
+{
+    "output_dir" : "product/native_vs_talaris2014",
+    "sample_sources" : [{
+	"database_path" : "native_features/features.db3",
+	"id" : "Native",
+	"reference" : true
+    }, {
+	"database_path" : "relax_native_features_talaris2014/features.db3",
+	"id" : "talaris2014",
+	"reference" : false
+    }],
+    "analysis_scripts" : [
+	"scripts/analysis/plots/hbonds/geo_dim_2d_conditional/sp2_BAH_chi_polar_density_beta_sheet_alpha_helix.R"
+    ],
+    "output_formats" : [
+	"output_print_pdf",
+	"output_small_pdf",
+	"output_slide_pdf",
+	"output_html",
+	"output_csv"
+    ]
+}
