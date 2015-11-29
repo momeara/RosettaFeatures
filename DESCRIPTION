@@ -1,4 +1,4 @@
-Package: Stela
+Package: RosettaFeatures
 Type: Package
 Version: 0.0.0.9000
 Title: Tools for analyzing macromolecular feature distributions with Rosetta
@@ -22,7 +22,7 @@ Imports:
     magrittr,
     stringr,
     optparse,
-    reshape,
+    reshape2,
     proto,
     ggplot2,
     RSQLite,

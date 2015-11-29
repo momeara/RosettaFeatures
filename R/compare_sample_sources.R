@@ -17,7 +17,7 @@ load_config_file <- function(config_filename, verbose=F){
 	}
 
 	tryCatch({
-		configuration <- fromJSON(config_filename)
+		configuration <- jsonlite::fromJSON(config_filename)
 		return(configuration)
 	}, error=function(e){
 		cat(paste(
@@ -36,7 +36,7 @@ initialize_output_dir <- function(configuration, verbose=F){
 		configuration$output_dir <- as.character(configuration$output_dir)
 		cat("\toutput_dir: ", configuration$output_dir, "\n", sep="")
 	}
-	if(!file.exists(file.path(output_dir))){
+	if(!file.exists(file.path(configuration$output_dir))){
 		if(verbose){
 			cat("output_dir does not exist creating it...\n")
 		}
@@ -46,7 +46,7 @@ initialize_output_dir <- function(configuration, verbose=F){
 	configuration
 }
 
-initialize_sample_sources <- functoin(configuration, verbose=F){
+initialize_sample_sources <- function(configuration, verbose=F){
 	sample_sources_error_msg <- "To specify sample sources, define a section in the config file like this:
 
   \"sample_sources\" : [{
@@ -120,7 +120,7 @@ initialize_analysis_scripts <- function(configuration, verbose=F){
 }
 
 initialize_output_formats <- function(configuration, verbose=F){
-	if(!("output_formats" %in% names(configuration))
+	if(!("output_formats" %in% names(configuration))){
 		cat("WARNING: no output formats specified, using defaults: output_print_pdf, output_csv\n")
 		configuration$output_formats <- c('output_print_pdf', 'output_csv')
  	}
@@ -204,7 +204,7 @@ parse_analysis_scripts <- function(configuration, verbose=F){
 
 compare_sample_sources <- function(
 	config_filename,
-	db_engine=NULL
+	db_engine=NULL,
 	verbose=T,
 	dry_run=F
 ){
