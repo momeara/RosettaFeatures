@@ -10,6 +10,6 @@
 
 get_output_formats <- function(requested_output_formats){
 	output_formats %>%
-		dplyr::semi_join(data.frame(id=requested_output_formats), by="id")
+		dplyr::semi_join(dplyr::data_frame(id=requested_output_formats), by="id")
 }
 

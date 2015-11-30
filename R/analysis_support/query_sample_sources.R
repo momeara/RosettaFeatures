@@ -37,7 +37,7 @@ query_sample_source <- function(
 	if( is.na(sample_source$sample_source[1]) ){
 		stop("Specified sample source is not defined")
 	}
-	con <- dbConnect(engine, as.character(sample_source$fname))
+	con <- dbConnect(db_engine, as.character(sample_source$fname))
 	set_db_cache_size(con, cache_size);
 
 	#Allow select statements to be prefaced with arbitrary statements.
@@ -92,7 +92,7 @@ query_sample_sources <- function(
 			stop("Specified sample source is not defined")
 		}
 		timing <- system.time({
-			con <- dbConnect(engine, as.character(ss$fname))
+			con <- dbConnect(db_engine, as.character(ss$fname))
 			set_db_cache_size(con, cache_size);
 
 			#Allow select statements to be prefaced with arbitrary statements.
@@ -157,7 +157,7 @@ In the returned data.frame the there will be the following columns:
 	}
 
 	ref_ss <- sample_sources[1,]
-	con <- dbConnect(engine)
+	con <- dbConnect(db_engine)
 	set_db_cache_size(con, cache_size);
 	dbGetQuery(con, paste("ATTACH DATABASE '", ref_ss$fname, "' AS ref;", sep=""))
 

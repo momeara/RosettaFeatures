@@ -12,7 +12,7 @@
 
 load_config_file <- function(config_filename, verbose=F){
 	if(!file.exists(config_filename)){
-		cat("ERROR: Config file '", config_filename, "' does not exist.\n")
+		cat("ERROR: Config file '", config_filename, "' does not exist.\n", sep="")
 		stop(1)
 	}
 
@@ -20,10 +20,10 @@ load_config_file <- function(config_filename, verbose=F){
 		configuration <- jsonlite::fromJSON(config_filename)
 		return(configuration)
 	}, error=function(e){
-		cat(paste(
+		cat(
 			"ERROR: Unable to parse configuration file '", config_filename, "'\n",
 			"failed with the following error:\n",
-			e, sep=""))
+			e, sep="")
 	})
   return(NULL)
 }
@@ -40,7 +40,7 @@ initialize_output_dir <- function(configuration, verbose=F){
 		if(verbose){
 			cat("output_dir does not exist creating it...\n")
 		}
-		dir.create(file.path(output_dir), recursive=TRUE)
+		dir.create(file.path(configuration$output_dir), recursive=TRUE)
 	}
 
 	configuration
@@ -63,28 +63,31 @@ Each sample source needs at least a database_path, id, and reference fields. Thi
 
 	if(!("sample_sources" %in% names(configuration)) ||
 		!is.data.frame(configuration$sample_sources)){
-		stop(paste0("ERROR: no sample sources were provided. ", sample_sources_error_msg))
+		stop(paste0("ERROR: no sample sources were provided.\n", sample_sources_error_msg))
 	}
 	if(!("database_path" %in% names(configuration$sample_sources)) ||
 		any(is.na(configuration$sample_sources$database_path))){
 		stop(paste0(
-			"ERROR: Each sample sources must have a field 'database_path'",
+			"ERROR: Each sample sources must have a field 'database_path'.\nspecified sample_sources:\n",
+			configuration$sample_sources, "\n",
 			sample_sources_error_msg))
 	}
 	if(!("id" %in% names(configuration$sample_sources)) ||
 		any(is.na(configuration$sample_sources$reference))){
 		stop(paste0(
-			"ERROR: Each sample sources must have a field 'id'",
+			"ERROR: Each sample sources must have a field 'id'.\nspecified sample_sources:\n",
+			configuration$sample_sources, "\n",
 			sample_sources_error_msg))
 	}
 	if(anyDuplicated(configuration$sample_sources$id)){
 		stop(paste0(
 			"ERROR: Each sample source id must be distinct"))
 	}
-	if(!("reference" %in% names(configuration$sources)) ||
+	if(!("reference" %in% names(configuration$sample_sources)) ||
 		any(is.na(configuration$sample_sources$reference))){
 		stop(paste0(
-			"ERROR: Each sample sources must have a field 'reference'",
+			"ERROR: Each sample sources must have a true/false field 'reference' indicating if the sample source is used as a reference.\nspecified sample_sources:\n",
+			configuration$sample_sources, "\n",
 			sample_sources_error_msg))
 	}
 	configuration
@@ -107,14 +110,24 @@ initialize_analysis_scripts <- function(configuration, verbose=F){
 		!is.character(configuration$analysis_scripts)){
 			stop(paste0("ERROR: No analysis scripts were speficied.\n", error_message, "\n"))
 	}
-	for(analysis_script in configuration$analysis_scripts){
+
+	package_scripts_base <- paste(path.package("RosettaFeatures"), "R", sep="/")
+	configuration$analysis_scripts <- plyr::llply(
+		configuration$analysis_scripts,
+		function(analysis_script){
 		# parse all the analysis scripts
-		if(!file.exists(analysis_script)){
-			cat(paste(
+		if(file.exists(normalizePath(analysis_script, mustWork=F))){
+				analysis_script <- normalizePath(analysis_script, mustWork)
+		} else if(file.exists(paste(package_scripts_base, analysis_script, sep="/"))){
+				analysis_script <- paste(package_scripts_base, analysis_script, sep="/")
+		} else {
+			stop(paste(
 				"ERROR: The features analysis script '",
-				analysis_script,"' does not exist\n", sep=""))
+				analysis_script,"' does not exist at either of these locations:\n",
+				"\t", normalizePath(analysis_script, mustWork=F), "\n",
+				"\t", paste(package_scripts_base, analysis_script, sep="/"), "\n", sep=""))
 		}
-	}
+	})
 
 	configuration
 }
@@ -149,11 +162,11 @@ summarize_configuration <- function(configuration, verbose=F){
 	 		"Sample Source Comparison:\n",
 	 		"  Output Directory <- '", configuration$output_dir, "'\n", sep="")
 	 	cat(
-	 		"    Output Formats <- ", paste(output_formats$id, collapse=", "), "\n\n",
+	 		"  Output Formats <- ", paste(configuration$output_formats$id, collapse=", "), "\n\n",
 	 		sep="")
 
 	 	cat("  Sample Sources:\n")
-	 	l_ply(configuration$sample_sources, function(ss) {
+	 	plyr::a_ply(configuration$sample_sources, 1, function(ss) {
 	 		cat("  ", ss$id, " <- ", ss$database_path, "\n", sep="")
 	 	})
 	 	cat("\n  Analysis_scripts:\n")
@@ -163,14 +176,14 @@ summarize_configuration <- function(configuration, verbose=F){
 	return(NULL)
 }
 
-initialize_engine <- function(engine=NULL, configuration, verbose=F){
-	if(is.null(engine)){
+initialize_engine <- function(db_engine=NULL, configuration, verbose=F){
+	if(is.null(db_engine)){
 		if(verbose){
 			cat("Using SQLite as the database engine.\n")
 		}
-		engine <- SQLite()
+		db_engine <- RSQLite::SQLite()
 	}
-	engine
+	db_engine
 }
 
 
@@ -211,7 +224,7 @@ compare_sample_sources <- function(
 
 	configuration <- load_config_file(config_filename, verbose)
 	configuration <- initialize_configuration(configuration, verbose)
-	engine <- initialize_engine(engine, configuration, verbose)
+	db_engine <- initialize_engine(db_engine, configuration, verbose)
 	summarize_configuration(configuration, verbose)
 
 	feature_analyses <- parse_analysis_scripts(configuration, verbose)
