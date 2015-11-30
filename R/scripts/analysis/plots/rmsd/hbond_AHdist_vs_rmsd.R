@@ -8,7 +8,6 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
-check_setup()
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "hbond_AHdist_vs_rmsd",
 author = "Matthew O'Meara",

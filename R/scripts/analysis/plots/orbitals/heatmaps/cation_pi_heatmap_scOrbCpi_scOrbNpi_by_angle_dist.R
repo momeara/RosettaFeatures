@@ -7,7 +7,6 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-check_setup()
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "cation_pi_heatmap_scOrbCpi_scOrbNpi_by_angle_dist",
 author = "Matthew O'Meara, Steven Combs",

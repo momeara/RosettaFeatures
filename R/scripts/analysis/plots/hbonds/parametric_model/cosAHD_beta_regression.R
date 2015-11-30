@@ -9,7 +9,6 @@
 
 
 
-check_setup()
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "cosAHD_beta_regression",
 author = "Matthew O'Meara",

@@ -7,7 +7,6 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-check_setup()
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "sidechain_propensity_to_donate_or_accept_hbonds",
 author = "Matthew O'Meara",

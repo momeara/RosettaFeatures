@@ -9,8 +9,7 @@
 
 # Commend out plot because the secondary structure feature APSA is not integrated into the FeaturesReporter framework.
 
-#check_setup()
-#
+##
 #sele <- "
 #CREATE TEMPORARY TABLE IF NOT EXISTS hbond_cosAHD AS SELECT
 #  hbond.struct_id AS struct_id,

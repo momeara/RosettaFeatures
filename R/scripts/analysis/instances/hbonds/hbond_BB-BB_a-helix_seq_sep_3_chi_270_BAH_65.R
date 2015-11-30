@@ -7,7 +7,6 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-check_setup()
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "hbond_BB-BB_a-helix_seq_sep_3_chi_270_BAH_65",
 author = "Matthew O'Meara",

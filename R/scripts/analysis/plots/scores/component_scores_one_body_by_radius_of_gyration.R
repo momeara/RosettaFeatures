@@ -8,7 +8,6 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
-check_setup()
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "component_scores_one_body_by_radius_of_gyration",
 author = "Matthew O'Meara",

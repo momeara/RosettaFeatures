@@ -7,7 +7,6 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-check_setup()
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "anion_pi_eqpoldens_scOrbOp_Haro_chiBDHO_cosDHO",
 author = "Matthew O'Meara, Steven Combs",
