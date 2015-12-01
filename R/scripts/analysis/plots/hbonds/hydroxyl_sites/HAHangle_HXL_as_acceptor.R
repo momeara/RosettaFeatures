@@ -38,6 +38,8 @@ acceptors -- both aggregate plots, and plots broken down by donor-type.
 
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 sele <-"
 SELECT

@@ -48,6 +48,8 @@ Currently the atoms extracted for hydrogen bond sites are the atm, base, bbase, 
 
 feature_reporter_dependencies = c("StructureFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 sele <-"
 CREATE TEMPORARY TABLE tyr_sites(

@@ -19,6 +19,8 @@ model of two Gaussians to describe the tau angle in CDR H3 loops.
 
 feature_reporter_dependencies = c("loop_anchor_features"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 library(ggthemes)
 library(mixtools)

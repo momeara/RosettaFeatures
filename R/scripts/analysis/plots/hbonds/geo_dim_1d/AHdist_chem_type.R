@@ -13,6 +13,8 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 source("../hbonds/hbond_geo_dim_scales.R")
 

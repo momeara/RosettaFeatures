@@ -14,6 +14,8 @@ author = "Matthew O'Meara",
 brief_description = "Overview of ramachandran distribution for all non Alpha-helix residues. The Alpha-helix residues are not included because their density concentration obscures the other features of the ramachandran distribution.",
 feature_reporter_dependencies = c("ResidueFeatures", "ProteinBackboneTorsionAngleFeatures", "PdbDataFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 
 sele <-"

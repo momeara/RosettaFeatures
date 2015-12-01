@@ -13,6 +13,8 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("ResidueSecondaryStructureFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 
 # I think this may be broken, shouldn't there be a where clause?

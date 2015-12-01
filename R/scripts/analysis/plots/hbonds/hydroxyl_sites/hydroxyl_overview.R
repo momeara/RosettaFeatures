@@ -50,6 +50,8 @@ long_description = "
 ",
 feature_reporter_dependencies = c("ResidueFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 
 panelsAB <- function(narrow_output_formats){

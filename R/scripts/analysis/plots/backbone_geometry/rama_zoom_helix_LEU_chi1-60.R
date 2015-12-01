@@ -13,6 +13,8 @@ author = "Matthew O'Meara",
 brief_description = "Ramachandran plots conditional on the first sidechain torsional angle for LEU when chi1 is in the -60 degree bin",
 feature_reporter_dependencies = c("ResidueFeatures", "ProteinBackboneTorsionAngleFeatures", "ResidueSecondaryStructureFeatures", "PdbDataFeatures", "ProteinResidueConformationFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 
 sele <-"

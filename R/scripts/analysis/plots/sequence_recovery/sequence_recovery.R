@@ -14,6 +14,8 @@ brief_description = "",
 long_description = "",
 feature_reporter_dependencies = c("StructureFeatures", "ResidueFeatures", "PdbDataFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 
 do_analysis <- function(sele, id, title){

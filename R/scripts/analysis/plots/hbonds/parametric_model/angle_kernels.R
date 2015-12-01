@@ -16,6 +16,8 @@ long_description = "
 ",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 
 # the default bin width does funny things when sd(x) = 0

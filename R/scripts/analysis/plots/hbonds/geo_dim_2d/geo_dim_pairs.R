@@ -13,6 +13,8 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 do_query <- function(dOH_clause, sample_source){
 	sele <- paste("

@@ -49,6 +49,8 @@ parallel and anti-parallel sheets.
 
 feature_reporter_dependencies = c("ResidueSecondaryStructureFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 sele <-"
 CREATE TEMPORARY TABLE ee_bb_bb_hbonds AS

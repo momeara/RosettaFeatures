@@ -25,6 +25,8 @@ rsd
 ",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
+
 
 sele <- "
 CREATE INDEX IF NOT EXISTS hbond_sites_struct_id_resNum ON
