@@ -81,7 +81,7 @@ save_tables <- function(
 			"because no output formats were specified.", sep=""))
 	}
 
-	a_ply(table_formats, 1, function(fmt){
+	plyr::a_ply(table_formats, 1, function(fmt){
 		full_output_dir <- file.path(output_dir, features_analysis@id, fmt$id)
 		if(!file.exists(full_output_dir)){
 			dir.create(full_output_dir, recursive=TRUE)

@@ -67,7 +67,7 @@ estimate_density_1d <-function(
 
     }
   }
-  ddply(data, ids, compute_density)
+  plyr::ddply(data, ids, compute_density)
 }
 
 estimate_density_1d_wrap <-function(
@@ -96,7 +96,7 @@ estimate_density_1d_wrap <-function(
 		stop(paste("The value variable '", variable, "' is not a column name of the data. The value variable is used to compute the density estimation.", sep=""))
 	}
 
-	extended_data <- mdply(
+	extended_data <- plyr::mdply(
 		c(xlim[1]-xlim[2], 0, xlim[2]-xlim[1]),function(s){
 		y <- data;
 		y[,variable] <- y[,variable] + s;
@@ -122,7 +122,7 @@ estimate_density_1d_wrap <-function(
 				counts=nrow(factor_df)/3))
     }
   }
-  ddply(extended_data, ids, compute_density)
+  plyr::ddply(extended_data, ids, compute_density)
 }
 
 
@@ -203,7 +203,7 @@ estimate_density_1d_reflect_boundary <-function(
 				counts=round(nrow(factor_df)/extended_factor),0))
     }
   }
-	z <- ddply(data, ids, compute_density)
+	z <- plyr::ddply(data, ids, compute_density)
 	z[,!(names(z) %in% "X0")]
 }
 
@@ -262,7 +262,7 @@ estimate_density_1d_logspline <-function(
       return(data.frame(x=x, y=y, counts=nrow(factor_df)))
     }
   }
-  ddply(data, ids, compute_density)
+  plyr::ddply(data, ids, compute_density)
 }
 
 
@@ -295,7 +295,7 @@ estimate_density_2d <-function(
 
 	xlim <- range(data[,xvariable])
   xlim <- range(data[,yvariable])
-	ddply(data, ids, function(df){
+	plyr::ddply(data, ids, function(df){
 	  if (nrow(df) < min_count){
       d <- data.frame(x=NULL, y=NULL, z=NULL)
     } else {
@@ -330,7 +330,7 @@ compute_quantiles <- function(
 	variable,
 	probs=ppoints(1000)
 ) {
-	ddply(data, ids, function(df){
+	plyr::ddply(data, ids, function(df){
 		data.frame(
 			probs=probs, quantiles=quantile(df[,variable], probs=probs), counts=nrow(df))
 	})

@@ -46,7 +46,24 @@ initialize_output_dir <- function(configuration, verbose=F){
 	configuration
 }
 
-initialize_sample_sources <- function(configuration, verbose=F){
+initialize_db_engine <- function(db_engine=NULL, configuration, verbose=F){
+	if(is.null(db_engine)){
+		if(verbose){
+			cat("Using SQLite as the database engine.\n")
+		}
+		db_engine <- RSQLite::SQLite()
+	}
+	db_engine
+}
+
+
+initialize_sample_sources <- function(
+	configuration,
+	db_engine,
+	default_cache_size = 10000,
+	verbose=F
+){
+
 	sample_sources_error_msg <- "To specify sample sources, define a section in the config file like this:
 
   \"sample_sources\" : [{
@@ -65,32 +82,71 @@ Each sample source needs at least a database_path, id, and reference fields. Thi
 		!is.data.frame(configuration$sample_sources)){
 		stop(paste0("ERROR: no sample sources were provided.\n", sample_sources_error_msg))
 	}
-	if(!("database_path" %in% names(configuration$sample_sources)) ||
-		any(is.na(configuration$sample_sources$database_path))){
+	sample_sources <- configuration$sample_sources
+
+	if(!("database_path" %in% names(sample_sources)) ||
+		any(is.na(sample_sources$database_path))){
 		stop(paste0(
 			"ERROR: Each sample sources must have a field 'database_path'.\nspecified sample_sources:\n",
-			configuration$sample_sources, "\n",
+			sample_sources, "\n",
 			sample_sources_error_msg))
 	}
-	if(!("id" %in% names(configuration$sample_sources)) ||
-		any(is.na(configuration$sample_sources$reference))){
+	if(!("id" %in% names(sample_sources)) ||
+		any(is.na(sample_sources$reference))){
 		stop(paste0(
 			"ERROR: Each sample sources must have a field 'id'.\nspecified sample_sources:\n",
-			configuration$sample_sources, "\n",
+			sample_sources, "\n",
 			sample_sources_error_msg))
 	}
-	if(anyDuplicated(configuration$sample_sources$id)){
+	if(anyDuplicated(sample_sources$id)){
 		stop(paste0(
 			"ERROR: Each sample source id must be distinct"))
 	}
-	if(!("reference" %in% names(configuration$sample_sources)) ||
-		any(is.na(configuration$sample_sources$reference))){
+	# sample_source is a synonym for id
+	sample_sources$sample_source <- sample_sources$id
+
+	if(!("reference" %in% names(sample_sources)) ||
+		any(is.na(sample_sources$reference))){
 		stop(paste0(
 			"ERROR: Each sample sources must have a true/false field 'reference' indicating if the sample source is used as a reference.\nspecified sample_sources:\n",
-			configuration$sample_sources, "\n",
+			sample_sources, "\n",
 			sample_sources_error_msg))
 	}
+
+	if("db_cache_size" %in% configuration){
+		cache_size <- as.numeric(configuration$db_cache_size)
+	} else {
+		cache_size <- default_cache_size
+	}
+
+	sample_sources$con <- plyr::llply(
+		sample_sources$database_path,
+		function(database_path){
+			con <- NULL
+			tryCatch({
+				con <- DBI::dbConnect(db_engine, as.character(database_path))
+				set_db_cache_size(con, cache_size)
+			}, error=function(e){
+				stop("Unable to connecto to database '", database_path, "' with error:\n",e, sep="")
+			})
+			con
+		})
+
+	configuration$sample_sources <- sample_sources
 	configuration
+}
+
+finalize_sample_sources <- function(configuration, verbose=T){
+	plyr::a_ply(configuration$sample_sources, 1, function(ss){
+		if(verbose){
+			cat("Closing connection to database for sample source '", ss$id, "' ... \n", sep="")
+		}
+		tryCatch({
+			DBI::dbDisconnect(ss$con)
+		}, error=function(e){
+			cat("ERROR: unable to close database connection to sample source '", ss$id, "' with error:\n", e, sep="")
+		})
+	})
 }
 
 initialize_analysis_scripts <- function(configuration, verbose=F){
@@ -145,17 +201,6 @@ initialize_output_formats <- function(configuration, verbose=F){
 	configuration
 }
 
-initialize_configuration <- function(configuration, verbose=F){
-	if(verbose){
-		cat("Initializing configuration:\n")
-	}
-	configuration <- initialize_output_dir(configuration, verbose)
-	configuration <- initialize_sample_sources(configuration, verbose)
-	configuration <- initialize_analysis_scripts(configuration, verbose)
-	configuration <- initialize_output_formats(configuration, verbose)
-	configuration
-}
-
 summarize_configuration <- function(configuration, verbose=F){
 	if(verbose){
 	 	cat(
@@ -175,17 +220,6 @@ summarize_configuration <- function(configuration, verbose=F){
 	}
 	return(NULL)
 }
-
-initialize_engine <- function(db_engine=NULL, configuration, verbose=F){
-	if(is.null(db_engine)){
-		if(verbose){
-			cat("Using SQLite as the database engine.\n")
-		}
-		db_engine <- RSQLite::SQLite()
-	}
-	db_engine
-}
-
 
 parse_analysis_scripts <- function(configuration, verbose=F){
 
@@ -221,13 +255,20 @@ compare_sample_sources <- function(
 	verbose=T,
 	dry_run=F
 ){
+	if(verbose){
+		cat("Initializing configuration:\n")
+	}
+	configuration <- load_config_file(config_filename, verbose=verobse)
+	configuration <- initialize_output_dir(configuration, verbose)
 
-	configuration <- load_config_file(config_filename, verbose)
-	configuration <- initialize_configuration(configuration, verbose)
-	db_engine <- initialize_engine(db_engine, configuration, verbose)
-	summarize_configuration(configuration, verbose)
+	db_engine <- initialize_db_engine(db_engine, configuration, verbose=verbose)
+	configuration <- initialize_sample_sources(configuration, db_engine, verbose=verbose)
+	configuration <- initialize_analysis_scripts(configuration, verbose)
+	configuration <- initialize_output_formats(configuration, verbose)
 
-	feature_analyses <- parse_analysis_scripts(configuration, verbose)
+	summarize_configuration(configuration, verbose=verbose)
+
+	feature_analyses <- parse_analysis_scripts(configuration, verbose=verbose)
 
 	# set current working directory the base_dir so that way scripts
 	# can reference other scripts in a canonical way
@@ -242,8 +283,7 @@ compare_sample_sources <- function(
 					features_analysis,
 					configuration$sample_sources,
 					configuration$output_dir,
-					configuration$output_formats,
-					configuration)
+					configuration$output_formats)
 			}, error=function(e){
 				cat(paste0(
 					"ERROR: Failed to run the Features Analysis '", features_analysis@id, "' ",
@@ -252,5 +292,7 @@ compare_sample_sources <- function(
 			cat("\n")
 		}
 	}
+
+	finalize_sample_sources(configuration, verbose=verbose)
 }
 

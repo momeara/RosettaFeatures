@@ -12,7 +12,7 @@ set_db_cache_size <- function(con, cache_size){
 	if(is.null(cache_size)){
 		stop("ERROR: unable to set database cache size because the cache_size is null.")
 	}
-	dbGetQuery(con,
+	DBI::dbGetQuery(con,
 		paste("PRAGMA cache_size=",as.integer(cache_size),";",sep=""))
 }
 
@@ -21,7 +21,6 @@ query_sample_source <- function(
 	sample_source,
 	sele,
 	sele_args_frame = NULL,
-	cache_size=database_configuration$db_cache_size,
 	char_as_factor=T
 	){
 	tryCatch(sele,error=function(e){
@@ -37,25 +36,23 @@ query_sample_source <- function(
 	if( is.na(sample_source$sample_source[1]) ){
 		stop("Specified sample source is not defined")
 	}
-	con <- dbConnect(db_engine, as.character(sample_source$fname))
-	set_db_cache_size(con, cache_size);
+	con <- sample_source$con[[1]]
 
 	#Allow select statements to be prefaced with arbitrary statements.
 	#This allows the creation of temporary tables, indices, etc.
 	sele_split <- paste(strsplit(sele, ";\\W*", perl=TRUE)[[1]], ";", sep="")
-	l_ply(sele_split[-length(sele_split)], function(sele){
-			dbGetQuery(con, sele)
+	plyr::l_ply(sele_split[-length(sele_split)], function(sele){
+			DBI::dbGetQuery(con, sele)
 	})
 
 	last_stmt <- sele_split[length(sele_split)] #Real statement for data
 	if (! is.null(sele_args_frame)){
-		features <- dbGetPreparedQuery(con, sele, bind.data=sele_args_frame)
+		features <- DBI::dbGetPreparedQuery(con, sele, bind.data=sele_args_frame)
 	}
 	else {
-		features <- dbGetQuery(con, last_stmt)
+		features <- DBI::dbGetQuery(con, last_stmt)
 	}
 
-	dbDisconnect(con)
 	#cat(as.character(round(timing[3], 2)),"s\n")
 
 	if(nrow(features)==0){
@@ -76,13 +73,12 @@ query_sample_sources <- function(
 	sample_sources,
 	sele,
 	sele_args_frame = NULL,
-	cache_size=database_configuration$db_cache_size,
 	char_as_factor=T
 	){
 	tryCatch(sele,error=function(e){
 		cat("ERROR: The select statement is not defined.\n")
 	})
-	features <- ddply(sample_sources, c("sample_source"), function(ss){
+	features <- plyr::ddply(sample_sources, c("sample_source"), function(ss){
 		tryCatch(c(ss),error=function(e){
 			cat("ERROR: The specified sample source is not defined.\n")
 		})
@@ -92,25 +88,23 @@ query_sample_sources <- function(
 			stop("Specified sample source is not defined")
 		}
 		timing <- system.time({
-			con <- dbConnect(db_engine, as.character(ss$fname))
-			set_db_cache_size(con, cache_size);
+			con <- ss$con[[1]]
 
 			#Allow select statements to be prefaced with arbitrary statements.
 			#This allows the creation of temporary tables, indices, etc.
 			sele_split <- paste(strsplit(sele, ";\\W*", perl=TRUE)[[1]], ";", sep="")
-			l_ply(sele_split[-length(sele_split)], function(sele){
-					dbGetQuery(con, sele)
+			plyr::l_ply(sele_split[-length(sele_split)], function(sele){
+					DBI::dbGetQuery(con, sele)
 			})
 
 			last_stmt <- sele_split[length(sele_split)] #Real statement for data
 			if (! is.null(sele_args_frame)){
-				df <- dbGetPreparedQuery(con, sele, bind.data=sele_args_frame)
+				df <- DBI::dbGetPreparedQuery(con, sele, bind.data=sele_args_frame)
 			}
 			else {
-				df <- dbGetQuery(con, last_stmt)
+				df <- DBI::dbGetQuery(con, last_stmt)
 			}
 
-			dbDisconnect(con)
 		})
 		cat(as.character(round(timing[3], 2)),"s\n")
 		df
@@ -133,7 +127,6 @@ query_sample_sources_against_ref <- function(
 	sample_sources,
 	sele,
 	sele_args_frame = NULL,
-	cache_size=database_configuration$db_cache_size,
 	char_as_factor=T
 	){
 	tryCatch(sele,error=function(e){
@@ -157,11 +150,18 @@ In the returned data.frame the there will be the following columns:
 	}
 
 	ref_ss <- sample_sources[1,]
-	con <- dbConnect(db_engine)
-	set_db_cache_size(con, cache_size);
-	dbGetQuery(con, paste("ATTACH DATABASE '", ref_ss$fname, "' AS ref;", sep=""))
+	con <- DBI::dbConnect(SQLite())
 
-	features <- ddply(sample_sources[seq(2,nrow(sample_sources)),], c("sample_source"), function(ss){
+	#TODO figure out to pass in cache size info for this type of connection
+	#set_db_cache_size(con, cache_size);
+
+	DBI::dbGetQuery(con, paste("ATTACH DATABASE '", ref_ss$fname, "' AS ref;", sep=""))
+
+	features <- plyr::ddply(
+		sample_sources[seq(2,nrow(sample_sources)),],
+		c("sample_source"),
+		function(ss){
+
 		tryCatch(c(ss),error=function(e){
 			cat("ERROR: The specified sample source is not defined.\n")
 		})
@@ -171,27 +171,26 @@ In the returned data.frame the there will be the following columns:
 			stop("Specified sample source is not defined")
 		}
 		timing <- system.time({
-			dbGetQuery(con, paste("ATTACH DATABASE '", ss$fname, "' AS new;", sep=""))
+			DBI::dbGetQuery(con, paste("ATTACH DATABASE '", ss$fname, "' AS new;", sep=""))
 
 			#Allow select statements to be prefaced with arbitrary statements.
 			#This allows the creation of temporary tables, indices, etc.
 			sele_split <- paste(strsplit(sele, ";\\W*", perl=TRUE)[[1]], ";", sep="")
-			l_ply(sele_split[-length(sele_split)], function(sele){
-				dbGetQuery(con, sele)
+			plyr::l_ply(sele_split[-length(sele_split)], function(sele){
+				DBI::dbGetQuery(con, sele)
 			})
 			last_stmt <- sele_split[length(sele_split)] #Real statement for data
 			if(! is.null(sele_args_frame)){
-				df <- dbGetPreparedQuery(con, last_stmt, bind.data=sele_args_frame)
+				df <- DBI::dbGetPreparedQuery(con, last_stmt, bind.data=sele_args_frame)
 			}
 			else{
-				df <- dbGetQuery(con, last_stmt)
+				df <- DBI::dbGetQuery(con, last_stmt)
 			}
 		})
-		dbGetQuery(con, "DETACH DATABASE new;")
+		DBI::dbGetQuery(con, "DETACH DATABASE new;")
 		cat(as.character(round(timing[3],2)),"s\n")
 		df
 	})
-	dbDisconnect(con)
 
 	if(nrow(features)==0){
 		cat("WARNING: The following query returned no rows:\n")

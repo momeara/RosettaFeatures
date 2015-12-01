@@ -161,7 +161,7 @@ estimate_primary_modes_1d <- function(
 		sample_domain <- range(data[,variable])
 	}
 
-	ddply(data, ids, function(df){
+	plyr::ddply(data, ids, function(df){
 		if (nrow(df) < min_count){
 			return(data.frame())
 		}

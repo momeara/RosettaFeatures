@@ -14,7 +14,7 @@ brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-source("scripts/analysis/plots/hbonds/hbond_geo_dim_scales.R")
+#source("scripts/analysis/plots/hbonds/hbond_geo_dim_scales.R")
 
 
 sele <-"
@@ -94,7 +94,7 @@ WHERE	 geom.struct_id =  phbond.struct_id AND geom.hbond_id = phbond.hbond_id;
 SELECT * FROM antiparallel_geoms UNION
 SELECT * FROM     parallel_geoms;"
 
-f <- query_sample_sources(sample_sources, sele)
+f <- RosettaFeatures::query_sample_sources(sample_sources, sele)
 
 #equal area projection
 f <- transform(f,

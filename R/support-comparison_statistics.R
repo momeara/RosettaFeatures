@@ -113,7 +113,9 @@ smooth_kl_divergence <- function(x, ad, bd){
 
 
 anderson_darling_2_sample <- function(a, b, nsamples=1000){
-	require(adk) # this requires the adk package
+  if (!requireNamespace("adk", quietly = TRUE)) {
+		stop("The package 'adk' needed for this function to work. Please install it.", call. = FALSE)
+	}
 	if(length(a) >= nsamples){
 		print(length(a))
 		print(nsamples)
@@ -128,16 +130,19 @@ anderson_darling_2_sample <- function(a, b, nsamples=1000){
 		b_sub <- b
 	}
 
-	z <- adk.test(a_sub,b_sub)
+	z <- adk::adk.test(a_sub,b_sub)
 	data.frame(
 		statistic_name=factor("Anderson Darling"),
 		statistic=NA,
 		p.value=z$adk[2,2]) # P-value, adjust for ties
 }
 
-#EXPERIMENTAL:
-# require(earthmovdist)
+
 earth_mover_distance_L1 <- function(a, b){
+
+  if (!requireNamespace("earthmovdist", quietly = TRUE)) {
+		stop("The package 'earthmovedist' needed for this function to work. Please install it.", call. = FALSE)
+	}
 
 
 	a <- sample(a, 5000, replace=T)
@@ -255,22 +260,22 @@ Grouping by: ", paste(id.vars, collapse=" "), "
 
 	# since there are usually more groups of id.vars than sample
 	# sources, make id.vars the outer loop
-  stats <- ddply(f, .variables = id.vars, function(sub_f){
+  stats <- plyr::ddply(f, .variables = id.vars, function(sub_f){
 		if(verbose){
 			cat("Doing comparison for group: '", paste(lapply(sub_f[1,id.vars], as.character), collapse="', '"), "'\n", sep="")
 			print(summary(sub_f))
 		}
 
 		timing <- system.time({
-    	z <- ddply(
+    	z <- plyr::ddply(
 				sub_f[sub_f$sample_source %in% ref_sample_sources,],
 				c("ref_sample_source" = "sample_source"), function(ref_f){
 
-				ddply(
+				plyr::ddply(
 					sub_f[sub_f$sample_source %in% new_sample_sources,],
 					c("new_sample_source" = "sample_source"), function(new_f){
 
-					ldply(comp_funs, function(comp_fun){
+					plyr::ldply(comp_funs, function(comp_fun){
 						get(comp_fun)(ref_f[,measure.vars], new_f[,measure.vars])
 					}) # comp_fun
     	  }) # ref_f
@@ -308,9 +313,9 @@ smooth_comparison_statistics <- function(
 		}
 	}
 
-  ddply(dens, .variables = id.vars, function(sub_dens){
-    ddply(sub_dens, c("ref_sample_source" = "sample_source"), function(ref_dens){
-      ddply(sub_dens, c("new_sample_source" = "sample_source"), function(new_dens){
+  plyr::ddply(dens, .variables = id.vars, function(sub_dens){
+    plyr::ddply(sub_dens, c("ref_sample_source" = "sample_source"), function(ref_dens){
+      plyr::ddply(sub_dens, c("new_sample_source" = "sample_source"), function(new_dens){
 				if(as.numeric(new_dens$sample_source[1]) <= as.numeric(ref_dens$sample_source[1])) {
 					return(data.frame())
 				}
@@ -344,8 +349,8 @@ cross_validate_statistics <- function(
 		}
 	}
 
-  ddply(f, .variables = id.vars, function(sub_f){
-    ddply(sub_f, .variables = cv.var, function(test_f){
+  plyr::ddply(f, .variables = id.vars, function(sub_f){
+    plyr::ddply(sub_f, .variables = cv.var, function(test_f){
 			cv.group <- test_f[1,cv.var]
 			rest_f <- sub_f[sub_f[,cv.var] != cv.group,]
 			comp_fun(rest_f[,measure.vars], test_f[,measure.vars])

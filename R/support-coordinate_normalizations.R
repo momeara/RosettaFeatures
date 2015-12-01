@@ -6,7 +6,6 @@
 # (c) The Rosetta software is developed by the contributing members of the Rosetta Commons.
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
-require(proto)
 
 radial_3d_normalization <- function(x){ 1/(x^2*sum(1/x^2))}
 
@@ -46,7 +45,7 @@ GeomTextBoxed <- proto(ggplot2:::GeomText, {
 			lab <- parse(text = lab)
 		}
 		with(coord_transform(coordinates, data, scales), {
-			sizes <- llply(1:nrow(data),
+			sizes <- plyr::llply(1:nrow(data),
 				function(i) with(data[i, ], {
 					grobs <- textGrob(lab[i], default.units="native", rot=angle, gp=gpar(fontsize=size * .pt))
 					list(w = grobWidth(grobs), h = grobHeight(grobs))

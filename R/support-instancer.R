@@ -65,7 +65,7 @@ prepare_feature_instances <- function(
 		file.path(base_dir, "scripts", "methods", "align_features.py"),
 		file.path(full_instances_dir, "align_features.py"))
 
-	d_ply(feature_atoms, .(sample_source), function(df){
+	plyr::d_ply(feature_atoms, .(sample_source), function(df){
 		ss_id <- feature_atoms$sample_source[1]
 		cat("extracting pdb structures from sample source '", as.character(ss_id), "'\n", sep="")
 		db_fname <- sample_sources[as.character(sample_sources$sample_source) == as.character(ss_id), "fname"]
@@ -154,7 +154,7 @@ generate_pymol_script <- function(
 	# Align all instances against the first
 	first_inst <- NULL
 
-	d_ply(feature_atoms, .(id), function(df){
+	plyr::d_ply(feature_atoms, .(id), function(df){
 
 		struct_fname <- paste(file.path(df$sample_source[1], df$struct_id[1]),".pdb", sep="")
 		obj_id <- paste(df$struct_id[1], df$id[1], sep="_")

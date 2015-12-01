@@ -8,9 +8,6 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
-require(ggplot2)
-require(proto)
-
 GeomIndicator <- proto(ggplot2:::Geom, {
 	objname <- "indicator"
 	draw <- function(., data, scales, coordinates, ...){
