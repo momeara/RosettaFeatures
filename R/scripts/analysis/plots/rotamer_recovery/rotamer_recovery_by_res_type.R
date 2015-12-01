@@ -13,6 +13,7 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("ResidueFeatures", "RotamerRecoveryFeatures", "HBondFeatures", "ResidueSecondaryStructureFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(plyr)
 library(ggplot2)
 
 

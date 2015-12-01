@@ -14,6 +14,7 @@ brief_description = "",
 long_description = "The rank of a hydrogen bond at donor site or acceptor site is rank of the relative Rosetta HBond energy of the hydrogen bond at the site.",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(plyr)
 library(ggplot2)
 
 

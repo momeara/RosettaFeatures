@@ -19,6 +19,7 @@ in a three-dimensional transformation at each segment length.
 
 feature_reporter_dependencies = c("loop_anchor_features"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(plyr)
 library(ggplot2)
 
 # maximum number of rows to select 
