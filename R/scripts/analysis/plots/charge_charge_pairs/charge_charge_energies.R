@@ -14,7 +14,7 @@ brief_description = "",
 feature_reporter_dependencies = c("ResidueFeatures", "ResidueTypeFeatures", "ChargeChargeFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-source("scripts/analysis/plots/hbonds/hbond_geo_dim_scales.R")
+source("../hbonds/hbond_geo_dim_scales.R")
 
 
 base_charge <- Vectorize(function(hb_chem_type){

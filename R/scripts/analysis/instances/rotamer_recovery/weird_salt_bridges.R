@@ -13,7 +13,10 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("StructureFeatures", "ResidueFeatures", "RotamerRecoveryFeatures", "PdbDataFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
+library(ggplot2)
 
+
+library(reshape2)
 sele <-"
 SELECT
 	sb.psi, sb.rho,

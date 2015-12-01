@@ -16,7 +16,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 
 
 
-source("scripts/analysis/plots/hbonds/hbond_geo_dim_scales.R")
+source("../../plots/hbonds/hbond_geo_dim_scales.R")
 
 sele <-"
 SELECT
@@ -109,5 +109,7 @@ d_ply(f, .(sasa_burial), function(sub_f){
 		comp_stats, table_id, sample_sources, output_dir, output_formats,
 		caption=table_title, caption.placement="top")
 
-})) # end FeaturesAnalysis
+})
+
+}))# end FeaturesAnalysis
 

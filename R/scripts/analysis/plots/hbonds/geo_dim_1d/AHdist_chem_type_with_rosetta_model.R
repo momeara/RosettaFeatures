@@ -14,8 +14,8 @@ brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures", "HBondParameterFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-source("scripts/analysis/plots/hbonds/hbond_geo_dim_scales.R")
-source("scripts/methods/polynomial_methods.R")
+source("../hbond_geo_dim_scales.R")
+source("../../../../methods/polynomial_methods.R")
 
 
 sele <-"

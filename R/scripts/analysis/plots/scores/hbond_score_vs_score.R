@@ -19,7 +19,7 @@ if(nrow(sample_sources) == 1){
 	cat("This analysis script requires more than one sample source.\n")
 	return()
 }
-source("scripts/analysis/plots/hbonds/hbond_geo_dim_scales.R")
+source("../hbonds/hbond_geo_dim_scales.R")
 
 sele <- "
 DROP TABLE IF EXISTS ref_hbonds;

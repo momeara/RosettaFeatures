@@ -14,7 +14,7 @@ brief_description = "",
 feature_reporter_dependencies = c("StructureFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-
+library(reshape2)
 sele <-"
 SELECT
 	acc_atoms.base_x  AS abx,  acc_atoms.base_y  AS aby,  acc_atoms.base_z  AS abz,

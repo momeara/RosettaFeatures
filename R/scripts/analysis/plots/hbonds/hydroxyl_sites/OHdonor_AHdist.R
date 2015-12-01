@@ -14,7 +14,7 @@ brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-source("scripts/methods/polynomial_methods.R")
+source("../../../../methods/polynomial_methods.R")
 
 
 extract_features <- function(sample_sources, don_chem_type, acc_chem_type, xmin, xmax){

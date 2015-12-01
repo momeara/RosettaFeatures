@@ -14,7 +14,7 @@ brief_description = "",
 feature_reporter_dependencies = c("ResidueFeatures", "SaltBridgeFeatures", "PdbDataFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-source("scripts/analysis/plots/salt_bridges/salt_bridge_scales.R")
+source("salt_bridge_scales.R")
 
 sele <-"
 SELECT

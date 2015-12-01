@@ -8,7 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
-GeomIndicator <- proto(ggplot2:::Geom, {
+GeomIndicator <- proto::proto(ggplot2:::Geom, {
 	objname <- "indicator"
 	draw <- function(., data, scales, coordinates, ...){
 
@@ -113,23 +113,20 @@ GeomIndicator <- proto(ggplot2:::Geom, {
 })
 
 
-if(compareVersion(sessionInfo()$otherPkgs$ggplot2$Version, "0.9.0") < 0){
-	geom_indicator <- GeomIndicator$build_accessor()
-} else {
-	geom_indicator <- function (
-		mapping = NULL,
-		data = NULL,
-		stat = "identity",
-		position = "identity",
-		parse = FALSE,
-		...
-	) {
-		GeomIndicator$new(
-			mapping = mapping,
-			data = data,
-			stat = stat,
-			position = position,
-			parse = parse,
-			...)
-	}
+geom_indicator <- function (
+	mapping = NULL,
+	data = NULL,
+	stat = "identity",
+	position = "identity",
+	parse = FALSE,
+	...
+) {
+	GeomIndicator$new(
+		mapping = mapping,
+		data = data,
+		stat = stat,
+		position = position,
+		parse = parse,
+		...)
 }
+

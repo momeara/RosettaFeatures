@@ -194,7 +194,16 @@ initialize_output_formats <- function(configuration, verbose=F){
 		configuration$output_formats <- c('output_print_pdf', 'output_csv')
  	}
 
-	configuration$output_formats <- get_output_formats(configuration$output_formats)
+	if("add_footer" %in% names(configuration)){
+		add_footer <- configuration$add_footer
+	} else {
+		add_footer <- TRUE
+	}
+
+	configuration$output_formats <- get_output_formats(
+		configuration$output_formats,
+		add_footer)
+
 	if(nrow(configuration$output_formats) == 0){
 		stop("ERROR: The output formats specified were not recognized.\n")
 	}
@@ -229,7 +238,7 @@ parse_analysis_scripts <- function(configuration, verbose=F){
 	for(analysis_script in configuration$analysis_scripts){
 
 		tryCatch({
-			source(analysis_script, local=T)
+			source(analysis_script, local=T, chdir=T)
 		}, error=function(e){
 			cat(paste(
 				"ERROR: Failed to parse the Features Analysis '",

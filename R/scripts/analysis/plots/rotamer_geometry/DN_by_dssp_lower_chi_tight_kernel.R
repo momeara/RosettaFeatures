@@ -57,7 +57,7 @@ d_ply(dens, .(dssp), function(sub_dens){
 		geom_line(aes(x=x, y=y, colour=sample_source)) +
 		geom_indicator(aes(indicator=counts, colour=sample_source, group=sample_source)) +
 		facet_grid(chi1_bin ~ res_type) +
-		ggtitle(("ASN/ASP ", dssp_id, " chi2 by chi1, BFact < 30", sep="")) +
+		ggtitle("ASN/ASP ", dssp_id, " chi2 by chi1, BFact < 30") +
 		scale_x_continuous("Dihedral Angle") +
 		scale_y_continuous("FeatureDensity", limits=c(0,.07))
 	if(nrow(sample_sources) <= 3){

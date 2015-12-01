@@ -15,6 +15,7 @@ brief_description = "",
 feature_reporter_dependencies = c("ResidueFeatures", "ProteinResidueConformationFeatures", "PdbDataFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
+library(reshape2)
 
 sele <-"
 CREATE TABLE IF NOT EXISTS nchi_in_res (
@@ -76,7 +77,7 @@ d_ply(dens, .(chi_angle), function(sub_f){
 		geom_line(aes(x=x, y=y, colour=sample_source)) +
 		geom_indicator(aes(indicator=counts, colour=sample_source, group=sample_source)) +
 		facet_wrap( ~ res_type) +
-		ggtitle(("Rotamer ", chi, ", BFact < 30", sep="")) +
+		ggtitle(paste0("Rotamer ", chi, ", BFact < 30")) +
 		scale_x_continuous("Dihedral Angle")
 	if(nrow(sample_sources) <= 3){
 		p <- p + theme(legend.position="bottom", legend.direction="horizontal")

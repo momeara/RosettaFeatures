@@ -34,7 +34,7 @@ primary_modes_conical_3d_norm_diff <- function(a, b) {
 
 #Adapted from
 #http://stackoverflow.com/questions/7660893/boxed-geom-text-with-ggplot2
-GeomTextBoxed <- proto(ggplot2:::GeomText, {
+GeomTextBoxed <- proto::proto(ggplot2:::GeomText, {
 	objname <- "text_boxed"
 	draw_groups <- function(., ...) .$draw(...)
 	draw <- function(.,

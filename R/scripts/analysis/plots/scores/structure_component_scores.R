@@ -14,7 +14,7 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("StructureScoreFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
+library(reshape2)
 sele <-"
 SELECT
 	CAST( s.struct_id AS TEXT) AS struct_id,

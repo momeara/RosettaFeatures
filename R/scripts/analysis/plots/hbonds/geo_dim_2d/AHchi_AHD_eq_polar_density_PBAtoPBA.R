@@ -103,7 +103,7 @@ d_ply(f, .(sample_source), function(sub_f){
 
 	ggplot(data=dens) + plot_parts() +
 		facet_wrap(~don_dssp) +
-		ggtitle =
+		ggtitle(
 			paste("Backbone Backbone Hydrogen Bonds AHchi vs AHD Angles\n",
 			"Equal Coordinate Projection   Sample Source: ", ss_id, sep=""))
 	save_plots(self, plot_id, sample_sources[sample_sources$sample_source == ss_id,],

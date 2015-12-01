@@ -16,7 +16,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 
 
 
-source("scripts/analysis/plots/hbonds/hbond_geo_dim_scales.R")
+source("../../plots/hbonds/hbond_geo_dim_scales.R")
 
 sele <-"
 SELECT
@@ -105,7 +105,7 @@ d_ply(f, .(sasa_burial), function(sub_f){
 	comp_stats <- comparison_statistics(
 		sample_sources, sub_f, c("don_chem_type_name", "acc_chem_type_name"), "BAH", tests)
 	table_id <- paste("BAH_chem_type_solvent_exposure_comparison", "by_don_chem_type_acc_chem_type", sep="_")
-	table_title <- "H-Bond BAH Angle by Donor and Acceptor Chemical Types\nDistribution Comparison ",  sasa_burial, ", B-Factor < 30", sep="")
+	table_title <- paste0("H-Bond BAH Angle by Donor and Acceptor Chemical Types\nDistribution Comparison ",  sasa_burial, ", B-Factor < 30")
 	save_tables(self,
 		comp_stats, table_id, sample_sources, output_dir, output_formats,
 		caption=table_title, caption.placement="top")

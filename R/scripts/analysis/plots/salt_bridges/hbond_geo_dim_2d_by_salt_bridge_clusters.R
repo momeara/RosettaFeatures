@@ -14,8 +14,12 @@ brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-source("scripts/analysis/plots/hbonds/hbond_geo_dim_scales.R")
-source("scripts/analysis/plots/salt_bridges/salt_bridge_clusters.R")
+
+
+source("../hbonds/hbond_geo_dim_scales.R")
+
+
+source("..salt_bridge_clusters.R")
 
 sele <-"
 SELECT

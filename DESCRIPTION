@@ -24,7 +24,7 @@ Imports:
     optparse,
     reshape2,
     proto,
-    ggplot2,
+    ggplot2 (>= 1.0.1),
     RSQLite,
     logspline,
     plotrix,

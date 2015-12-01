@@ -13,7 +13,7 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
+library(reshape2)
 sele <-"
 SELECT
   site.HBChemType as chem_type,

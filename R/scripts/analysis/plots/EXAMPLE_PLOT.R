@@ -28,6 +28,8 @@ feature_reporter_dependencies = c("ResidueFeatures"),
 
 run=function(self, sample_sources, output_dir, output_formats){
 
+library(ggplot2)
+
 # The SQL query is applied to each sample source and the resulting
 # tables are appended together with an additional sample_source column
 # and returned as a single data.frame object.

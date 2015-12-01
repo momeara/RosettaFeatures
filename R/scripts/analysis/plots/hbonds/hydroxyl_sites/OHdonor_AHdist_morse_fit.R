@@ -31,6 +31,7 @@ WHERE
 	(don.HBChemType = 'hbdon_AHX' OR don.HBChemType = 'hbdon_HXL');"
 
 	query_sample_sources(sample_sources, sele)
+}
 
 plot_id <- "OHdonor_AHdist_all_acceptor_types"
 dens <- estimate_density_1d(

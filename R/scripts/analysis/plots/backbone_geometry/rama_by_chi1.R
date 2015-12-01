@@ -43,7 +43,7 @@ f <- ddply(
 
 plot_parts <- list(
 	theme_bw(),
-	theme\(panel.background=element_rect\(fill="#00007F", colour="#00007F"\)\),
+	theme(panel.background=element_rect(fill="#00007F", colour="#00007F")),
 	stat_density2d(
 		aes(x=phi, y=psi, fill=..density..), geom="tile", contour=FALSE),
 	geom_indicator(aes(indicator=counts), color="white", group=1),

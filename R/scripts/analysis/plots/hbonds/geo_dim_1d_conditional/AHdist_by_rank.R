@@ -22,7 +22,7 @@ each sample sample source.",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-source("scripts/analysis/plots/hbonds/hbond_geo_dim_scales.R")
+source("../hbond_geo_dim_scales.R")
 
 sele <-"
 SELECT

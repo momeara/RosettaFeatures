@@ -38,7 +38,7 @@ f <-  query_sample_sources(sample_sources, sele)
 
 plot_id <- "residue_pair_distances_vs_neighbors"
 p <- ggplot(data=f, aes(x=dist, y=nbrs, color=sample_source))
-p <- p + geom_point(aes( size = .5)
+p <- p + geom_point(aes( size = .5))
 p <- p + facet_wrap( ~ res1_type )
 p <- p + ggtitle("Residue Pair Distances vs Burial")
 p <- p + labs(x="Distance between Action Coordinates",
@@ -48,6 +48,4 @@ p <- p + theme(axis.text.y=element_blank())
 
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
-
-										
 })) # end FeaturesAnalysis

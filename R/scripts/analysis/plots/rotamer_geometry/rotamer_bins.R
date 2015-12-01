@@ -14,7 +14,7 @@ brief_description = "",
 feature_reporter_dependencies = c("ResidueFeatures", "RotamerFeatures", "ResidueType"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-
+library(reshape2)
 sele <-"
 SELECT
 	res.name3 AS res_type,
@@ -63,7 +63,7 @@ plot_id <- "rotamer_bin_counts"
 p <- ggplot(data=zz) + theme_bw() +
 	geom_line(aes(x=rank, y=rot_bin_fraction, colour=sample_source)) +
 	facet_wrap(~res_type, scales="free") +
-	ggtitle(("Rotamer Bin Counts", sep="")) +
+	ggtitle(paste0("Rotamer Bin Counts")) +
 	scale_y_continuous("Rotamer Bin Density") +
 	scale_x_continuous("Rotamer Bin Rank")
 if(nrow(sample_sources) <= 3){

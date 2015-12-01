@@ -54,7 +54,7 @@ p <- ggplot(data=dens) +
 	geom_indicator(
 		aes(indicator=counts), group=1, colour="black", ypos=.99) +
 	facet_wrap(~sample_source) +
-	ggtitle(("ASP chi1 vs chi2 For Helices;  BFact < 30", sep="")) +
+	ggtitle("ASP chi1 vs chi2 For Helices;  BFact < 30") +
 	coord_equal(ratio=1) +
 	scale_x_continuous("chi 1") +
 	scale_y_continuous("chi 2") +

@@ -8,8 +8,10 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
-get_output_formats <- function(requested_output_formats){
+get_output_formats <- function(requested_output_formats, add_footer){
 	output_formats %>%
-		dplyr::semi_join(dplyr::data_frame(id=requested_output_formats), by="id")
+		dplyr::semi_join(dplyr::data_frame(id=requested_output_formats), by="id") %>%
+		dplyr::mutate(
+			add_footer = add_footer & accepts_footer)
 }
 

@@ -121,7 +121,7 @@ counts <- ddply(f, .(is_bidentite, sample_source), function(df){
 plot_id <- "ASP_GLU_to_ARG_bifurcated_asymmetry_scatter"
 p <- ggplot(data=f) + theme_bw() +
 	geom_point(aes(x=close_AHdist, y=far_AHdist), size=.7, colour="red") +
-	stat_density2d(x=close_AHdist, y=far_AHdist), size=.2, colour="black") +
+	stat_density2d(aes(x=close_AHdist, y=far_AHdist), size=.2, colour="black") +
 	geom_indicator(data=counts, aes(indicator=count), group=1, ypos=.08) +
 	ggtitle("ASP/GLU -> ARG Bifurcated Salt Bridge Asymmetry; SeqSep > 4") +
 	scale_x_continuous("Close AHdist") +
