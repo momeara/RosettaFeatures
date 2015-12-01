@@ -11,15 +11,15 @@
 library(ggplot2)
 
 scale_x_rho <- list(
-	ggplot2::scale_x_continuous(expression(
+	scale_x_continuous(expression(
 		paste('Cental Carbon -- Oxygen Distance (', ring(A), ')')), limit=c(2,6)))
 
 scale_y_rho <- list(
-	gpplot2::scale_y_continuous(expression(
+	scale_y_continuous(expression(
 		paste('Cental Carbon -- Oxygen Distance (', ring(A), ')')), limit=c(2,6)))
 
-scale_x_psi <- list(ggplot2::scale_x_continuous("Angle Around Donor (Degrees)"))
+scale_x_psi <- list(scale_x_continuous("Angle Around Donor (Degrees)"))
 scale_y_psi <- list(scale_y_continuous("Angle Around Donor (Degrees)"))
 
-scale_x_theta <- list(ggplot2::scale_x_continuous("Angle Out of Donor Plane (Degrees)"))
-scale_y_theta <- list(ggplot2::scale_y_continuous("Angle Out of Donor Plane (Degrees)"))
+scale_x_theta <- list(scale_x_continuous("Angle Out of Donor Plane (Degrees)"))
+scale_y_theta <- list(scale_y_continuous("Angle Out of Donor Plane (Degrees)"))

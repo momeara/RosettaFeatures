@@ -11,7 +11,7 @@ feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "bond_angles",
 author = "Matthew O'Meara",
 brief_description = "",
-feature_reporter_dependencies = c("ResidueFeatures", "PdbDataFeatures"),
+feature_reporter_dependencies = c("ResidueFeatures", "PdbDataFeatures", "ProteinBondGeometryFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 library(ggplot2)
 

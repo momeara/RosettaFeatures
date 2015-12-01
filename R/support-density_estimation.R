@@ -58,7 +58,8 @@ estimate_density_1d <-function(
         d <- weighted.hist(x=factor_df[,variable], w=weights, breaks=breaks, plot=FALSE)
         return(data.frame(x=d$mids, y=d$density, counts=nrow(factor_df)))
       } else {
-        adjust <- adjust * general_kernel_adjust
+				#TODO general_kernel_adjust should be able to be set from the configuration file
+				#adjust <- adjust * general_kernel_adjust
         d <- do.call(density,
 					c(list(x=factor_df[,variable], from=sample_domain[1], to=sample_domain[2], n=n_pts,
           weights=weights, adjust=adjust), density.args))
@@ -180,7 +181,8 @@ estimate_density_1d_reflect_boundary <-function(
 		extended_factor = extended_factor + 1
 	}
 
-	adjust <- adjust * general_kernel_adjust
+	#TODO general_kernel_adjust should be able to be set from the configuration file
+	#adjust <- adjust * general_kernel_adjust
 	adjust <- adjust/(1 + reflect_left + reflect_right)
 
   compute_density <- function(factor_df){
