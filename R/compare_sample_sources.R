@@ -61,7 +61,8 @@ initialize_sample_sources <- function(
 	configuration,
 	db_engine,
 	default_cache_size = 10000,
-	verbose=F
+	verbose=F,
+	initialize_databases=T
 ){
 
 	sample_sources_error_msg <- "To specify sample sources, define a section in the config file like this:
@@ -119,19 +120,23 @@ Each sample source needs at least a database_path, id, and reference fields. Thi
 		cache_size <- default_cache_size
 	}
 
-	sample_sources$con <- plyr::llply(
-		sample_sources$database_path,
-		function(database_path){
-			con <- NULL
-			tryCatch({
-				con <- DBI::dbConnect(db_engine, as.character(database_path))
-				set_db_cache_size(con, cache_size)
-			}, error=function(e){
-				stop("Unable to connecto to database '", database_path, "' with error:\n",e, sep="")
+	if(!initialize_databases){
+		sample_sources$con <- NA
+	} else {
+		sample_sources$con <- plyr::llply(
+			sample_sources$database_path,
+			function(database_path){
+				con <- NULL
+				tryCatch({
+					con <- DBI::dbConnect(db_engine, as.character(database_path))
+					set_db_cache_size(con, cache_size)
+				}, error=function(e){
+					stop("Unable to connecto to database '", database_path, "' with error:\n",e, sep="")
+				})
+				con
 			})
-			con
-		})
-
+	}
+	
 	configuration$sample_sources <- sample_sources
 	configuration
 }
@@ -173,7 +178,7 @@ initialize_analysis_scripts <- function(configuration, verbose=F){
 		function(analysis_script){
 		# parse all the analysis scripts
 		if(file.exists(normalizePath(analysis_script, mustWork=F))){
-				analysis_script <- normalizePath(analysis_script, mustWork)
+				analysis_script <- normalizePath(analysis_script, mustWork=T)
 		} else if(file.exists(paste(package_scripts_base, analysis_script, sep="/"))){
 				analysis_script <- paste(package_scripts_base, analysis_script, sep="/")
 		} else {
@@ -249,7 +254,7 @@ parse_analysis_scripts <- function(configuration, verbose=F){
 		num_new_feature_analyses = length(feature_analyses) - num_feature_analyses_before
 		for(feature_analysis in
 			feature_analyses[
-				seq(num_feature_analyses_before+1, length.out=num_new_feature_analyses)]){
+				seq(num_feature_analyses_before+1, length.out=num_new_feature_analyses)]) {
 			feature_analysis@filename <- analysis_script
 		}
 		num_feature_analyses_before <- length(feature_analyses)
@@ -301,7 +306,57 @@ compare_sample_sources <- function(
 			cat("\n")
 		}
 	}
-
 	finalize_sample_sources(configuration, verbose=verbose)
+}
+
+compare_sample_sources_prepare_SGE_run <- function(
+	config_filename,
+	run_base,
+	db_engine=NULL,
+	verbose=T
+){
+
+	if(verbose){
+		cat("Preparing SGE run to do features analysis:\n")
+	}
+	initial_configuration <- load_config_file(config_filename, verbose=verobse)
+	configuration <- initialize_output_dir(initial_configuration, verbose)
+	configuration <- initialize_analysis_scripts(configuration, verbose)
+
+	submit.sh <-paste0("#/bin/bash
+#$ -S /bin/bash
+#$ -cwd
+
+TASK_INPUT=$(cd ", run_base, "/jobs && ls | sed -n ${SGE_TASK_ID}p )
+cd ", run_base, "/jobs/$TASK_INPUT
+time Rscript features_analysis.R &> log
+")
+
+	features_analysis.R <- "#!/usr/bin/env Rscript
+
+#library(RosettaFeatures)
+cwd <- getwd()
+devtools::load_all(\"~/work/collaborations/rosetta/RosettaFeatures\")
+setwd(cwd)
+
+compare_sample_sources(
+	\"analysis_configuration.json\",
+	verbose=T)
+"
+
+
+	dir.create(run_base, recursive=T)
+	cat(submit.sh, file=paste(run_base, "submit.sh", sep="/"))
+	dir.create(paste(run_base, "jobs", sep="/"))
+	for(analysis_script in configuration$analysis_scripts){
+		job_base_dir <- paste(run_base, "jobs", analysis_script %>% str_replace_all("/", "__"), sep="/")
+		dir.create(job_base_dir)
+		cat(features_analysis.R, file=paste(job_base_dir, "analyse_features.R", sep="/"))
+		job_configuration <- initial_configuration
+		job_configuration$analysis_scripts <- c(analysis_script)
+		job_configuration %>%
+			jsonlite::toJSON(pretty=T) %>%
+			cat(file=paste(job_base_dir, "analysis_configuration.json", sep="/"))
+	}
 }
 

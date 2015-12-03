@@ -15,7 +15,7 @@ feature_reporter_dependencies = c("ResidueFeatures", "ProteinBackboneTorsionAngl
 run=function(self, sample_sources, output_dir, output_formats){
 library(plyr)
 library(ggplot2)
-
+library(viridis)
 
 
 sele <-"
@@ -46,14 +46,14 @@ f <- ddply(
 
 plot_parts <- list(
 	theme_bw(),
-	theme(panel.background=element_rect(fill="#00007F", colour="#00007F")),
+	theme(panel.background=element_rect(fill="#00007F", color="#00007F")),
 	stat_density2d(
 		aes(x=phi, y=psi, fill=..density..), geom="tile", contour=FALSE),
-	geom_indicator(aes(indicator=counts), color="white", group=1),
+	geom_indicator(aes(indicator=counts), colour="white", group=1),
 	coord_equal(ratio=1),
 	scale_x_continuous(expression(paste("phi Angle (Degrees)", sep="")), limits=c(-180, 180)),
 	scale_y_continuous(expression(paste("psi Angle (Degrees)", sep="")), limits=c(-180, 180)),
-	scale_fill_gradientn('Density', colours=jet.colors(15)),
+	scale_fill_viridis('Density'),
 	theme(legend.position="bottom", legend.direction="horizontal"))
 
 

@@ -34,10 +34,10 @@ primary_modes_conical_3d_norm_diff <- function(a, b) {
 
 #Adapted from
 #http://stackoverflow.com/questions/7660893/boxed-geom-text-with-ggplot2
-GeomTextBoxed <- proto::proto(ggplot2:::GeomText, {
-	objname <- "text_boxed"
-	draw_groups <- function(., ...) .$draw(...)
-	draw <- function(.,
+GeomTextBoxed <- ggplot2::ggproto("GeomTextBoxed", ggplot2::GeomText,
+	objname = "text_boxed",
+	draw_groups = function(., ...) .$draw(...),
+	draw = function(.,
 		data, scales, coordinates, ..., parse = FALSE,
 		expand = 1.2, bgcol = "grey50", bgfill = NA, bgalpha = .8) {
 		lab <- data$label
@@ -57,23 +57,23 @@ GeomTextBoxed <- proto::proto(ggplot2:::GeomText, {
 				gp = gpar(col = alpha(bgcol, bgalpha), fill = alpha(bgfill, bgalpha))),
 				.super$draw(., data, scales, coordinates, ..., parse))
 		})
-	}
+	},
 
-  draw_legend <- function(., data, ...) {
+  draw_legend = function(., data, ...) {
 		data <- aesdefaults(data, .$default_aes(), list(...))
 		with(data,
 			textGrob("a", 0.5, 0.5, rot = angle,
 				gp=gpar(col=alpha(colour, alpha), fontsize = size * .pt)))
-	}
+	},
 
-  icon <- function(.) textGrob("text", rot=45, gp=gpar(cex=1.2))
-  default_stat <- function(.) StatIdentity
-  required_aes <- c("x", "y", "label")
-  default_aes <- function(.)
+  icon = function(.) textGrob("text", rot=45, gp=gpar(cex=1.2)),
+  default_stat = function(.) StatIdentity,
+  required_aes = c("x", "y", "label"),
+  default_aes = function(.){
 		aes(colour="black", size=5 , angle=0, hjust=0.5,
-			vjust=0.5, alpha = 1, family="", fontface=1, lineheight=1.2)
-  guide_geom <- function(x) "text"
-})
+			vjust=0.5, alpha = 1, family="", fontface=1, lineheight=1.2)},
+  guide_geom = function(x) "text"
+	)
 
 geom_text_boxed <- function(
 	mapping = NULL,
@@ -83,13 +83,13 @@ geom_text_boxed <- function(
 	parse = FALSE,
 	...
 ) {
-	GeomTextBoxed$new(
-		mapping = mapping,
-		data = data,
+	ggplot2::layer(
+		geom = GeomTextBoxed,
 		stat = stat,
+		data = data,
+		mapping = mapping,
 		position = position,
-		parse = parse,
-		...)
+		params=list(...))
 }
 
 
