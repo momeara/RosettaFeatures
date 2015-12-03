@@ -8,4 +8,5 @@ src/*.o-*
 inst/doc
 .httr-oauth
 *.Rds
+Rplots.pdf
 *~
