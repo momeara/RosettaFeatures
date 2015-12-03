@@ -8,11 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
-
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -55,8 +51,7 @@ f$AHD <- acos(f$cosAHD) * 180/pi
 
 
 
-qs <- compute_quantiles(
-	f, c("sample_source"), "AHD", 1000)
+qs <- compute_quantiles(f, c("sample_source"), "AHD")
 plot_id = "hbond_AHD_CDF"
 p <- ggplot(data=qs) + theme_bw() +
 	geom_line(aes(y=probs, x=quantiles, colour=sample_source)) +
@@ -72,8 +67,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 
 
-qs <- compute_quantiles(
-	f, c("sample_source", "don_chem_type"), "AHD", 1000)
+qs <- compute_quantiles(f, c("sample_source", "don_chem_type"), "AHD")
 qs$don_chem_type_name <- don_chem_type_name_wrap(qs$don_chem_type)
 
 plot_id = "hbond_AHD_CDF_don_chem_type"
@@ -117,7 +111,7 @@ d_ply(qs, .(sample_source), function(sub_qs) {
 
 
 qs <- compute_quantiles(
-	f, c("sample_source", "acc_chem_type"), "AHD", 1000)
+	f, c("sample_source", "acc_chem_type"), "AHD")
 qs$acc_chem_type_name <- acc_chem_type_name_wrap(qs$acc_chem_type)
 
 plot_id = "hbond_AHD_CDF_acc_chem_type"
@@ -161,7 +155,7 @@ d_ply(qs, .(sample_source), function(sub_qs) {
 
 
 qs <- compute_quantiles(
-	f, c("sample_source", "don_chem_type_name", "acc_chem_type_name"), "AHD", 1000)
+	f, c("sample_source", "don_chem_type_name", "acc_chem_type_name"), "AHD")
 
 plot_id = "hbond_AHD_CDF_chem_type"
 p <- ggplot(data=qs) + theme_bw() +

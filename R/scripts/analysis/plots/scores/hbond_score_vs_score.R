@@ -227,7 +227,7 @@ for (ss_ref_id in seq(1, nrow(sample_sources))){
 
 sele <- "
 DROP TABLE ref_hbonds;"
-query_sample_sources(sample_sources, sele)
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
 
 
 })) # end FeaturesAnalysis

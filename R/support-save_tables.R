@@ -95,7 +95,7 @@ save_tables <- function(
 			tryCatch({
 				if(as.character(fmt$id) == "output_latex_sideways_table"){
 					cat("\\usepackage{booktabs}\n\\usepackage{rotating}\n", file=full_path)
-					print(xtable(
+					print(xtable::xtable(
 						table, caption=gsub("\n", "\\\\\n", caption), ...),
 						file=full_path,
 						type="latex",
@@ -106,7 +106,7 @@ save_tables <- function(
 				} else if(as.character(fmt$id) == "output_latex_table"){
 					cat("\\usepackage{booktabs}\n", file=full_path)
 					print(
-						xtable(table, caption=gsub("\n", "\\\\\n", caption), ...),
+						xtable::xtable(table, caption=gsub("\n", "\\\\\n", caption), ...),
 						file=full_path,
 						type="latex",
 						append=TRUE,
@@ -115,7 +115,7 @@ save_tables <- function(
 				} else if(as.character(fmt$id) == "output_html"){
 					cat(table_css_header(), file=full_path)
 					print(
-						xtable(table, gsub("\n", "<br>\n", caption), ...),
+						xtable::xtable(table, gsub("\n", "<br>\n", caption), ...),
 						file=full_path,
 						type=extension,
 						append=TRUE,

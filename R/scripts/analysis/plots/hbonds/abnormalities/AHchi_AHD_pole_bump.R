@@ -110,21 +110,8 @@ ggplot(data=dens) +
 	facet_wrap(~sample_source)
 save_plots(self, plot_id, sample_sources, output_dir, narrow_output_formats)
 
-compute_quantiles <- function(
-	data,
-	ids,
-	variable,
-	n_quantiles=300
-) {
-	ddply(data, ids, function(df){
-		ps <- ppoints(n_quantiles)
-		data.frame(
-			probs=ps, quantiles=quantile(df[,variable], probs=ps))
-	})
-}
 
-qs <- compute_quantiles(
-	f, c("sample_source"), "AHD", 1000)
+qs <- compute_quantiles(f, c("sample_source"), "AHD")
 
 plot_id = "hbond_AHD_qq"
 p <- ggplot(data=qs) + theme_bw() +
@@ -141,8 +128,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 
 
-qs <- compute_quantiles(
-	f, c("sample_source"), "AHD", 1000)
+qs <- compute_quantiles(f, c("sample_source"), "AHD")
 
 plot_id = "hbond_AHD_cdf"
 p <- ggplot(data=qs) + theme_bw() +

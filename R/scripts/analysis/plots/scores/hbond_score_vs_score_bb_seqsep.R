@@ -96,7 +96,7 @@ f <- query_sample_sources_against_ref(sample_sources, sele)
 
 sele <- "
 DROP TABLE ref_hbonds;"
-query_sample_sources(sample_sources, sele)
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
 
 
 f <- na.omit(f, method="r")

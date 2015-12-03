@@ -8,11 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
-
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -21,8 +17,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
-
 
 sele <-"
 SELECT
@@ -79,7 +73,7 @@ f$all_sp2 <- as.character(f$hybrid) == "sp2" | as.character(f$hybrid) == "bb_sp2
 f$quarter_chi <- asin(abs(sin(f$chi))) * 180/pi
 
 qs <- compute_quantiles(
-	f[f$all_sp2,], c("sample_source"), "quarter_chi", 1000)
+	f[f$all_sp2,], c("sample_source"), "quarter_chi")
 
 plot_id = "hbond_quarter_chi"
 p <- ggplot(data=qs) + theme_bw() +
@@ -114,7 +108,7 @@ save_tables(self,
 
 ##############################################################
 qs <- compute_quantiles(
-	f[f$all_sp2,], c("sample_source", "don_chem_type_name", "acc_chem_type_name"), "quarter_chi", 1000)
+	f[f$all_sp2,], c("sample_source", "don_chem_type_name", "acc_chem_type_name"), "quarter_chi")
 
 plot_id = "hbond_quarter_chi_chem_type"
 p <- ggplot(data=qs) + theme_bw() +
@@ -149,7 +143,7 @@ save_tables(self,
 f$don_chem_type_name <- don_chem_type_name_wrap(f$don_chem_type)
 
 qs <- compute_quantiles(
-	f[f$all_sp2,], c("sample_source", "don_chem_type_name"), "quarter_chi", 1000)
+	f[f$all_sp2,], c("sample_source", "don_chem_type_name"), "quarter_chi")
 
 plot_id = "hbond_quarter_chi_don_chem_type"
 p <- ggplot(data=qs) + theme_bw() +
@@ -185,7 +179,7 @@ save_tables(self,
 f$acc_chem_type_name <- acc_chem_type_name_wrap(f$acc_chem_type)
 
 qs <- compute_quantiles(
-	f[f$all_sp2,], c("sample_source", "acc_chem_type_name"), "quarter_chi", 1000)
+	f[f$all_sp2,], c("sample_source", "acc_chem_type_name"), "quarter_chi")
 
 plot_id = "hbond_quarter_chi_acc_chem_type"
 p <- ggplot(data=qs) + theme_bw() +

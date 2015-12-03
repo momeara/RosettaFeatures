@@ -59,7 +59,7 @@ f <- na.omit(f, method="r")
 
 compute_AHD_qs <- function(f, ids, verbose=F){
 	w <- sliding_windows(f, ids, "AHdist", verbose=verbose)
-	compute_quantiles(w, c(ids, "windows"), "AHD", 1000)
+	compute_quantiles(w, c(ids, "windows"), "AHD")
 }
 
 plot_parts_AHD <- list(

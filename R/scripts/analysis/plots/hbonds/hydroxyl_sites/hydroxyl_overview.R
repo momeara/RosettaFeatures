@@ -292,7 +292,7 @@ panelsEtoL <- function(narrow_output_formats) {
 
 	f$AHD <- acos(f$cosAHD) * 180/pi
 	cdf_AHD <- compute_quantiles(
-		f, c("sample_source", "chem_type"), "AHD", 1000)
+		f, c("sample_source", "chem_type"), "AHD")
 	cdf_AHD$dof <- "AHD"
 	cdf_AHD$y <- 100 * cdf_AHD$probs
 	cdf_AHD$x <- cdf_AHD$quantiles

@@ -8,11 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
-
 source("hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -21,8 +17,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
-
 
 d_ply(sample_sources, .variables=("sample_source"), function(sample_source){
   ss <- sample_source[1,"sample_source"]
@@ -54,7 +48,7 @@ d_ply(sample_sources, .variables=("sample_source"), function(sample_source){
 
   plot_id = paste("hbond_sinBAH_eq_polar_scatter_by_chem_type", ss, sep="_")
   ggplot(data=f) + theme_bw() +
-		polar_equal_area_grids_bw(bgcolor="#00007F") +
+		polar_equal_area_grids_bw(box_bgcolor="#00007F") +
     geom_point(aes(x=capx, y=capy), size=.5) +
 		#stat_density2d(aes(x=capx, y=capy), size=.2) +
 		facet_grid(acc_chem_type_name ~ don_chem_type_name) +

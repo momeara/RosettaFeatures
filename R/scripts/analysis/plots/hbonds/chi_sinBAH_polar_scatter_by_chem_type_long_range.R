@@ -8,10 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
+library(dplyr)
 
 source("hbond_geo_dim_scales.R")
 
@@ -122,7 +120,7 @@ d_ply(sample_sources, .variables=("sample_source"), function(sample_source){
     capy = 2*sin(acos(cosBAH)/2)*sin(chi))
 
   sub_f <- ddply(f, .variables=c("don_chem_type_name", "acc_chem_type_name"),
-    function(df){sample_rows(df, 5000)})
+    function(df){df %>% sample_n(5000)})
 
   plot_id = "hbond_sinBAH_eq_polar_scatter_by_chem_type_long_range"
   ggplot(data=sub_f) + theme_bw() +

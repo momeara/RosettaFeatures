@@ -8,11 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
-
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -21,8 +17,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
-
 
 sele <-"
 SELECT
@@ -47,20 +41,6 @@ f <- query_sample_sources(sample_sources, sele)
 f$AHD <- acos(f$cosAHD)
 f <- na.omit(f, method="r")
 
-compute_quantiles <- function(
-	data,
-	ids,
-	variable,
-	n_quantiles=300
-) {
-	ddply(data, ids, function(df){
-		ps <- ppoints(n_quantiles)
-		data.frame(
-			probs=ps, quantiles=quantile(df[,variable], probs=ps))
-	})
-}
-
-
 ss_id.ref <- f$sample_source[1]
 qs <- compute_quantiles(
 	f, c("sample_source", "don_chem_type", "acc_chem_type"), "AHD")
@@ -74,7 +54,7 @@ names(qs.new) <- c(
 qs.merged <- merge(qs.ref, qs.new)
 qs.merged$don_chem_type_name <- don_chem_type_name_linear(qs.merged$don_chem_type)
 qs.merged$acc_chem_type_name <- acc_chem_type_name_linear(qs.merged$acc_chem_type)
-qs.merged <- na.omit(f, method="r")
+qs.merged <- na.omit(qs.merged, method="r")
 
 
 

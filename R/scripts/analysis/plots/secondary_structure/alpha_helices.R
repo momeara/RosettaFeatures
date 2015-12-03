@@ -139,7 +139,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 f$AHD_deg <- acos(f$cosAHD) * 180/pi
 
 qs <- compute_quantiles(
-	f, c("sample_source", "alpha_type"), "AHD_deg", 1000)
+	f, c("sample_source", "alpha_type"), "AHD_deg")
 
 plot_id = "alpha_type_hbond_AHD_CDF"
 p <- ggplot(data=qs) + theme_bw() +

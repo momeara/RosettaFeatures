@@ -212,8 +212,7 @@ make_all_plots <- function(zf, make_title, make_id) {
 			geom_indicator(aes(indicator=counts), ypos=.7, yjust="bottom"))
 
 		compute_line <- function(ids){
-			compute_quantiles(
-				df, ids, "quarter_chi", 1000)
+			compute_quantiles(df, ids, "quarter_chi")
 		}
 
 		make_plots(ss, "quarter_chi", "Quarter BA-Chi", plot_parts, compute_line)

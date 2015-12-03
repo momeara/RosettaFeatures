@@ -8,10 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
+library(dplyr)
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "chi_sinBAH_polar_scatter_AHdis2p0_by_chem_type_dcut",
@@ -52,7 +50,8 @@ d_ply(sample_sources, .variables=("sample_source"), function(sample_source){
     capy = 2*sin(acos(cosBAH)/2)*sin(chi))
 
   sub_f <- ddply(f, .variables=c("don_chem_type", "acc_chem_type"),
-    function(df){sample_rows(df, 5000)})
+    function(df){df %>% sample_n(5000)})
+
 
   plot_id = "hbond_sinBAH_longrange_dAH2p0cut_colorbydist_eq_polar_scatter_by_chem_type"
   ggplot(data=sub_f) + theme_bw() +

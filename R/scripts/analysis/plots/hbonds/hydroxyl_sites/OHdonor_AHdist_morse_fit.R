@@ -11,7 +11,7 @@ library(ggplot2)
 
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
-id = "OHdonor",
+id = "OHdonor_AHdist_morse_fit",
 author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
@@ -36,6 +36,8 @@ WHERE
 
 	query_sample_sources(sample_sources, sele)
 }
+
+all_geom <- extract_transform_features(sample_sources)
 
 plot_id <- "OHdonor_AHdist_all_acceptor_types"
 dens <- estimate_density_1d(

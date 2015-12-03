@@ -9,10 +9,8 @@
 
 
 library(ggplot2)
-
-
 library(plyr)
-
+library(dplyr)
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "rotamer_recovery_vs_score",
@@ -78,7 +76,7 @@ ldply(res_types, function(res_type){
   all <- rbind( all_1b, all_2b )
   all$score_type <- factor(all$score_type)
 
-	some <- ddply(all, c("score_type"), function(df) sample_rows( df, 4000 ) )
+	some <- ddply(all, c("score_type"), function(df){ df %>% sample_n(4000)})
 
 	plot_id <- "rotamer_recovery_vs_score"
   p <- ggplot(

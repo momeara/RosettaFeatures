@@ -8,10 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
+library(dplyr)
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "OHacceptor_chi",
@@ -66,9 +64,15 @@ alt_sp3_cosBAH <- function(ab2, ab, a, h){
 	vector_dotprod(vector_normalize(a-alt_ab), vector_normalize(h-a))
 }
 
-f[f$hybrid == "sp3", "cosBAH"] <- with(f[f$hybrid == "sp3",], alt_sp3_cosBAH(
-		cbind(ab2x, ab2y, ab2z), cbind(abx, aby, abz),
-		cbind(ax, ay, az), cbind(hx, hy, hz)))
+f <- f %>%
+	mutate(
+		cosBAH = ifelse(hybrid != "sp3",
+			cosBAH,
+			alt_sp3_cosBAH(
+				cbind(ab2x, ab2y, ab2z),
+				cbind(abx, aby, abz),
+				cbind(ax, ay, az),
+				cbind(hx, hy, hz))))
 
 #equal area projection
 f <- transform(f,

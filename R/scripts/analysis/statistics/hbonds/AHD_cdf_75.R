@@ -62,9 +62,9 @@ new_ss <- sample_sources[!sample_sources$reference,"sample_source"]
 
 
 
-cdf.don <- compute_quantiles(f[f$acc_chem_type != "hbacc_PBA",], c("sample_source", "don_chem_type_name"), "AHD", .75)
+cdf.don <- compute_quantiles(f[f$acc_chem_type != "hbacc_PBA",], c("sample_source", "don_chem_type_name"), "AHD")
 names(cdf.don)[2] <- "chem_type_name"
-cdf.acc <- compute_quantiles(f[f$don_chem_type != "hbdon_PBA",], c("sample_source", "acc_chem_type_name"), "AHD", .75)
+cdf.acc <- compute_quantiles(f[f$don_chem_type != "hbdon_PBA",], c("sample_source", "acc_chem_type_name"), "AHD")
 names(cdf.acc)[2] <- "chem_type_name"
 
 cdf.chem <- rbind(cdf.don, cdf.acc)

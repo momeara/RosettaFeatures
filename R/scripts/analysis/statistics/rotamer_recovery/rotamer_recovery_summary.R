@@ -40,7 +40,7 @@ f <- query_sample_sources(sample_sources, sele)
 sele <- "
 DROP TABLE nchi;
 DROP TABLE chi_recovered;"
-query_sample_sources(sample_sources, sele)
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
 
 f$avg_recovery <- round(as.numeric(f$avg_recovery), 2)
 

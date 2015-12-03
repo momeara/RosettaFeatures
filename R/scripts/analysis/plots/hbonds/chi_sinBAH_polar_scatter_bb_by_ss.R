@@ -8,10 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
+library(dplyr)
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "chi_sinBAH_polar_scatter_bb_by_ss",
@@ -113,7 +111,7 @@ d_ply(sample_sources, .variables=("sample_source"), function(sample_source){
 		capy = 2*sin(acos(cosBAH)/2)*sin(chi))
 
 	sub_f <- ddply(f, .variables=c("don_ss", "don_ss"),
-		function(df){sample_rows(df, 10000)})
+		function(df){df %>% sample_n(10000)})
 
 	plot_id = "hbond_sinBAH_eq_polar_scatter_bb_by_ss"
 	ggplot(data=sub_f) + theme_bw() +
@@ -131,7 +129,7 @@ d_ply(sample_sources, .variables=("sample_source"), function(sample_source){
 		capy = sin(acos(cosBAH))*sin(chi))
 
 	sub_f <- ddply(f, .variables=c("don_ss", "don_ss"),
-		function(df){sample_rows(df, 10000)})
+		function(df){df %>% sample_n(10000)})
 
 	plot_id = "hbond_sinBAH_ortho_polar_scatter_bb_by_ss"
 	ggplot(data=sub_f) + theme_bw() +

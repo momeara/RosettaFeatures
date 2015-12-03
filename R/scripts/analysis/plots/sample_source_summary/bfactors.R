@@ -28,7 +28,7 @@ FROM
 f <-  query_sample_sources(sample_sources, sele)
 
 qs <- compute_quantiles(
-	f, c("sample_source"), "max_temperature", 1000)
+	f, c("sample_source"), "max_temperature")
 
 plot_id = "befactors"
 p <- ggplot(data=qs) + theme_bw() +

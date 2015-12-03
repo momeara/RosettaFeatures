@@ -8,10 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "VBAH_VBchi_equal_area",
@@ -111,7 +108,6 @@ plot_parts <- function(){list(
 d_ply(
 	.data=f[f$don_chem_type == "hbdon_PBA", ],
 	.variables=.(seq_sep),
-	.parallel=use_parallel,
 	.fun=function(df)
 {
 
@@ -134,7 +130,6 @@ d_ply(
 d_ply(
 	.data=f[f$don_chem_type == "hbdon_PBA", ],
 	.variables=.(seq_sep, acc_chem_type_name, sample_source),
-	.parallel=use_parallel,
 	.fun=function(df){
 
 	seq_sep <- as.character(df$seq_sep[1])
@@ -158,7 +153,6 @@ d_ply(
 #d_ply(
 #	.data=f[f$don_chem_type == "hbdon_PBA", ],
 #	.variables=.(sample_source),
-#	.parallel=use_parallel,
 #	.fun=function(df){
 #	ss_id <- as.character(df$sample_source[1])
 #	ss <- sample_sources[sample_sources$sample_source == ss_id, ]
@@ -180,7 +174,6 @@ d_ply(
 #d_ply(
 #	.data=f[as.character(f$don_dssp) == "hbdon_PBA",],
 #	.variables=.(don_dssp),
-#	.parallel=use_parallel,
 #	.fun=function(df){
 #	don_dssp <- as.character(df$don_dssp[1])
 #	plot_id = paste("hbond_VBAH_VBAchi_equal_area_log_scale_don_dssp_", don_dssp, sep="")
@@ -193,7 +186,6 @@ d_ply(
 #d_ply(
 #	.data=f[as.character(f$don_dssp) == "hbdon_PBA",],
 #	.variables=.(sample_source),
-#	.parallel=use_parallel,
 #	.fun=function(df){
 #	ss_id <- as.character(df$sample_source[1])
 #	ss <- sample_sources[sample_sources$sample_source == ss_id, ]

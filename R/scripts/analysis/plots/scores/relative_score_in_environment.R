@@ -9,7 +9,8 @@
 
 
 library(ggplot2)
-
+library(plyr)
+library(dplyr)
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "relative_score_in_environment",
@@ -117,14 +118,13 @@ f <- query_sample_sources(sample_sources, sele)
 sele <- "
 DROP TABLE total_residue_scores;
 DROP TABLE residue_vDW_atr;"
-query_sample_sources(sample_sources, sele)
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
 
-
-# remove residues that are clashing
-clean_f <- f[f$total < 5,]
-clean_f <- clean_f[clean_f$res_type != "CA",]
-
-sub_f <- sample_rows(clean_f, 8000)
+sub_f <- f %>%
+	filter(
+		total < 5,
+		res_type != "CA") %>%
+	sampl_n(8000)
 
 plot_id <- "average_residue_score_in_environment"
 p <- ggplot() + theme_bw() +
