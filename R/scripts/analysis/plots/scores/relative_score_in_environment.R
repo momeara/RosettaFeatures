@@ -114,6 +114,12 @@ GROUP BY
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE total_residue_scores;
+DROP TABLE residue_vDW_atr;"
+query_sample_sources(sample_sources, sele)
+
+
 # remove residues that are clashing
 clean_f <- f[f$total < 5,]
 clean_f <- clean_f[clean_f$res_type != "CA",]

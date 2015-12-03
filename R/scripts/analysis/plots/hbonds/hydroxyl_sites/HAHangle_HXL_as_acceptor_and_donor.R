@@ -101,6 +101,11 @@ WHERE
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE hydroxyl_acceptor_sites_that_also_donate;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 f <- transform(f,
   cosBAH = vector_dotprod(
     vector_normalize(cbind(Ax-Bx, Ay-By, Az-Bz)),

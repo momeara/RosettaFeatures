@@ -94,6 +94,11 @@ WHERE
 
 f <- query_sample_sources_against_ref(sample_sources, sele)
 
+sele <- "
+DROP TABLE ref_hbonds;"
+query_sample_sources(sample_sources, sele)
+
+
 f <- na.omit(f, method="r")
 
 f$energy_weighted <- f$energy

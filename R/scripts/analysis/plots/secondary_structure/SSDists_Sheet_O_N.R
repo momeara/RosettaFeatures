@@ -71,6 +71,11 @@ SELECT O_N_dist as dist FROM ee_atpair_dists UNION
 SELECT N_O_dist as dist FROM ee_atpair_dists;"
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE ee_atpair_dists;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 dens <- estimate_density_1d(
   f, c("sample_source"),
   "dist", weight_fun = radial_3d_normalization)

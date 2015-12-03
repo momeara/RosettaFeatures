@@ -7,12 +7,8 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-
 library(ggplot2)
-
-
 library(plyr)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "salt_bridge_recovery",
@@ -20,8 +16,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("StructureFeatures", "RotamerRecoveryFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
-
 
 sele <-"
 CREATE TEMPORARY TABLE max_residue_bfactors AS
@@ -121,6 +115,14 @@ WHERE
 	acc_res_recovery.struct_id = hbond.struct_id AND acc_res_recovery.resNum = acc_site_pdb.resNum;"
 
 f <- query_sample_sources(sample_sources, sele)
+
+sele <- "
+DROP TABLE max_residue_bfactors;
+DROP TABLE sc_hbond_card;
+DROP TABLE arg_cxl_hbonds;
+DROP TABLE arg_cxl_hbond_temps;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
 f$don_res_recovery <- factor(f$don_res_recovery)
 
 

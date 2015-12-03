@@ -32,6 +32,12 @@ WHERE
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE nchi;
+DROP TABLE chi_recovered;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 dens <- estimate_density_1d(
   data = f,
   ids = c("secondary_struct"),

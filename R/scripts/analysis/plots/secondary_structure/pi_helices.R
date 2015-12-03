@@ -8,10 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "pi_helices",
@@ -80,6 +77,11 @@ FROM
 		hb.acc_resNum + 1 = hb_p1.acc_resNum;"
 
 f <- query_sample_sources(sample_sources, sele)
+
+sele <- "
+DROP TABLE seq_sep_5_hbs;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
 
 f$pi_type <- factor(1 + f$hb_m1 + 2*f$hb_p1,
 	levels = c(1, 2, 3, 4),

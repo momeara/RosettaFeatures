@@ -7,9 +7,7 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-
 library(ggplot2)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "bidentite_hbond_geometry",
@@ -83,6 +81,12 @@ WHERE
 	hb2_geo.struct_id = hb2.struct_id AND
 	hb2_geo.hbond_id = hb2.hbond_id", sep="")
 f_bifurcated <- query_sample_sources(sample_sources, sele)
+
+sele <- "
+DROP TABLE CXL_ARG_salt_bridges;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 f_bifurcated <- na.omit(f_bifurcated, method="r")
 f_bifurcated$salt_bridge_type <- factor("bifurcated")
 f_bifurcated$in_bifurcated_region <- factor(f_bifurcated$in_bifurcated_region)

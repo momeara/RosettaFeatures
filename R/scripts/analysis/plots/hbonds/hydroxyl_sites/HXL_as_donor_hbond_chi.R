@@ -120,6 +120,11 @@ WHERE
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE HXL_sites;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 f$hbond_chi <- with(f,
 	vector_dihedral(cbind(CAx, CAy, CAz), cbind(CBx, CBy, CBz),
 	cbind(OGx, OGy, OGz), cbind(Ax, Ay, Az)))

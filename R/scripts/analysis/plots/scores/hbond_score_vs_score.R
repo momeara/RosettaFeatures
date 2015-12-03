@@ -9,8 +9,6 @@
 
 
 library(ggplot2)
-
-
 source("../hbonds/hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -99,6 +97,73 @@ WHERE
 	new_hb.acc_id = new_acc.site_id AND
 	new_hb.don_id = new_don.site_id;"
 
+f <- query_sample_sources_against_ref(sample_sources, sele)
+
+
+f$energy_weighted <- f$energy
+f$new_energy_weighted <- f$new_energy
+
+#hbond_sr_bb weighting
+f <- transform(f,
+	energy_weighted = ifelse(
+		don_chem_type == 'hbdon_PBA' &
+		acc_chem_type == 'hbacc_PBA' &
+		acc_resNum - don_resNum < 5 &
+		acc_resNum - don_resNum > -5,
+		energy_weighted*.585, energy_weighted))
+
+#hbond_lr_bb weighting
+f <- transform(f,
+	energy_weighted = ifelse(
+		don_chem_type == 'hbdon_PBA' &
+		acc_chem_type == 'hbacc_PBA' &
+		acc_resNum - don_resNum >= 5 &
+		acc_resNum - don_resNum <= -5,
+		energy_weighted*1.17, energy_weighted ))
+
+#hbond_bb_sc weighting
+f <- transform(f,
+	energy_weighted = ifelse(
+		(don_chem_type == 'hbdon_PBA' & acc_chem_type != 'hbacc_PBA') |
+		(don_chem_type != 'hbdon_PBA' & acc_chem_type == 'hbacc_PBA'),
+		energy_weighted*1.17, energy_weighted))
+
+#hbond_sc weighting
+f <- transform(f,
+	energy_weighted = ifelse(
+		don_chem_type != 'hbdon_PBA' & acc_chem_type != 'hbacc_PBA',
+		energy_weighted*1.1, energy_weighted))
+
+
+
+#hbond_sr_bb hbond_lr_bb hbond_bb_sc weighting
+f <- transform(f,
+	new_energy_weighted = ifelse(
+		don_chem_type == 'hbdon_PBA' | acc_chem_type == 'hbacc_PBA',
+		new_energy_weighted*1.17, new_energy_weighted))
+
+#hbond_sc weighting
+f <- transform(f,
+	new_energy_weighted = ifelse(
+		don_chem_type != 'hbdon_PBA' & acc_chem_type != 'hbacc_PBA',
+		new_energy_weighted*1.1, new_energy_weighted))
+
+
+
+# Order the plots better and give more descriptive labels
+f$don_chem_type <- factor(f$don_chem_type,
+	levels = c("hbdon_IMD", "hbdon_IME", "hbdon_GDE", "hbdon_GDH",
+		"hbdon_AHX", "hbdon_HXL", "hbdon_IND", "hbdon_AMO", "hbdon_CXA", "hbdon_PBA"),
+	labels = c("dIMD: h", "dIME: h", "dGDE: r", "dGDH: r",
+		"dAHX: y", "dHXL: s,t", "dIND: w", "dAMO: k", "dCXA: n,q", "dPBA: bb"))
+
+# Order the plots better and give more descriptive labels
+f$acc_chem_type <- factor(f$acc_chem_type,
+	levels = c("hbacc_IMD", "hbacc_IME", "hbacc_AHX", "hbacc_HXL",
+		"hbacc_CXA", "hbacc_CXL", "hbacc_PBA"),
+	labels = c("aIMD: h", "aIME: h", "aAHX: y", "aHXL: s,t",
+		"aCXA: n,q", "aCXL: d,e", "aPBA: bb"))
+
 
 diagonal <- data.frame(
 	x=seq(-1.755, 0, length.out=200),
@@ -159,5 +224,10 @@ for (ss_ref_id in seq(1, nrow(sample_sources))){
 		save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	}
 }
+
+sele <- "
+DROP TABLE ref_hbonds;"
+query_sample_sources(sample_sources, sele)
+
 
 })) # end FeaturesAnalysis

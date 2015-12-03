@@ -8,13 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(reshape2)
-
-
 library(ggplot2)
-
-
 library(plyr)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "rotamer_angles",
@@ -70,6 +65,11 @@ WHERE
 	nchi_in_res.name3 = res.name3;"
 
 f <- query_sample_sources(sample_sources, sele)
+
+sele <- "
+DROP TABLE nchi_in_res;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
 
 m_f <- melt(f, measure.vars=c("chi1", "chi2", "chi3", "chi4"), variable_name="chi_angle")
 

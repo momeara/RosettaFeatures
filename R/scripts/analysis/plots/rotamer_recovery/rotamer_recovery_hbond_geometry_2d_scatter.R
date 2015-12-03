@@ -91,6 +91,11 @@ WHERE
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE chi_recovered;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 # Order the plots better and give more descriptive labels
 f$don_chem_type <- factor(f$don_chem_type,
 	levels = c("hbdon_IMD", "hbdon_IME", "hbdon_GDE", "hbdon_GDH",

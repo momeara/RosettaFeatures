@@ -121,6 +121,11 @@ SELECT
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE ee_atpair_dists;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 print("factoring atom name labels")
 
 f$at1 <- factor(f$at1,

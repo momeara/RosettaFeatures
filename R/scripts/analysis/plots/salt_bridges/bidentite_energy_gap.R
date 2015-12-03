@@ -289,6 +289,14 @@ f_bidentite <- query_sample_sources(sample_sources, sele)
 f_bidentite$salt_bridge_type <- factor("bidentite")
 f_bidentite <- na.omit(f_bidentite, method="r")
 
+sele <- "
+DROP TABLE CXL_ARG_salt_bridges;
+DROP TABLE total_residue_scores;
+DROP TABLE summed_total_residue_scores;
+DROP TABLE CLX_ARG_salt_bridge_energies;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 
 plot_parts <- list(
 	theme_bw(),

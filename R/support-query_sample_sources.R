@@ -21,7 +21,8 @@ query_sample_source <- function(
 	sample_source,
 	sele,
 	sele_args_frame = NULL,
-	char_as_factor=T
+	char_as_factor=T,
+	warn_zero_rows=T
 	){
 	tryCatch(sele,error=function(e){
 		cat("ERROR: The select statement is not defined.\n")
@@ -55,7 +56,7 @@ query_sample_source <- function(
 
 	#cat(as.character(round(timing[3], 2)),"s\n")
 
-	if(nrow(features)==0){
+	if(warn_zero_rows && nrow(features)==0){
 		cat("WARNING: The following query returned no rows:\n")
 		cat(sele)
 	}
@@ -73,7 +74,8 @@ query_sample_sources <- function(
 	sample_sources,
 	sele,
 	sele_args_frame = NULL,
-	char_as_factor=T
+	char_as_factor=T,
+	warn_zero_rows=T
 	){
 	tryCatch(sele,error=function(e){
 		cat("ERROR: The select statement is not defined.\n")
@@ -109,7 +111,7 @@ query_sample_sources <- function(
 		cat(as.character(round(timing[3], 2)),"s\n")
 		df
 	})
-	if(nrow(features)==0){
+	if(warn_zero_rows && nrow(features)==0){
 		cat("WARNING: The following query returned no rows:\n")
 		cat(sele)
 	}
@@ -127,7 +129,8 @@ query_sample_sources_against_ref <- function(
 	sample_sources,
 	sele,
 	sele_args_frame = NULL,
-	char_as_factor=T
+	char_as_factor=T,
+	warn_zero_rows=T
 	){
 	tryCatch(sele,error=function(e){
 		cat("ERROR: The select statement ", sele, " is not defined.\n")
@@ -192,7 +195,7 @@ In the returned data.frame the there will be the following columns:
 		df
 	})
 
-	if(nrow(features)==0){
+	if(warn_zero_rows && nrow(features)==0){
 		cat("WARNING: The following query returned no rows:\n")
 		cat(sele)
 		return(features)

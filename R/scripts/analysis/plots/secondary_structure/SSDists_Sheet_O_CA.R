@@ -140,6 +140,17 @@ SELECT * FROM parallel_O_Ca;"
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE ee_bb_bb_hbonds;
+DROP TABLE antiparallel_close_contact_residue_pairs;
+DROP TABLE antiparallel_Ca_O;
+DROP TABLE antiparallel_O_Ca;
+DROP TABLE parallel_close_contact_residue_pairs;
+DROP TABLE parallel_Ca_O;
+DROP TABLE parallel_O_Ca;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 dens <- estimate_density_1d(
   f, c("sample_source", "strand_orientation"),
 	"dist", weight_fun = radial_3d_normalization)

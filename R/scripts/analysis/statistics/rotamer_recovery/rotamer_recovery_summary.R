@@ -35,6 +35,13 @@ WHERE
 
 
 f <- query_sample_sources(sample_sources, sele)
+
+
+sele <- "
+DROP TABLE nchi;
+DROP TABLE chi_recovered;"
+query_sample_sources(sample_sources, sele)
+
 f$avg_recovery <- round(as.numeric(f$avg_recovery), 2)
 
 table_id <- "rotamer_recovery_summary"

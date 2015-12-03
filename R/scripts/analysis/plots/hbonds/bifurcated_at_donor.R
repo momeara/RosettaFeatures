@@ -59,6 +59,11 @@ WHERE
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE hbs;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 # This is deprecated please use the hbond_chem_types table for the lables instead
 # Order the plots better and give more descriptive labels
 f$acc_chem_type_name1 <- factor(f$acc_chem_type1,

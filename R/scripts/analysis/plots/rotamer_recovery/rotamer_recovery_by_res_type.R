@@ -8,10 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "rotamer_recovery_by_res_type",
@@ -64,6 +61,11 @@ WHERE
 #	res_confidence.max_temperature < 20;"
 
 f <- query_sample_sources(sample_sources, sele)
+
+sele <- "
+DROP TABLE max_residue_bfactors;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
 
 plot_id <- "rotamer_recovery_by_res_type"
 p <- ggplot(data=f) + theme_bw() +

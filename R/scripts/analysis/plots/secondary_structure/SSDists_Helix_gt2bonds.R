@@ -121,6 +121,10 @@ SELECT
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE bbdists;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
 
 f$at1 <- factor(f$at1,
   levels = c("N", "CA", "C", "O") )

@@ -7,12 +7,8 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-
 library(ggplot2)
-
-
 library(plyr)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "bidentite_hbond_asymmetry",
@@ -20,7 +16,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("StructureFeatures", "ResidueFeatures", "SaltBridgeFeatures", "PdbDataFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
 
 sele <- "
 DROP TABLE IF EXISTS CXL_ARG_salt_bridges;
@@ -112,6 +107,11 @@ WHERE
 	hb_coords2.hbond_id = hb2.hbond_id;"
 
 f <- query_sample_sources(sample_sources, sele)
+
+sele <- "
+DROP TABLE CXL_ARG_salt_bridges;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
 f$close_AHdist <- pmin(f$AHdist1, f$AHdist2)
 f$far_AHdist <- pmax(f$AHdist1, f$AHdist2)
 

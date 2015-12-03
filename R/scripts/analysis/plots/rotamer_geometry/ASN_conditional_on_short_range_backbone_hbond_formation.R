@@ -8,10 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(reshape2)
-
-
 library(ggplot2)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "ASN_conditional_on_short_range_backbone_hbond_formation",
@@ -70,6 +67,11 @@ WHERE
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE asn_sr_bb_hb;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 m_f <- melt(f, measure.vars=c("chi1", "chi2"), variable_name="chi_angle")
 
 dens <- estimate_density_1d_wrap(
@@ -84,7 +86,7 @@ p <- ggplot(data=dens) +
 	facet_grid(sr_bb_hb ~ chi_angle) +
 	ggtitle("ASN chi angles by presense of +1/-1 SC-BB hbonds; BFact < 30") +
 	scale_x_continuous("Dihedral Angle") +
-	scale_y_continuous("Feature Density") 
+	scale_y_continuous("Feature Density")
 if(nrow(sample_sources) <= 3){
 	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
 }

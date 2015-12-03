@@ -57,6 +57,11 @@ WHERE
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE hbs;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 f <- ddply(f, .(sample_source, don_chem_type1, don_chem_type2),
   transform, counts = length(sample_source))
 

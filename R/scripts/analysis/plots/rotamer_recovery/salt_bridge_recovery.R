@@ -7,12 +7,8 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-
 library(ggplot2)
-
-
 library(plyr)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "salt_bridge_recovery",
@@ -20,7 +16,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("StructureFeatures", "RotamerRecoveryFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
 
 
 sele <-"
@@ -146,6 +141,14 @@ WHERE
 
 
 f <- query_sample_sources(sample_sources, sele)
+
+sele <- "
+DROP TABLE max_residue_bfactors;
+DROP TABLE sc_hbond_card;
+DROP TABLE arg_cxl_hbonds;
+DROP TABLE arg_cxl_hbond_temps;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
 
 write.csv(f, "arg_cxl_salt_bridges_examples.csv")
 

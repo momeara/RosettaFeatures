@@ -123,6 +123,15 @@ SELECT * FROM     parallel_cosBAH;"
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE ee_bb_bb_hbonds;
+DROP TABLE antiparallel_close_contact_hbonds;
+DROP TABLE parallel_close_contact_hbonds;
+DROP TABLE antiparallel_cosBAH;
+DROP TABLE parallel_cosBAH;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 dens <- estimate_density_1d(
   f, c("sample_source", "strand_orientation"),
 	"cosBAH")

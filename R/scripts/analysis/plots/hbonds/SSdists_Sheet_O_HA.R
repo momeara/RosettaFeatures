@@ -168,6 +168,17 @@ SELECT * FROM antiparallel_O_HA UNION
 SELECT * FROM parallel_O_HA;"
 
 f <- query_sample_sources(sample_sources, sele)
+sele <- "
+DROP TABLE ee_bb_bb_hbonds;
+DROP TABLE O_HA_atom_coords;
+DROP TABLE antiparallel_close_contact_residue_pairs;
+DROP TABLE antiparallel_HA_O;
+DROP TABLE antiparallel_O_HA;
+DROP TABLE parallel_close_contact_residue_pairs;
+DROP TABLE parallel_O_HA;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 f$dist <- sqrt(f$dist_sq)
 
 dens <- estimate_density_1d(

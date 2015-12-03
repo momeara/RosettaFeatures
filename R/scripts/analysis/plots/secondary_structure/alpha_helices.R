@@ -64,6 +64,11 @@ FROM
 
 f <- query_sample_sources(sample_sources, sele)
 
+sele <- "
+DROP TABLE seq_sep_4_hbs;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
+
 f$alpha_type <- factor(1 + f$hb_m1 + 2*f$hb_p1,
 	levels = c(1, 2, 3, 4),
 	labels = c("alpha_turn", "alpha_helix_begin", "alpha_helix_end", "alpha_helix_middle"))
