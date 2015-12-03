@@ -7,6 +7,9 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(plyr)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "geodim_mrf",
 author = "Matthew O'Meara",
@@ -18,7 +21,6 @@ This is quite rough, and is a work in progress
 ",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(plyr)
 
 
 # number of folds to do cross validation

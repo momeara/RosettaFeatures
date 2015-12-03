@@ -7,6 +7,9 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(ggplot2)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "AHdist_by_rank",
 author = "Matthew O'Meara",
@@ -21,7 +24,6 @@ each sample sample source.",
 
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(ggplot2)
 
 
 source("../hbond_geo_dim_scales.R")

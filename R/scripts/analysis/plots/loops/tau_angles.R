@@ -7,6 +7,15 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(mixtools)
+
+
+library(ggthemes)
+
+
+library(ggplot2)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "tau_angles",
 filename = "scripts/analysis/plots/loops/tau_angles.R",
@@ -19,11 +28,8 @@ model of two Gaussians to describe the tau angle in CDR H3 loops.
 
 feature_reporter_dependencies = c("loop_anchor_features"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(ggplot2)
 
 
-library(ggthemes)
-library(mixtools)
 
 # helper function to format numbers nicely for plot annotations
 disp <- function(x) {

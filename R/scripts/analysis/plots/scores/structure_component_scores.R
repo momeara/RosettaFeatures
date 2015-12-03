@@ -8,16 +8,22 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
+library(reshape2)
+
+
+library(ggplot2)
+
+
+library(plyr)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "structure_component_scores",
 author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("StructureScoreFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(plyr)
-library(ggplot2)
 
-library(reshape2)
 sele <-"
 SELECT
 	CAST( s.struct_id AS TEXT) AS struct_id,

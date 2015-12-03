@@ -7,6 +7,12 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(ggplot2)
+
+
+library(plyr)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "single_dof_density_estimates",
 filename = "scripts/analysis/plots/loops/single_dof_density_estimates.R",
@@ -19,8 +25,6 @@ in a three-dimensional transformation at each segment length.
 
 feature_reporter_dependencies = c("loop_anchor_features"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(plyr)
-library(ggplot2)
 
 # maximum number of rows to select 
 limit <- 10^7

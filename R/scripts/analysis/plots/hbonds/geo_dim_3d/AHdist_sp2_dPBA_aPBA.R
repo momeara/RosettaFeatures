@@ -7,19 +7,29 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(rgl)
+
+
+library(misc3d)
+
+
+library(mvtnorm)
+
+
+library(ks)
+
+
+library(plyr)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "AHdist_sp2_dPBA_aPBA",
 author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(plyr)
 
 source("../hbond_geo_dim_scales.R")
-library(ks)
-library(mvtnorm)
-library(misc3d)
-library(rgl)
 
 sele <-"
 SELECT

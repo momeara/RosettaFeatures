@@ -8,6 +8,9 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
+library(ggplot2)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "EXAMPLE_PLOT",
 author = "Matthew O'Meara",
@@ -28,7 +31,6 @@ feature_reporter_dependencies = c("ResidueFeatures"),
 
 run=function(self, sample_sources, output_dir, output_formats){
 
-library(ggplot2)
 
 # The SQL query is applied to each sample source and the resulting
 # tables are appended together with an additional sample_source column

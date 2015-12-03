@@ -7,6 +7,9 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(ggplot2)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "HXL_as_donor_hbond_chi",
 author = "Matthew O'Meara",
@@ -40,7 +43,6 @@ Currently the atoms extracted for hydrogen bond sites are the atm, base, bbase, 
 
 feature_reporter_dependencies = c("StructureFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(ggplot2)
 
 
 sele <-"

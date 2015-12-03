@@ -8,13 +8,15 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
+library(ggplot2)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "pi_pi_eqpoldens_scOrbCpi_Haro_chiBAHD_cosAHD",
 author = "Matthew O'Meara, Steven Combs",
 brief_description = "",
 feature_reporter_dependencies = c("OrbitalFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(ggplot2)
 
 
 

@@ -7,6 +7,9 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(ggplot2)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "HAH_HXL_as_acceptor_and_donor.R",
 author = "Andrew Leaver-Fay",
@@ -38,7 +41,6 @@ other information in the vicinity of the hydroxyl group that indicates where the
 
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(ggplot2)
 
 
 sele <-"

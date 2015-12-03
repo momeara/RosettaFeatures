@@ -7,6 +7,12 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(ggplot2)
+
+
+library(plyr)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "ADdist_chem_type",
 author = "Matthew O'Meara",
@@ -47,8 +53,6 @@ hydroxyl acceptor (e.g., in a tyrosine) a protein backbone donor
 feature_reporter_dependencies = c("HBondFeatures"),
 
 run=function(self, sample_sources, output_dir, output_formats){
-library(plyr)
-library(ggplot2)
 
 
 source("../hbond_geo_dim_scales.R")

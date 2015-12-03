@@ -7,6 +7,9 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(ggplot2)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "RealBAH_HXL_as_acceptor.R",
 author = "Andrew Leaver-Fay",
@@ -37,7 +40,6 @@ the coordinate of the HG atom may only be inferred and not directly observed.  I
 
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(ggplot2)
 
 
 sele <-"

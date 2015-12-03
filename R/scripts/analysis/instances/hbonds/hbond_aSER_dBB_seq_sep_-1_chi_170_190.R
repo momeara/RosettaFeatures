@@ -7,6 +7,9 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "hbond_aSER_dBB_seq_sep_-1_chi_170_190",
 author = "Matthew O'Meara",
@@ -14,7 +17,6 @@ brief_description = "",
 feature_reporter_dependencies = c("StructureFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-library(reshape2)
 sele <-"
 SELECT
 	acc_atoms.base_x  AS abx,  acc_atoms.base_y  AS aby,  acc_atoms.base_z  AS abz,

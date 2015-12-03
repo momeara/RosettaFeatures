@@ -7,6 +7,15 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
+
+
+library(ggplot2)
+
+
+library(plyr)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "sequence_recovery_precision_vs_recall",
 author = "Matthew O'Meara",
@@ -14,10 +23,7 @@ brief_description = "",
 long_description = "",
 feature_reporter_dependencies = c("StructureFeatures", "ResidueFeatures", "PdbDataFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(plyr)
-library(ggplot2)
 
-library(reshape2)
 
 sele <- "
 SELECT

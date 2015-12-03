@@ -7,6 +7,12 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(ggplot2)
+
+
+library(plyr)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "rama_not_helix_tight_kenrel",
 filename = "scripts/analysis/plots/backbone_geometry/rama_not_helix_tight_kernel.R",
@@ -14,8 +20,6 @@ author = "Matthew O'Meara",
 brief_description = "Overview of ramachandran distribution for all non Alpha-helix residues. The Alpha-helix residues are not included because their density concentration obscures the other features of the ramachandran distribution.",
 feature_reporter_dependencies = c("ResidueFeatures", "ProteinBackboneTorsionAngleFeatures", "PdbDataFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(plyr)
-library(ggplot2)
 
 
 

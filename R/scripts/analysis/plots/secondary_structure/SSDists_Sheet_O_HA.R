@@ -7,6 +7,9 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(ggplot2)
+
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "SSDists_Sheet_O_HA",
 author = "Matthew O'Meara",
@@ -49,7 +52,6 @@ parallel and anti-parallel sheets.
 
 feature_reporter_dependencies = c("ResidueSecondaryStructureFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-library(ggplot2)
 
 
 sele <-"
