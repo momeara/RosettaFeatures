@@ -13,6 +13,8 @@ library(ggplot2)
 library(plyr)
 
 
+source("../hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "AHchi_AHD_eq_polar_density_chem_type",
 author = "Matthew O'Meara",
@@ -21,7 +23,6 @@ feature_reporter_dependencies = c("StructureFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("../hbond_geo_dim_scales.R")
 
 sele <-"
 SELECT
@@ -107,7 +108,7 @@ plot_parts <- list(
 	scale_x_continuous("", limits=capx_limits, breaks=c(-1, 0, 1)),
 	scale_y_continuous("", limits=capy_limits, breaks=c(-1, 0, 1)),
 	coord_fixed(ratio = 1),
-	scale_fill_gradientn('log(Density+1)', colours=jet.colors(10)))
+	scale_fill_viridis('log(Density+1)'))
 
 narrow_output_formats <- transform(output_formats, width=height)
 

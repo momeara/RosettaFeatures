@@ -47,8 +47,11 @@ plot_id <- "backbone_geometry_omega_angle_trans"
 p <- ggplot(dens) + theme_bw() +
 	geom_line(aes(x, y, colour=sample_source), size=2) +
 	ggtitle("Trans Omega Angle; B-Factor < 30") +
-	geom_vline(x=180) +
-        scale_x_continuous("Omega Angle (degrees)", limit=c(150,210), breaks=c(150, 160, 170, 180, 190, 200, 210)) +
+	geom_vline(xintercept=180) +
+	scale_x_continuous(
+		"Omega Angle (degrees)",
+		limit=c(150,210),
+		breaks=c(150, 160, 170, 180, 190, 200, 210)) +
 	scale_y_continuous("Feature Density")
 if(nrow(sample_sources) <= 3){
 	p <- p + theme(legend.position="bottom", legend.direction="horizontal")

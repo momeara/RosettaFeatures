@@ -10,6 +10,10 @@
 library(ggplot2)
 
 
+source("salt_bridge_clusters.R")
+
+source("../hbonds/hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "hbond_geo_dim_2d_dARG_aCXL_by_salt_bridge_clsuters",
 author = "Matthew O'Meara",
@@ -18,8 +22,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("../hbonds/hbond_geo_dim_scales.R")
-source("salt_bridge_clusters.R")
 
 sele <-"
 CREATE INDEX IF NOT EXISTS salt_bridges_struct_id_don_resNum_acc_id ON

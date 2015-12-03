@@ -72,7 +72,7 @@ d_ply(f, .(sample_source), function(sub_f){
 		scale_y_continuous(
 			'2*sin(BAH/2) * sin(CHI)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 		coord_fixed(ratio = 1) +
-		scale_fill_gradientn('Density', colours=jet.colors(10)) +
+		scale_fill_viridis("Density") +
 	save_plots(self, plot_id, ss, output_dir, narrow_output_formats)
 })
 

@@ -68,7 +68,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 			scale_y_continuous(
 					'2*sin(AHD/2) * sin(chiBAHD)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 			coord_fixed(ratio = 1) +
-			scale_fill_gradientn('Density', colours=jet.colors(10))
+			scale_fill_viridis("Density")
 	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	
 	###Phe-Lys 3.5
@@ -120,7 +120,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 			scale_y_continuous(
 					'2*sin(AHD/2) * sin(chiBAHD)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 			coord_fixed(ratio = 1) +
-			scale_fill_gradientn('Density', colours=jet.colors(10))
+			scale_fill_viridis("Density")
 	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	### Phe - lys 2.0
 	
@@ -172,7 +172,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 			scale_y_continuous(
 					'2*sin(AHD/2) * sin(chiBAHD)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 			coord_fixed(ratio = 1) +
-			scale_fill_gradientn('Density', colours=jet.colors(10))
+			scale_fill_viridis("Density")
 	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	
 	##Phe-Arg 2.0
@@ -224,7 +224,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 			scale_y_continuous(
 					'2*sin(AHD/2) * sin(chiBAHD)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 			coord_fixed(ratio = 1) +
-			scale_fill_gradientn('Density', colours=jet.colors(10))
+			scale_fill_viridis("Density")
 	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	
 	
@@ -277,7 +277,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 			scale_y_continuous(
 					'2*sin(AHD/2) * sin(chiBAHD)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 			coord_fixed(ratio = 1) +
-			scale_fill_gradientn('Density', colours=jet.colors(10))
+			scale_fill_viridis("Density")
 	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 })) # end FeaturesAnalysis

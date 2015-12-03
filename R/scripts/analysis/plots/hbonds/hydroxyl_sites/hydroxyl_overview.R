@@ -186,7 +186,7 @@ panelsCD <- function(narrow_output_formats) {
 		facet_grid(chem_type ~ dof),
 		polar_equal_area_grids_bw(),
 		coord_equal(ratio=1),
-		scale_fill_gradientn('Density', colours=jet.colors(15)),
+		scale_fill_viridis("Density"),
 		scale_x_continuous('<spacer>', limits=capx_limits, breaks=c()),
 		scale_y_continuous('<spacer>', limits=capy_limits, breaks=c()),
 		theme(
@@ -215,7 +215,7 @@ panelsCD <- function(narrow_output_formats) {
 		facet_grid(chem_type ~ dof, drop=F) +
 		polar_equal_area_grids_bw() +
 		coord_equal(ratio=1) +
-		scale_fill_gradientn('Density', colours=jet.colors(15)) +
+		scale_fill_viridis("Density") +
 		scale_x_continuous('<spacer>', limits=capx_limits, breaks=c()) +
 		scale_y_continuous('<spacer>', limits=capy_limits, breaks=c()) +
 		theme(

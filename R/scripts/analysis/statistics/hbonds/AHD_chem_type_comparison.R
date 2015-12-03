@@ -7,6 +7,8 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+source("../../plots/hbonds/hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "AHD_chem_type_comparison",
 author = "Matthew O'Meara",
@@ -16,7 +18,6 @@ run=function(self, sample_sources, output_dir, output_formats){
 
 
 
-source("../../plots/hbonds/hbond_geo_dim_scales.R")
 
 sele <-"
 SELECT

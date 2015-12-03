@@ -59,10 +59,6 @@ capy_limits <- capx_limits
 
 f$weight <- radial_3d_normalization(f$AHdist)
 
-jet.colors <-
-  colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan",
-                     "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"))
-
 plot_id = "chi_BAH_eq_polar_density_bb_to_bb"
 l_ply(levels(f$sample_source), function(ss){
 	ggplot(data=f) + theme_bw() +
@@ -73,7 +69,7 @@ l_ply(levels(f$sample_source), function(ss){
 		scale_x_continuous('2*sin(BAH/2) * cos(CHI)', limits=capx_limits, breaks=c(-1, 0, 1)) +
 		scale_y_continuous('2*sin(BAH/2) * sin(CHI)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 		coord_fixed(ratio = 1) +
-		scale_fill_gradientn('log(Normalized\nDensity)', colours=jet.colors(10)) +
+		scale_fill_viridis('log(Normalized\nDensity)') +
 #        	theme(legend.position="bottom", legend.direction="horizontal")
 	save_plots(self, plot_id, sample_sources[sample_sources$sample_source == ss,], output_dir, output_formats)
 })

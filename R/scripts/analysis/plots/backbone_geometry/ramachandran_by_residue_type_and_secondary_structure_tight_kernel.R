@@ -54,7 +54,7 @@ plot_parts <- list(
 	coord_equal(ratio=1),
 	scale_x_continuous(expression(paste("phi Angle (Degrees)", sep=""))),
 	scale_y_continuous(expression(paste("psi Angle (Degrees)", sep=""))),
-	scale_fill_gradientn('Density', colours=jet.colors(15)),
+	scale_fill_viridis("Density"),
 	theme(
 		legend.position="bottom",
 		legend.direction="horizontal",

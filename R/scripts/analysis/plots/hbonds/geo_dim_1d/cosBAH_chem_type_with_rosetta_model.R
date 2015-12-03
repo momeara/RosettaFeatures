@@ -8,10 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
+source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "cosBAH_chem_type_with_rosetta_model",
@@ -21,8 +19,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("../hbond_geo_dim_scales.R")
-source("../../../../methods/polynomial_methods.R")
 
 
 sele <-"

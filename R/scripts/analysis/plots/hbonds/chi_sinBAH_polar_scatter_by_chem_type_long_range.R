@@ -13,6 +13,8 @@ library(ggplot2)
 library(plyr)
 
 
+source("hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "chi_sinBAH_polar_scatter_by_chem_type_long_range",
 author = "Matthew O'Meara",
@@ -21,7 +23,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("hbond_geo_dim_scales.R")
 
 d_ply(sample_sources, .variables=("sample_source"), function(sample_source){
   ss <- sample_source[1,"sample_source"]

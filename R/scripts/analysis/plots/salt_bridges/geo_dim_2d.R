@@ -13,6 +13,8 @@ library(ggplot2)
 library(plyr)
 
 
+source("salt_bridge_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "salt_bridge_geo_dim_2d",
 author = "Matthew O'Meara",
@@ -21,7 +23,6 @@ feature_reporter_dependencies = c("ResidueFeatures", "SaltBridgeFeatures", "PdbD
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("salt_bridge_scales.R")
 
 sele <-"
 SELECT

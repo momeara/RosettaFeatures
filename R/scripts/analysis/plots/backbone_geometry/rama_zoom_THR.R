@@ -73,7 +73,7 @@ d_ply(f, .(sample_source, res_type, chi1_bin), function(sub_f){
 		geom_tile(aes(x=x, y=y, fill=z)) +
 		geom_indicator(aes(indicator=counts), color="white", group=1) +
 		coord_equal(ratio=1) +
-		scale_fill_gradientn('Density', colours=jet.colors(15), limits=c(0, .01)) +
+		scale_fill_viridis('Density', limits=c(0, .01)) +
 		theme(legend.position="bottom", legend.direction="horizontal") +
 		ggtitle(paste(
 			"Backbone Torsion Angles Res (truncated peaks): ", res_type, " ",
@@ -95,7 +95,7 @@ d_ply(f, .(sample_source, res_type, chi1_bin), function(sub_f){
 		geom_tile(aes(x=x, y=y, fill=z)) +
 		geom_indicator(aes(indicator=counts), color="white", group=1) +
 		coord_equal(ratio=1) +
-		scale_fill_gradientn('Density', colours=jet.colors(15)) +
+		scale_fill_viridis("Density") +
 		theme(legend.position="bottom", legend.direction="horizontal") +
 		ggtitle(paste(
 			"Backbone Torsion Angles Res: ", res_type, " ",

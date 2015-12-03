@@ -8,8 +8,6 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
 
 
@@ -21,7 +19,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("../../../../methods/polynomial_methods.R")
 
 
 extract_features <- function(sample_sources, don_chem_type, acc_chem_type, xmin, xmax){

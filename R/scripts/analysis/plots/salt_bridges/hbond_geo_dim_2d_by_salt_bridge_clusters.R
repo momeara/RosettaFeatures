@@ -8,10 +8,9 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
+source("salt_bridge_clusters.R")
+source("../hbonds/hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "geo_dim_pairs_scatter_chem_type",
@@ -23,10 +22,8 @@ run=function(self, sample_sources, output_dir, output_formats){
 
 
 
-source("../hbonds/hbond_geo_dim_scales.R")
 
 
-source("..salt_bridge_clusters.R")
 
 sele <-"
 SELECT

@@ -65,7 +65,7 @@ plot_parts <- list(
 	geom_indicator(aes(indicator=counts), color="white", group=1),
 	polar_equal_area_grids_bw(scale=.4, label_scale=.6),
 	coord_equal(ratio=1),
-	scale_fill_gradientn('Density', colours=jet.colors(15)),
+	scale_fill_viridis("Density"),
 	scale_x_continuous('', limits=capx_limits, breaks=c()),
 	scale_y_continuous('', limits=capy_limits, breaks=c()),
 	theme(

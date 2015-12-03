@@ -13,6 +13,8 @@ library(ggplot2)
 library(plyr)
 
 
+source("../hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "num_hbonds_normalized",
 author = "Matthew O'Meara",
@@ -21,7 +23,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("../hbond_geo_dim_scales.R")
 
 do_analysis <- function(group_sele, bond_sele, id, title){
 	group_counts <- query_sample_sources(sample_sources, group_sele)
@@ -108,7 +109,7 @@ do_analysis <- function(group_sele, bond_sele, id, title){
 			ggtitle(
 				paste(title,"\nSample Source: ", new_sample_source, sep="")) +
 			geom_tile(aes(x=don_chem_type, y=acc_chem_type, fill=p_score)) +
-			scale_fill_gradientn('P(Score)', colours=jet.colors(15))
+			scale_fill_viridis('P(Score)')
 		save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	})
 

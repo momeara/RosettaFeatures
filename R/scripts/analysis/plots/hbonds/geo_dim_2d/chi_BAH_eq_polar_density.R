@@ -13,6 +13,8 @@ library(ggplot2)
 library(plyr)
 
 
+source("../hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "chi_BAH_eq_polar_density",
 author = "Matthew O'Meara",
@@ -21,7 +23,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("../hbond_geo_dim_scales.R")
 
 sele <-"
 SELECT
@@ -103,7 +104,7 @@ plot_parts <- list(
 	geom_indicator(aes(indicator=counts), color="white", group=1),
 	polar_equal_area_grids_bw(scale=.4, label_scale=.6),
 	coord_equal(ratio=1),
-	scale_fill_gradientn('Density', colours=jet.colors(15)),
+	scale_fill_viridis("Density"),
 	scale_x_continuous('', limits=capx_limits, breaks=c()),
 	scale_y_continuous('', limits=capy_limits, breaks=c()),
 	theme(

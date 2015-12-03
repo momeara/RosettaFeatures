@@ -10,6 +10,8 @@
 library(plyr)
 
 
+source("../../plots/hbonds/hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "main_geom_dendrogram",
 author = "Matthew O'Meara",
@@ -19,7 +21,6 @@ run=function(self, sample_sources, output_dir, output_formats){
 
 
 
-source("../../plots/hbonds/hbond_geo_dim_scales.R")
 
 sele <-"
 SELECT

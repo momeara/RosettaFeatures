@@ -8,19 +8,11 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(rgl)
-
-
 library(misc3d)
-
-
 library(mvtnorm)
-
-
 library(ks)
-
-
 library(plyr)
-
+source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "AHdist_sp2_dPBA_aPBA",
@@ -29,7 +21,6 @@ brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-source("../hbond_geo_dim_scales.R")
 
 sele <-"
 SELECT

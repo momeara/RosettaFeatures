@@ -50,7 +50,7 @@ do_analysis <- function(sele, id, title){
 			ggtitle(
 				paste(title,"\nSample Source: ", new_sample_source, " Percent Recovered: ", p_recovered, "%", sep="")) +
 			geom_tile(aes(x=ref_res_type, y=new_res_type, fill=log(count))) +
-			scale_fill_gradientn('Log(Counts)', colours=jet.colors(15))
+			scale_fill_viridis('Log(Counts)')
 		save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	})
 }

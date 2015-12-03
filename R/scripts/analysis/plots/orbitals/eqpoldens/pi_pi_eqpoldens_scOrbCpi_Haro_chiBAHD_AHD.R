@@ -71,7 +71,7 @@ ggplot(data=f_first) + theme_bw() +
 		scale_y_continuous(
 				'2*sin(AHD/2) * sin(chiBAHD)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 		coord_fixed(ratio = 1) +
-		scale_fill_gradientn('Density', colours=jet.colors(10))
+		scale_fill_viridis("Density")
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 
@@ -125,7 +125,7 @@ ggplot(data=f_first) + theme_bw() +
 		scale_y_continuous(
 				'2*sin(AHD/2) * sin(chiBAHD)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 		coord_fixed(ratio = 1) +
-		scale_fill_gradientn('Density', colours=jet.colors(10))
+		scale_fill_viridis("Density")
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 ###Phe-Phe 2.0
@@ -176,7 +176,7 @@ ggplot(data=f_first) + theme_bw() +
 		scale_y_continuous(
 				'2*sin(AHD/2) * sin(chiBAHD)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 		coord_fixed(ratio = 1) +
-		scale_fill_gradientn('Density', colours=jet.colors(10))
+		scale_fill_viridis("Density")
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 
@@ -231,7 +231,7 @@ ggplot(data=f_first) + theme_bw() +
 		scale_y_continuous(
 				'2*sin(AHD/2) * sin(chiBAHD)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 		coord_fixed(ratio = 1) +
-		scale_fill_gradientn('Density', colours=jet.colors(10))
+		scale_fill_viridis("Density")
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 })) # end FeaturesAnalysis

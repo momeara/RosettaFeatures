@@ -88,7 +88,7 @@ l_ply(levels(f$hybrid), function(hybrid){
 			ggtitle(paste("Backbone-Backbone Hydrogen Bonds chi vs sinBAH Angles by Secondary Structure\nEqual Coordinate Projection   Sample Source: ", ss_id, sep="")) +
 			scale_x_continuous('2*sin(BAH/2) * cos(CHI)', limits=capx_limits, breaks=c(-1, 0, 1)) +
 			scale_y_continuous('2*sin(BAH/2) * sin(CHI)', limits=capy_limits, breaks=c(-1, 0, 1)) +
-			scale_fill_gradientn('log(Normalized\nDensity)', colours=jet.colors(15))
+			scale_fill_viridis('log(Normalized\nDensity)')
 		save_plots(self, plot_id, sample_source, output_dir, output_formats)
 	})
 })

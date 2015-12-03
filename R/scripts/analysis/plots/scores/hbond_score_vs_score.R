@@ -11,6 +11,8 @@
 library(ggplot2)
 
 
+source("../hbonds/hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "hbond_score_vs_score",
 author = "Matthew O'Meara",
@@ -23,7 +25,6 @@ if(nrow(sample_sources) == 1){
 	cat("This analysis script requires more than one sample source.\n")
 	return()
 }
-source("../hbonds/hbond_geo_dim_scales.R")
 
 sele <- "
 DROP TABLE IF EXISTS ref_hbonds;

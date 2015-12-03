@@ -13,6 +13,8 @@ library(ggplot2)
 library(plyr)
 
 
+source("../hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "AHdist_chem_type",
 author = "Matthew O'Meara",
@@ -21,7 +23,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("../hbonds/hbond_geo_dim_scales.R")
 
 sele <-"
 SELECT

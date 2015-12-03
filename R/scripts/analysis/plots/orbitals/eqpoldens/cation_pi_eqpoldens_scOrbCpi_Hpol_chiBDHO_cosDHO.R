@@ -66,7 +66,7 @@ f_first <- f[ f$sample_source == levels(sample_sources$sample_source), ]
 #  scale_y_continuous(
 #    '2*sin(DHO/2) * sin(chiBDHO)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 #  coord_fixed(ratio = 1) +
-#  scale_fill_gradientn('Density', colour=jet.colors(10))
+#  scale_fill_viridis("Density")
 #save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 
@@ -84,7 +84,7 @@ ggplot(data=f_first) + theme_bw() +
 		scale_y_continuous(
 				'2*sin(DHO/2) * sin(chiBDHO)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 		coord_fixed(ratio = 1) +
-		scale_fill_gradientn('Density', colours=jet.colors(10))
+		scale_fill_viridis("Density")
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 
@@ -142,7 +142,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 #		scale_y_continuous(
 #				'2*sin(DHO/2) * sin(chiBDHO)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 #		coord_fixed(ratio = 1) +
-#		scale_fill_gradientn('Density', colour=jet.colors(10))
+#		scale_fill_viridis("Density")
 #save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 #
 #
@@ -197,7 +197,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 #		scale_y_continuous(
 #				'2*sin(DHO/2) * sin(chiBDHO)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 #		coord_fixed(ratio = 1) +
-#		scale_fill_gradientn('Density', colour=jet.colors(10))
+#		scale_fill_viridis("Density")
 #save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 #
 #
@@ -251,7 +251,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 ##  scale_y_continuous(
 ##    '2*sin(DHO/2) * sin(chiBDHO)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 ##  coord_fixed(ratio = 1) +
-##  scale_fill_gradientn('Density', colour=jet.colors(10))
+##  scale_fill_viridis("Density")
 ##save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 #
 ####phe - arg 3.5
@@ -303,7 +303,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 ##  scale_y_continuous(
 ##    '2*sin(DHO/2) * sin(chiBDHO)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 ##  coord_fixed(ratio = 1) +
-##  scale_fill_gradientn('Density', colour=jet.colors(10))
+##  scale_fill_viridis("Density")
 ##save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 #
 ######cation pi interactions all at 3.5 A
@@ -350,6 +350,6 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 ##  scale_y_continuous(
 ##    '2*sin(DHO/2) * sin(chiBDHO)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 ##  coord_fixed(ratio = 1) +
-##  scale_fill_gradientn('Density', colour=jet.colors(10))
+##  scale_fill_viridis("Density")
 ##save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 

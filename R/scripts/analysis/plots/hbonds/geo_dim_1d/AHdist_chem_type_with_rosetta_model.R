@@ -13,6 +13,8 @@ library(ggplot2)
 library(plyr)
 
 
+source("../hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "AHdist_chem_type_with_rosetta_model",
 author = "Matthew O'Meara",
@@ -21,8 +23,6 @@ feature_reporter_dependencies = c("HBondFeatures", "HBondParameterFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("../hbond_geo_dim_scales.R")
-source("../../../../methods/polynomial_methods.R")
 
 
 sele <-"

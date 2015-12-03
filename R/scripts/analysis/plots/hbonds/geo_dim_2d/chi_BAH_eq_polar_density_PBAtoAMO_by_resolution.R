@@ -70,7 +70,7 @@ plot_parts <- list(
 #	geom_indicator(aes(indicator=counts), color="white"),
 	polar_equal_area_grids_bw(),
 	coord_equal(ratio=1),
-	scale_fill_gradientn('Density', colours=jet.colors(15)),
+	scale_fill_viridis("Density"),
 	scale_x_continuous(limits=capx_limits),
 	scale_y_continuous(limits=capy_limits),
 	theme(

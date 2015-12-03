@@ -13,6 +13,8 @@ library(ggplot2)
 library(plyr)
 
 
+source("../hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "sp2_BAH_chi_polar_density_by_seq_sep_dssp",
 author = "Matthew O'Meara",
@@ -21,7 +23,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("../hbond_geo_dim_scales.R")
 
 sele <-"
 SELECT
@@ -138,7 +139,7 @@ plot_parts_grid_log <- function(){
 		geom_indicator(aes(indicator=counts), color="white", group=1),
 		scale_x_continuous('', limits=capx_limits, breaks=c()),
 		scale_y_continuous('', limits=capy_limits, breaks=c()),
-		scale_fill_gradientn('log(Density + 1)', colours=jet.colors(15)),
+		scale_fill_viridis('log(Density + 1)'),
 		coord_equal(ratio=1),
 		theme(
 			axis.text.x=element_blank(),
@@ -159,7 +160,7 @@ plot_parts <- function(){
 		geom_indicator(aes(indicator=counts), color="white", group=1),
 		scale_x_continuous('', limits=capx_limits, breaks=c()),
 		scale_y_continuous('', limits=capy_limits, breaks=c()),
-		scale_fill_gradientn('Density', colours=jet.colors(15)),
+		scale_fill_viridis("Density"),
 		coord_equal(ratio=1),
 		theme(
 			axis.text.x=element_blank(),

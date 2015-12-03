@@ -13,6 +13,8 @@ library(ggplot2)
 library(plyr)
 
 
+source("../hbond_geo_dim_scales.R")
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "AHchi_AHD_eq_polar_density_salt_bridge_geometries",
 author = "Matthew O'Meara",
@@ -21,7 +23,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-source("../hbond_geo_dim_scales.R")
 
 sele <-"
 SELECT
@@ -80,7 +81,7 @@ plot_parts <- list(
 	geom_indicator(aes(indicator=counts), color="white", group=1),
 	polar_equal_area_grids_bw(),
 	coord_fixed(ratio = 1),
-	scale_fill_gradientn('Density', colour=jet.colors(15)),
+	scale_fill_viridis("Density"),
 	scale_x_continuous(limits=capx_limits),
 	scale_y_continuous(limits=capy_limits),
 	theme(

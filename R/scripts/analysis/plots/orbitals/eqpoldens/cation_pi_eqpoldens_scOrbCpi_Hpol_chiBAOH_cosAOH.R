@@ -69,7 +69,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 			scale_y_continuous(
 					'2*sin(AOH/2) * sin(chiBAOH)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 			coord_fixed(ratio = 1) +
-			scale_fill_gradientn('Density', colours=jet.colors(10))
+			scale_fill_viridis("Density")
 	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	
 	
@@ -124,7 +124,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 			scale_y_continuous(
 					'2*sin(AOH/2) * sin(chiBAOH)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 			coord_fixed(ratio = 1) +
-			scale_fill_gradientn('Density', colours=jet.colors(10))
+			scale_fill_viridis("Density")
 	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	
 	
@@ -179,7 +179,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 			scale_y_continuous(
 					'2*sin(AOH/2) * sin(chiBAOH)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 			coord_fixed(ratio = 1) +
-			scale_fill_gradientn('Density', colours=jet.colors(10))
+			scale_fill_viridis("Density")
 	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	
 	
@@ -232,7 +232,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 #			scale_y_continuous(
 #					'2*sin(AOH/2) * sin(chiBAOH)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 #			coord_fixed(ratio = 1) +
-#			scale_fill_gradientn('Density', colour=jet.colors(10))
+#			scale_fill_viridis("Density")
 #	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 #	
 	
@@ -286,7 +286,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 #			scale_y_continuous(
 #					'2*sin(AOH/2) * sin(chiBAOH)', limits=capy_limits, breaks=c(-1, 0, 1)) +
 #			coord_fixed(ratio = 1) +
-#			scale_fill_gradientn('Density', colour=jet.colors(10))
+#			scale_fill_viridis("Density")
 #	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	
 	
