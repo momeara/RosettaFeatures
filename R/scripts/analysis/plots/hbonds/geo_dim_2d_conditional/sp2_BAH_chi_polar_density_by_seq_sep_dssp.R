@@ -261,7 +261,6 @@ save_plots(self, plot_id, sample_sources, output_dir, narrow_output_formats)
 d_ply(
 	.data=f[f$acc_chem_type != "hbacc_PBA" & f$don_chem_type == "hbdon_PBA", ],
 	.variables=.(seq_sep, acc_chem_type_name, sample_source),
-	.parallel=use_parallel,
 	.fun=function(df){
 	seq_sep <- as.character(df$seq_sep[1])
 	acc_chem_type_name <- as.character(df$acc_chem_type_name[1])
@@ -277,7 +276,6 @@ d_ply(
 d_ply(
 	.data=f,
 	.variables=.(sample_source),
-	.parallel=use_parallel,
 	.fun=function(df){
 	ss_id <- as.character(df$sample_source[1])
 	ss <- sample_sources[sample_sources$sample_source == ss_id, ]
@@ -299,7 +297,6 @@ save_plots(self, plot_id, sample_sources, output_dir, narrow_output_formats)
 d_ply(
 	.data=f[as.character(f$don_chem_type) == "hbdon_PBA",],
 	.variables=.(acc_ss_linear),
-	.parallel=use_parallel,
 	.fun=function(df){
 	acc_ss_linear <- as.character(df$acc_ss_linear[1])
 	plot_id = paste("hbond_VBAH_VBAchi_equal_area_log_scale_acc_ss_", acc_ss_linear, sep="")
@@ -313,7 +310,6 @@ d_ply(
 d_ply(
 	.data=f[as.character(f$don_chem_type) == "hbdon_PBA",],
 	.variables=.(sample_source),
-	.parallel=use_parallel,
 	.fun=function(df){
 	ss_id <- as.character(df$sample_source[1])
 	ss <- sample_sources[sample_sources$sample_source == ss_id, ]
@@ -331,7 +327,6 @@ d_ply(
 d_ply(
 	.data=f[f$don_chem_type == "hbdon_PBA",],
 	.variables=.(sample_source),
-	.parallel=use_parallel,
 	.fun=function(df){
 	ss_id <- as.character(df$sample_source[1])
 	plot_id = paste("hbond_VBAH_VBAchi_equal_area_log_scale_bb_don_ss_id_", ss_id, sep="")
@@ -345,7 +340,6 @@ d_ply(
 d_ply(
 	.data=f[f$don_chem_type != "hbdon_PBA",],
 	.variables=.(sample_source),
-	.parallel=use_parallel,
 	.fun=function(df){
 	ss_id <- as.character(df$sample_source[1])
 	plot_id = paste("hbond_VBAH_VBAchi_equal_area_log_scale_sc_don_don_chem_type_ss_id_", ss_id, sep="")

@@ -231,7 +231,7 @@ a_ply(all_comps, 1, function(test){
 		as.character(test$var[1]),
 		as.character(test$dim[1]),
 		comp_funs)
-}, .parallel=use_parallel)
+})
 
 })) # end FeaturesAnalysis
 
