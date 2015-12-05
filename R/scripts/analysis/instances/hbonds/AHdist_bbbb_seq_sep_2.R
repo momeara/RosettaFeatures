@@ -23,7 +23,6 @@ feature_reporter_dependencies = c("StructureFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-
 sele <-"
 SELECT
 	struct.tag,

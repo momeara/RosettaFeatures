@@ -19,7 +19,6 @@ feature_reporter_dependencies = c("ResidueFeatures", "ProteinBackboneTorsionAngl
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-
 sele <-"
 SELECT
 	res.name3 AS res_type,
@@ -69,7 +68,7 @@ plot_id <- "backbone_geometry_omega_angle_cis"
 p <- ggplot(dens) + theme_bw() +
 	geom_line(aes(x, y, colour=sample_source), size=2) +
 	ggtitle("Cis Omega Angle; B-Factor < 30") +
-	geom_vline(x=0) +
+	geom_vline(xintercept=0) +
 	scale_x_continuous(
 		"Omega Angle (degrees)",
 		limit=c(-30,30),
