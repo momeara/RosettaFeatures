@@ -17,64 +17,10 @@ set_db_cache_size <- function(con, cache_size){
 }
 
 
-query_sample_source <- function(
-	sample_source,
-	sele,
-	sele_args_frame = NULL,
-	char_as_factor=T,
-	warn_zero_rows=T
-	){
-	tryCatch(sele,error=function(e){
-		cat("ERROR: The select statement is not defined.\n")
-	})
-
-	#Get the features from the sample_source
-	tryCatch(c(sample_source),error=function(e){
-		cat("ERROR: The specified sample source is not defined.\n")
-	})
-
-	cat("loading:", as.character(sample_source$sample_source), "... ")
-	if( is.na(sample_source$sample_source[1]) ){
-		stop("Specified sample source is not defined")
-	}
-	con <- sample_source$con[[1]]
-
-	#Allow select statements to be prefaced with arbitrary statements.
-	#This allows the creation of temporary tables, indices, etc.
-	sele_split <- paste(strsplit(sele, ";\\W*", perl=TRUE)[[1]], ";", sep="")
-	plyr::l_ply(sele_split[-length(sele_split)], function(sele){
-			DBI::dbGetQuery(con, sele)
-	})
-
-	last_stmt <- sele_split[length(sele_split)] #Real statement for data
-	if (! is.null(sele_args_frame)){
-		features <- DBI::dbGetPreparedQuery(con, sele, bind.data=sele_args_frame)
-	}
-	else {
-		features <- DBI::dbGetQuery(con, last_stmt)
-	}
-
-	#cat(as.character(round(timing[3], 2)),"s\n")
-
-	if(warn_zero_rows && nrow(features)==0){
-		cat("WARNING: The following query returned no rows:\n")
-		cat(sele)
-	}
-	if(char_as_factor){
-		for(col in names(features)){
-			if(is.character(features[,col])){
-				features[,col] <- factor(features[,col])
-			}
-		}
-	}
-	features
-}
-
 query_sample_sources <- function(
 	sample_sources,
 	sele,
-	sele_args_frame = NULL,
-	char_as_factor=T,
+	bind.data = NULL,
 	warn_zero_rows=T
 	){
 	tryCatch(sele,error=function(e){
@@ -95,32 +41,25 @@ query_sample_sources <- function(
 			#Allow select statements to be prefaced with arbitrary statements.
 			#This allows the creation of temporary tables, indices, etc.
 			sele_split <- paste(strsplit(sele, ";\\W*", perl=TRUE)[[1]], ";", sep="")
-			plyr::l_ply(sele_split[-length(sele_split)], function(sele){
-					DBI::dbGetQuery(con, sele)
+			plyr::l_ply(sele_split[-length(sele_split)], function(sele_part){
+				DBI::dbGetQuery(con, sele_part)
 			})
 
 			last_stmt <- sele_split[length(sele_split)] #Real statement for data
-			if (! is.null(sele_args_frame)){
-				df <- DBI::dbGetPreparedQuery(con, sele, bind.data=sele_args_frame)
+			if (! is.null(bind.data)){
+				df <- DBI::dbGetPreparedQuery(con, last_stmt, bind.data=bind.data)
 			}
 			else {
 				df <- DBI::dbGetQuery(con, last_stmt)
 			}
 
 		})
-		cat(as.character(round(timing[3], 2)),"s\n")
+		cat(as.character(round(timing[3], 2)),"s\n", sep="")
 		df
 	})
 	if(warn_zero_rows && nrow(features)==0){
 		cat("WARNING: The following query returned no rows:\n")
 		cat(sele)
-	}
-	if(char_as_factor){
-		for(col in names(features)){
-			if(is.character(features[,col])){
-				features[,col] <- factor(features[,col])
-			}
-		}
 	}
 	features
 }
@@ -129,7 +68,6 @@ query_sample_sources_against_ref <- function(
 	sample_sources,
 	sele,
 	sele_args_frame = NULL,
-	char_as_factor=T,
 	warn_zero_rows=T
 	){
 	tryCatch(sele,error=function(e){
@@ -153,7 +91,7 @@ In the returned data.frame the there will be the following columns:
 	}
 
 	ref_ss <- sample_sources[1,]
-	con <- DBI::dbConnect(SQLite())
+	con <- DBI::dbConnect(RSQLite::SQLite())
 
 	#TODO figure out to pass in cache size info for this type of connection
 	#set_db_cache_size(con, cache_size);
@@ -179,19 +117,18 @@ In the returned data.frame the there will be the following columns:
 			#Allow select statements to be prefaced with arbitrary statements.
 			#This allows the creation of temporary tables, indices, etc.
 			sele_split <- paste(strsplit(sele, ";\\W*", perl=TRUE)[[1]], ";", sep="")
-			plyr::l_ply(sele_split[-length(sele_split)], function(sele){
-				DBI::dbGetQuery(con, sele)
+			plyr::l_ply(sele_split[-length(sele_split)], function(sele_part){
+				DBI::dbGetQuery(con, sele_part)
 			})
 			last_stmt <- sele_split[length(sele_split)] #Real statement for data
-			if(! is.null(sele_args_frame)){
-				df <- DBI::dbGetPreparedQuery(con, last_stmt, bind.data=sele_args_frame)
-			}
-			else{
+			if(! is.null(bind.data)){
+				df <- DBI::dbGetPreparedQuery(con, last_stmt, bind.data=bind.data)
+			} else{
 				df <- DBI::dbGetQuery(con, last_stmt)
 			}
 		})
 		DBI::dbGetQuery(con, "DETACH DATABASE new;")
-		cat(as.character(round(timing[3],2)),"s\n")
+		cat(as.character(round(timing[3],2)),"s\n",sep="")
 		df
 	})
 
@@ -199,13 +136,6 @@ In the returned data.frame the there will be the following columns:
 		cat("WARNING: The following query returned no rows:\n")
 		cat(sele)
 		return(features)
-	}
-	if(char_as_factor){
-		for(col in names(features)){
-			if(is.character(features[,col])){
-				features[,col] <- factor(features[,col])
-			}
-		}
 	}
 	data.frame(
 		ref_sample_source = factor(ref_ss$sample_source[1]),

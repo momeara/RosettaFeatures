@@ -282,10 +282,20 @@ Grouping by: ", paste(id.vars, collapse=" "), "
     	}) # new_f
 		}) # timing
 		cat(as.character(round(timing[3],2)), "s  ", sep="")
+		if(nrow(z)==0){
+			z <- data.frame()
+		}
+		if(verbose){
+			cat("After computing comparison for one group: z <- \n")
+			print(z)
+		}
 		z
   }) # sub_f
 	cat("\n")
-
+	if(verbose){
+		cat("After computing comparisons: stats <- \n")
+		print(stats)
+	}
 	if(length(id.vars) > 0){
 		cast_formula_str <-
 			paste(

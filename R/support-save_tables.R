@@ -127,7 +127,7 @@ save_tables <- function(
 						file=full_path,
 						row.names=FALSE,
             quote=quote_strings)
-				} else if(as.character(fmt$id) == "output_tab_delimited_table") {
+				} else if(as.character(fmt$id) == "output_tsv") {
           write.table(
             table,
             full_path,

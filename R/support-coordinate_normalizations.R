@@ -77,7 +77,7 @@ minor_lat_coords <- function() {
 long_labels <- function() {
 	transform(
 		expand.grid(long=pi*3/2, lat=c(pi/6, pi/3, pi/2, pi*2/3)),
-		label = as.character(round(180/pi*lat, 0)),
+		label = as.character(round(180-180/pi*lat, 0)),
 		capx = 2*sin(lat/2)*cos(long),
 		capy = 2*sin(lat/2)*sin(long))
 }
