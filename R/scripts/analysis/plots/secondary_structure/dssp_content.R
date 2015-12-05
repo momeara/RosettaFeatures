@@ -7,6 +7,7 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
 library(ggplot2)
 
 
@@ -124,7 +125,7 @@ ORDER BY
 
 f <-  query_sample_sources(sample_sources, sele)
 
-t <- cast(f, sample_source + res_type ~ dssp, value="count")
+t <- dcast(f, sample_source + res_type ~ dssp, value="count")
 table_id <- "secondary_structure_residue_counts"
 save_tables(
 	self,

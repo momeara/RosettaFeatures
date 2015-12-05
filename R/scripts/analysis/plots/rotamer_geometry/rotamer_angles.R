@@ -71,7 +71,7 @@ DROP TABLE nchi_in_res;"
 query_sample_sources(sample_sources, sele, warn_zero_rows=F)
 
 
-m_f <- melt(f, measure.vars=c("chi1", "chi2", "chi3", "chi4"), variable_name="chi_angle")
+m_f <- reshape2::melt(f, measure.vars=c("chi1", "chi2", "chi3", "chi4"), variable_name="chi_angle")
 
 dens <- estimate_density_1d(
 	m_f, c("sample_source", "res_type", "chi_angle", "nchi"), "value", xlim=c(-180, 180))

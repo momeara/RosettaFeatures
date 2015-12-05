@@ -8,11 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(reshape2)
-
-
 library(ggplot2)
-
-
 library(plyr)
 
 
@@ -63,11 +59,11 @@ f <- ddply(f, .(sample_source, res_type), transform,
 
 first_sample_source_id <- as.character(sample_sources$sample_source[1])
 zz <- ddply(f, .(res_type), function(df) {
-	df_wide <- cast(df, res_type + rotamer_bin ~ sample_source, value="rot_bin_fraction")
+	df_wide <- dcast(df, res_type + rotamer_bin ~ sample_source, value="rot_bin_fraction")
 	df_wide <- df_wide[order(df_wide[,first_sample_source_id], decreasing=T),]
 	df_wide$rank <- seq_along(df_wide$rotamer_bin)
 	attr(df_wide, "idvars") <- c("res_type", "rotamer_bin", "rank")
-	df_long <- melt(df_wide)
+	df_long <- reshape2::melt(df_wide)
 	names(df_long) <- c(
 		"res_type", "rotamer_bin", "rank", "rot_bin_fraction", "sample_source")
 	df_long

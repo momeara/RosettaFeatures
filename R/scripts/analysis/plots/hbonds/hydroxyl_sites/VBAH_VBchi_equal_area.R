@@ -83,7 +83,7 @@ narrow_output_formats <- transform(output_formats, width=height)
 plot_parts <- function(){list(
 	theme_bw(),
 	theme(panel.background=element_rect(fill="#00007F", colour="#00007F")),
-		geom_raster(aes(x=x, y=y, fill=z)),
+	geom_raster(aes(x=x, y=y, fill=z)),
 	geom_indicator(aes(indicator=counts), color="white", group=1),
 	polar_equal_area_grids_bw(),
 	coord_equal(ratio=1),
@@ -141,7 +141,6 @@ d_ply(
 		df, c(), "x", "y")
 
 	plot_id = paste("hbond_VBAH_VBAchi_equal_area_log_scale_seq_sep_", seq_sep, "_", acc_chem_type_name, "_", ss_id, sep="")
-	counts <- group_counts(df, c("sample_source"))
 	ggplot(data=dens) + plot_parts() +
 		ggtitle(paste(acc_chem_type_name,  " Acc BB Don H-Bonds Base Acceptor Hydrogen projection\nSeqSep: ", seq_sep, " SS: ", ss_id, sep="")) +
 	save_plots(self, plot_id, sample_sources, output_dir, narrow_output_formats)

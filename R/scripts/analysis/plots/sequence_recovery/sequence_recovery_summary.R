@@ -7,6 +7,7 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
 library(plyr)
 
 
@@ -58,7 +59,7 @@ z <- rbind(z, ddply(f, .(sample_source), function(df) {
 
 
 table_id <- "recovery_by_burial"
-z_wide <- cast(z, sample_source ~ burial, value="p_recovered")
+z_wide <- dcast(z, sample_source ~ burial, value="p_recovered")
 save_tables(self,
   z_wide, table_id, sample_sources, output_dir, output_formats,
   caption="Sequence Recovery Summary By Burial", caption.placement="top")

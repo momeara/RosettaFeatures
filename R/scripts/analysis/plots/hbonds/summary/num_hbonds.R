@@ -7,9 +7,8 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
 library(ggplot2)
-
-
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -46,7 +45,7 @@ ggplot(f, aes(acc_chem_type_name, log(acc_chem_type_count))) + theme_bw() +
   labs(x="Acceptor Type", y="log(Counts)")
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
-t <- cast(f, sample_source ~ acc_chem_type_name, value="acc_chem_type_count")
+t <- dcast(f, sample_source ~ acc_chem_type_name, value="acc_chem_type_count")
 save_tables(self, t, plot_id, sample_sources, output_dir, output_formats, caption="Number of HBonds by Acceptor Type", caption.placement="top")
 
 sele <-"
@@ -74,7 +73,7 @@ ggplot(f, aes(don_chem_type_name, log(don_chem_type_count))) + theme_bw() +
   labs(x="Donor Type", y="log(Counts)")
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
-t <- cast(f, sample_source ~ don_chem_type_name, value="don_chem_type_count")
+t <- dcast(f, sample_source ~ don_chem_type_name, value="don_chem_type_count")
 save_tables(self, t, plot_id, sample_sources, output_dir, output_formats, caption="Number of HBonds by Donor Type", caption.placement="top")
 
 
@@ -147,7 +146,7 @@ ggplot(f, aes(acc_chem_type_name, log(bond_counts))) + theme_bw() +
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 table_id <- "hbond_num_bonds_by_don_acc_chem_type"
-t <- cast(f,
+t <- dcast(f,
 	sample_source +
 	acc_chem_type_name ~ don_chem_type_name,
 	value="bond_counts")

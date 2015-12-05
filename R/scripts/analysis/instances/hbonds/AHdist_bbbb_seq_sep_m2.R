@@ -51,7 +51,7 @@ if(nrow(f) == 0){
 }
 
 
-f <- melt(f,
+f <- reshape2::melt(f,
 	id.vars=c("sample_source", "tag", "id", "chain", "resNum"),
 	measure.vars=c("CA", "C", "O"),
 	variable_name = "atom")

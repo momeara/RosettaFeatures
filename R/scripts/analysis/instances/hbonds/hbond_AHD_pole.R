@@ -79,7 +79,7 @@ ss_ids <- as.character(unique(f$sample_source))
 
 
 don_atoms <-
-	melt(f,
+	reshape2::melt(f,
 		id.vars=
 			c("id", "sample_source",
 				"tag", "don_chain", "don_residue_number", "don_insertion_code"),
@@ -91,7 +91,7 @@ names(don_atoms)[6] <- "insertion_code"
 names(don_atoms)[8] <- "atom"
 
 acc_atoms <-
-	melt(f,
+	reshape2::melt(f,
 		id.vars=
 			c("id", "sample_source", "tag",
 				"acc_chain", "acc_residue_number", "acc_insertion_code"),

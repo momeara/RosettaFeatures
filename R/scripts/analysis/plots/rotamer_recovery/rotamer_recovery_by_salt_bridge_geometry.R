@@ -7,6 +7,8 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
+
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "rotamer_recovery_by_salt_bridge_geometry",
 author = "Matthew O'Meara",
@@ -72,6 +74,6 @@ f <- query_sample_sources(sample_sources, sele)
 
 print(summary(f))
 
-cast(f, sample_source + split ~ . , value="don_rr")
+dcast(f, sample_source + split ~ . , value="don_rr")
 
 })) # end FeaturesAnalysis

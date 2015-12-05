@@ -8,13 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(reshape2)
-
-
 library(ggplot2)
-
-
 library(plyr)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "sequence_recovery_precision_vs_recall",
@@ -66,8 +61,8 @@ p_vs_v <- ddply(f, .(sample_source, ref_res_type), function(ref_f) {
 
 table_id <- "sequence_recovery_precision_vs_recall_by_res_type"
 title <- "Sequence Recovery Precision vs. Recall by Residue Type"
-long_p_vs_v <- melt(p_vs_v, c("sample_source", "res_type"), c("precision", "recall"))
-wide_p_vs_v <- cast(long_p_vs_v)
+long_p_vs_v <- reshape2::melt(p_vs_v, c("sample_source", "res_type"), c("precision", "recall"))
+wide_p_vs_v <- dcast(long_p_vs_v)
 save_tables(self, wide_p_vs_v, table_id, sample_sources, output_dir, output_formats, caption=title, caption.placement="top")
 
 plot_id <- "sequence_recovery_precision_vs_recall_by_res_type"
@@ -98,8 +93,8 @@ p_vs_v <- ddply(f, .(sample_source, burial, ref_res_type), function(ref_f) {
 
 table_id <- "sequence_recovery_precision_vs_recall_by_burial_res_type"
 title <- "Sequence Recovery Precision vs. Recall by Burial and Residue Type"
-long_p_vs_v <- melt(p_vs_v, c("sample_source", "burial", "res_type"), c("precision", "recall"))
-wide_p_vs_v <- cast(long_p_vs_v)
+long_p_vs_v <- reshape2::melt(p_vs_v, c("sample_source", "burial", "res_type"), c("precision", "recall"))
+wide_p_vs_v <- dcast(long_p_vs_v)
 save_tables(self, wide_p_vs_v, table_id, sample_sources, output_dir, output_formats, caption=title, caption.placement="top")
 
 plot_id <- "sequence_recovery_precision_vs_recall_by_burial_res_type"

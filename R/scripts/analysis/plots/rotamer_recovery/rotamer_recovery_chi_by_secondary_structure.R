@@ -7,6 +7,8 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
+library(ascii)
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "rotamer_recovery_by_secondary_structure",
@@ -89,7 +91,7 @@ print(f)
 
 
 g <- f[order(f$dssp, f$res_type, f$sample_source, f$first),]
-g <- cast(g, dssp + res_type ~ sample_source, value="first")
+g <- dcast(g, dssp + res_type ~ sample_source, value="first")
 g$diff <- g$top8000_olf_r45890_111114 - g$top8000_r45890_111114
 print(ascii(g))
 

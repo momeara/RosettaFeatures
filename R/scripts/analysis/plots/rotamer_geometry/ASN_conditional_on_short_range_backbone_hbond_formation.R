@@ -72,7 +72,7 @@ DROP TABLE asn_sr_bb_hb;"
 query_sample_sources(sample_sources, sele, warn_zero_rows=F)
 
 
-m_f <- melt(f, measure.vars=c("chi1", "chi2"), variable_name="chi_angle")
+m_f <- reshape2::melt(f, measure.vars=c("chi1", "chi2"), variable_name="chi_angle")
 
 dens <- estimate_density_1d_wrap(
 	m_f, c("sample_source", "chi_angle", "sr_bb_hb"), "value", xlim=c(-180, 180), adjust=.35)

@@ -50,7 +50,7 @@ d_ply(sample_sources, .variables=("sample_source"), function(sample_source){
     capy = 2*sin(acos(cosBAH)/2)*sin(chi))
 
   sub_f <- ddply(f, .variables=c("don_chem_type", "acc_chem_type"),
-    function(df){df %>% sample_n(5000)})
+    function(df){ifelse(nrow(df) <= 5000, df, df %>% sample_n(5000))})
 
 
   plot_id = "hbond_sinBAH_longrange_dAH2p0cut_colorbydist_eq_polar_scatter_by_chem_type"

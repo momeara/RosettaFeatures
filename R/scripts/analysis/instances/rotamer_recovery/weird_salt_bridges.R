@@ -8,11 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(reshape2)
-
-
 library(ggplot2)
-
-
 library(plyr)
 
 
@@ -76,7 +72,7 @@ n_examples <- 15
 
 g <- f[f$instance,]
 g$id <- 1:nrow(g)
-g <- melt(g[g$id <= n_examples,],
+g <- reshape2::melt(g[g$id <= n_examples,],
 	id.vars=c("sample_source", "tag", "id", "chain", "resNum"),
 	measure.vars=c("CA", "C", "CB"),
 	variable_name = "atom")

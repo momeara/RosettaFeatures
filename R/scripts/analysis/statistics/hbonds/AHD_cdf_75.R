@@ -7,6 +7,7 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
 library(ggplot2)
 
 
@@ -70,7 +71,7 @@ names(cdf.acc)[2] <- "chem_type_name"
 cdf.chem <- rbind(cdf.don, cdf.acc)
 cdf.chem$quantiles <- cdf.chem$quantiles * 180/pi
 
-t <- cast(cdf.chem, chem_type_name + probs ~ sample_source, value="quantiles")
+t <- dcast(cdf.chem, chem_type_name + probs ~ sample_source, value="quantiles")
 
 table_id <- "AHD_cdf_don_or_acc_chem_type"
 table_title <- "A-H-D Angle containing 75% of H-Bonds (Degrees)\nB-Factor < 30, SeqSep > 4, SC-Partner"
@@ -133,7 +134,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 #
 #modes.all <- estimate_primary_modes_1d(f, c("sample_source", "don_chem_type_name", "acc_chem_type_name"), "AHdist")
 #
-#t <- cast(modes.all, don_chem_type_name + acc_chem_type_name ~ sample_source, value="primary_mode")
+#t <- dcast(modes.all, don_chem_type_name + acc_chem_type_name ~ sample_source, value="primary_mode")
 #
 #ref_ss <- sample_sources[sample_sources$reference, "sample_source"]
 #if(length(ref_ss) != 1) {

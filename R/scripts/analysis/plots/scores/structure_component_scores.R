@@ -7,13 +7,8 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-
 library(reshape2)
-
-
 library(ggplot2)
-
-
 library(plyr)
 
 
@@ -137,10 +132,10 @@ save_tables(self,
 ##################################
 
 
-f_wide <- cast(f,
+f_wide <- dcast(f,
 	sample_source + total_residue + struct_id ~ score_type_name,
 	value="score_value", fill=0L)
-f_combined <- melt(
+f_combined <- reshape2::melt(
 	with(
 		f_wide,
 		data.frame(

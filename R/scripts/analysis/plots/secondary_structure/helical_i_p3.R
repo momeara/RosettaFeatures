@@ -8,10 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
+library(dplyr)
 
 source("../hbonds/hbond_geo_dim_scales.R")
 
@@ -52,12 +50,12 @@ WHERE
 	don.resNum - acc.resNum == 3;"
 
 f <- query_sample_sources(sample_sources, sele)
-f <- group_counts(f, id.vars=c("sample_source"))
 
-#### SUMMARY TABLE #####
-counts <- ddply(f, .(sample_source), function(df){
-  data.frame(counts = nrow(df))
-})
+counts <- f %>%
+	count(sample_source) %>%
+	mutate(counts=n)
+
+f <- f %>% left_join(counts,by=c("sample_source"))
 
 table_id <- "Alpha_helix_i_to_ip3_hbond_count"
 table_title <- "Counts of a-Helix i->i+3 H-bonds; B-Factor < 30"
@@ -100,9 +98,12 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 ##### cosAHD vs AHdist3 ####
 plot_id <- "helical_i_p3_cosAHD_AHdist3"
-f <- group_counts(f, id.vars=c("sample_source"))
+f <- f %>% left_join(
+	f %>% count(sample_source) %>% mutate(counts=n),
+	by="sample_source")
+
 ggplot(data=f, aes(x=cosAHD, y=AHdist^3)) +
-  	theme_bw() + 
+		theme_bw() +
 	geom_point(size=.4) +
 	stat_density2d(size=.2) +
 	facet_grid(~sample_source) +
@@ -112,7 +113,7 @@ ggplot(data=f, aes(x=cosAHD, y=AHdist^3)) +
 		limit=c(0,1), breaks=c(.2, .4, .6, .8, 1)) +
 	scale_y_continuous(
 		expression(paste('(Acceptor -- Hydrogen Distance)^3')),
-		limits=c(1.4^3, 3.4^3), breaks=c(1.4^3, 2^3, 3^3), labels=c(1.4, 2, 3)) +	
+		limits=c(1.4^3, 3.4^3), breaks=c(1.4^3, 2^3, 3^3), labels=c(1.4, 2, 3)) +
 	ggtitle("a-Helix i->i+3 H-Bonds: AHD vs AHdist\nB-Factor < 30 normalized for equal weight per unit distance")
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 

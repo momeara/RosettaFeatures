@@ -7,9 +7,8 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
 library(ggplot2)
-
-
 library(plyr)
 
 
@@ -38,7 +37,7 @@ do_analysis <- function(sele, id, title){
 
 	f <- f[complete.cases(f),]
 
-	wide_f <- cast(f, sample_source + ref_res_type ~ new_res_type, value="count")
+	wide_f <- dcast(f, sample_source + ref_res_type ~ new_res_type, value="count")
 	save_tables(self, wide_f, id, sample_sources, output_dir, output_formats, caption=title, caption.placement="top")
 
 	d_ply(f, .(sample_source), function(df){

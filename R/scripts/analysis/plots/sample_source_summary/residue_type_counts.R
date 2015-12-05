@@ -7,7 +7,7 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-
+library(reshape2)
 library(ggplot2)
 
 
@@ -55,7 +55,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 
 table_id <- "residue_types_counts"
-f_c <- cast(f, res_type ~ sample_source, value="count")
+f_c <- dcast(f, res_type ~ sample_source, value="count")
 save_tables(
 	self,
 	f_c,
@@ -64,7 +64,7 @@ save_tables(
 	caption="Residue Type Counts", caption.placement="top")
 
 table_id <- "protein_residue_types_counts"
-f_c <- cast(f[as.character(f$is_protein) == 'protein',], res_type ~ sample_source, value="count")
+f_c <- dcast(f[as.character(f$is_protein) == 'protein',], res_type ~ sample_source, value="count")
 save_tables(
 	self,
 	f_c,
@@ -73,7 +73,7 @@ save_tables(
 	caption="Protein Residue Type Counts", caption.placement="top")
 
 table_id <- "non_protein_residue_types_counts"
-f_c <- cast(f[as.character(f$is_protein) != 'protein',], res_type ~ sample_source, value="count")
+f_c <- dcast(f[as.character(f$is_protein) != 'protein',], res_type ~ sample_source, value="count")
 save_tables(
 	self,
 	f_c,

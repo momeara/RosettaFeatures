@@ -88,7 +88,7 @@ ss_ids <- as.character(unique(f$sample_source))
 
 
 don_atoms <-
-	melt(f,
+	reshape2::melt(f,
 		id.vars=c("id", "sample_source", "struct_id", "chain", "don_resNum"),
 		measure.vars=c("don_atom1", "don_atom2", "don_atom3"),
 		variable_name = "atom_name")
@@ -96,7 +96,7 @@ names(don_atoms)[5] <- "resNum"
 names(don_atoms)[7] <- "atom"
 
 acc_atoms <-
-	melt(f,
+	reshape2::melt(f,
 		id.vars=c("id", "sample_source", "struct_id", "chain", "acc_resNum"),
 		measure.vars=c("acc_atom1", "acc_atom2", "acc_atom3"),
 		variable_name = "atom_name")

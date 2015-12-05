@@ -8,10 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(reshape2)
-
-
 library(ggplot2)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "buried_unsatisfied",
@@ -41,7 +38,7 @@ f <- na.omit(f, method="r")
 
 print(summary(f))
 
-f <- melt(f, id.vars=c("sample_source", "chem_type"), variable_name="probe_radius")
+f <- reshape2::melt(f, id.vars=c("sample_source", "chem_type"), variable_name="probe_radius")
 names(f) <- c("sample_source", "chem_type", "probe_radius", "counts")
 
 plot_id <- "hb_unsat"

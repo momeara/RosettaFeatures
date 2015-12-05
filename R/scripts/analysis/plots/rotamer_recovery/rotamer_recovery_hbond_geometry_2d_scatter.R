@@ -7,8 +7,9 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
 library(ggplot2)
-
+library(ascii)
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "rotamer_recovery_hbond_geometry_2d_scatter",
@@ -171,7 +172,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 
 f$first_indicator <- f$first == "Recovered"
-g <- cast(f, seq_sep + sample_source ~ don_chem_type, margins=T, value="first_indicator", mean)
+g <- dcast(f, seq_sep + sample_source ~ don_chem_type, margins=T, value="first_indicator", mean)
 ascii(g, header=F, digits=4)
 
 #|============================================================================================================================================================== 

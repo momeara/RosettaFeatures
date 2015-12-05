@@ -8,10 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(reshape2)
-
-
 library(ggplot2)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "not_recovered",
@@ -62,7 +59,7 @@ n_examples <- 15
 
 f <- f[order(f$rel_div, decreasing=T),]
 f$id <- 1:nrow(f)
-g <- melt(f[f$id <= n_examples,],
+g <- reshape2::melt(f[f$id <= n_examples,],
 	id.vars=c("sample_source", "tag", "id", "chain", "resNum"),
 	measure.vars=c("CA", "C", "CB"),
 	variable_name = "atom")

@@ -7,9 +7,8 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
 library(ggplot2)
-
-
 source("../../plots/hbonds/hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -18,9 +17,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
-
-
 
 
 sele <-"
@@ -66,7 +62,7 @@ names(modes.acc)[2] <- "chem_type_name"
 
 modes <- rbind(modes.don, modes.acc)
 
-t <- cast(modes, chem_type_name ~ sample_source, value="primary_mode")
+t <- dcast(modes, chem_type_name ~ sample_source, value="primary_mode")
 
 table_id <- "AHdist_primary_mode_by_don_or_acc_chem_type"
 table_title <- "Primary Mode of H-Bond A-H Length"
@@ -126,7 +122,7 @@ save_plots(self, plot_id, sample_sources, output_dir, alt_output_formats)
 
 modes.all <- estimate_primary_modes_1d(f, c("sample_source", "don_chem_type_name", "acc_chem_type_name"), "AHdist")
 
-t <- cast(modes.all, don_chem_type_name + acc_chem_type_name ~ sample_source, value="primary_mode")
+t <- dcast(modes.all, don_chem_type_name + acc_chem_type_name ~ sample_source, value="primary_mode")
 
 ref_ss <- sample_sources[sample_sources$reference, "sample_source"]
 if(length(ref_ss) != 1) {

@@ -7,12 +7,9 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
 library(ggplot2)
-
-
 library(plyr)
-
-
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -59,7 +56,7 @@ sat_summary <- ddply(dfs, c("res_type", "sample_source"), function(df) {
 			round(100 * sum(df[df$don_satisfied == "DON","count"]) / total, 2),
 			round(100 * sum(df[df$acc_satisfied == "ACC","count"]) / total, 2)))
 })
-cast(sat_summary, sample_source + role ~ res_type, value="percent")
+dcast(sat_summary, sample_source + role ~ res_type, value="percent")
 
 
 
@@ -177,13 +174,13 @@ p_sat <- ddply(f, .(chem_type_name, buried, sample_source), function(df){
 })
 
 
-n_sat_wide <- cast(p_sat, buried + chem_type_name ~ sample_source, value.var=n_sat, value="n_sat")
+n_sat_wide <- dcast(p_sat, buried + chem_type_name ~ sample_source, value.var=n_sat, value="n_sat")
 z <- names(n_sat_wide)
 names(n_sat_wide) <- c(
 	"buried", "chem_type_name",
 	paste("#(Sat) ", z[!(z %in% c("buried", "chem_type_name"))], collapse=""))
 
-p_sat_wide <- cast(p_sat, buried + chem_type_name ~ sample_source, value.var=p_sat, value="p_sat")
+p_sat_wide <- dcast(p_sat, buried + chem_type_name ~ sample_source, value.var=p_sat, value="p_sat")
 z <- names(p_sat_wide)
 names(p_sat_wide) <- c(
 	"buried", "chem_type_name",

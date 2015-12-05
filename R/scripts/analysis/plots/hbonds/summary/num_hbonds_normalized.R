@@ -8,11 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
-
+library(reshape2)
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -38,7 +35,7 @@ do_analysis <- function(group_sele, bond_sele, id, title){
 
 	table_id <- paste(id, "group_counts", sep="_")
 	table_title <- paste(title, "Group Counts", sep="\n")
-	wide_group_counts <- cast(group_counts, sample_source ~ chem_type, value="count")
+	wide_group_counts <- dcast(group_counts, sample_source ~ chem_type, value="count")
 	save_tables( self,
 		wide_group_counts, table_id,
 		sample_sources, output_dir, output_formats,
@@ -51,7 +48,7 @@ do_analysis <- function(group_sele, bond_sele, id, title){
 
 	table_id <- paste(id, "bond_counts", sep="_")
 	table_title <- paste(title, "Bond Counts", sep="\n")
-	wide_bond_counts <- cast(
+	wide_bond_counts <- dcast(
 		bond_counts, sample_source + don_chem_type ~ acc_chem_type, value="count")
 	save_tables( self,
 		wide_bond_counts, table_id,
@@ -91,7 +88,7 @@ do_analysis <- function(group_sele, bond_sele, id, title){
 		sample_sources, output_dir, output_formats,
 		caption=title, caption.placement="top")
 
-	wide_p_score <- cast(p_score, sample_source + don_chem_type ~ acc_chem_type, value="p_score")
+	wide_p_score <- dcast(p_score, sample_source + don_chem_type ~ acc_chem_type, value="p_score")
 	table_id <- id
 	save_tables( self,
 		wide_p_score, table_id,

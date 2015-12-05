@@ -107,7 +107,7 @@ plot_each_ss <- function(sub_f){
 
 }
 
-runtime <- system.time(d_ply(f, .(sample_source), .fun=plot_each_ss))
+runtime <- system.time(plyr::d_ply(f, c("sample_source"), plot_each_ss))
 print(paste("Plot Generation Time: ", runtime, sep=""))
 
 

@@ -7,12 +7,9 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+library(reshape2)
 library(ggplot2)
-
-
 library(plyr)
-
-
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -71,7 +68,7 @@ p_sat <- ddply(f, .(chem_type_name, buried, sample_source), function(df){
 	data.frame(
 		p_sat = sum(df[df$satisfied == "Sat", "count"])/sum(df$count))
 })
-p_sat_wide <- cast(p_sat, buried + chem_type_name ~ sample_source, value.var=p_sat, value="p_sat")
+p_sat_wide <- dcast(p_sat, buried + chem_type_name ~ sample_source, value.var=p_sat, value="p_sat")
 save_tables(self, p_sat_wide, table_id, sample_sources, output_dir, output_formats)
 
 
