@@ -14,8 +14,7 @@ library(plyr)
 
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
-id = "ramachandran_by_residue_type_and_secondary_structure_tight_kenrel",
-filename = "scripts/analysis/plots/backbone_geometry/ramachandran_by_residue_type_and_secondary_structure_tight_kernel.R",
+id = "ramachandran_by_residue_type_and_secondary_structure_tight_kernel",
 author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("ResidueFeatures", "ProteinBackboneTorsionAngleFeatures", "ResidueSecondaryStructureFeatures", "PdbDataFeatures"),
@@ -60,7 +59,7 @@ plot_parts <- list(
 		legend.direction="horizontal",
 		panel.grid.major=element_blank(),
 		panel.grid.minor=element_blank(),
-		panel.background=theme_rect(fill="#00007F")))
+		panel.background=element_rect(fill="#00007F")))
 
 narrow_output_formats <- transform(output_formats, width=height)
 

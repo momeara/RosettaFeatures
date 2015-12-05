@@ -139,12 +139,11 @@ f <- query_sample_sources(sample_sources, sele)
 sele <- "
 DROP TABLE max_residue_bfactors;
 DROP TABLE sc_hbond_card;
-DROP TABLE arg_clx_hbonds;
-DROP TABLE arg_clx_hbond_temps;"
+DROP TABLE arg_cxl_hbonds;
+DROP TABLE arg_cxl_hbond_temps;"
 query_sample_sources(sample_sources, sele, warn_zero_rows=F)
 
 
-write.csv(f, "arg_cxl_salt_bridges_examples.csv")
 
 # PRESERVE THIS
 #SELECT

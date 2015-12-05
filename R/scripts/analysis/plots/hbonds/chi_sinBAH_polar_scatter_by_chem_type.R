@@ -48,7 +48,7 @@ d_ply(sample_sources, .variables=("sample_source"), function(sample_source){
 
   plot_id = paste("hbond_sinBAH_eq_polar_scatter_by_chem_type", ss, sep="_")
   ggplot(data=f) + theme_bw() +
-		polar_equal_area_grids_bw(box_bgcolor="#00007F") +
+		polar_equal_area_grids_bw() +
     geom_point(aes(x=capx, y=capy), size=.5) +
 		#stat_density2d(aes(x=capx, y=capy), size=.2) +
 		facet_grid(acc_chem_type_name ~ don_chem_type_name) +
@@ -64,7 +64,7 @@ d_ply(sample_sources, .variables=("sample_source"), function(sample_source){
 		acc_chem_type_name <- as.character(df$acc_chem_type_name[1])
 	  plot_id = paste("hbond_sinBAH_eq_polar_scatter", don_chem_type, acc_chem_type, ss, sep="_")
 	  ggplot(data=df) + theme_bw() +
-			polar_equal_area_grids_bw(bgcolor="#00007F") +
+			polar_equal_area_grids_bw() +
 	    geom_point(aes(x=capx, y=capy), size=.5) +
 			#stat_density2d(aes(x=capx, y=capy), size=.2) +
 	    ggtitle(paste("Hydrogen Bonds chi vs sinBAH Angles by ", don_chem_type_name, ", ", acc_chem_type_name, "\nEqual Coordinate Projection   Sample Source: ", ss, sep="")) +

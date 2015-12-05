@@ -8,11 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(mixtools)
-
-
 library(ggthemes)
-
-
 library(ggplot2)
 
 

@@ -55,7 +55,7 @@ estimate_density_1d <-function(
       weights <- weight_fun(factor_df[,variable])
       if(histogram){
         breaks = seq(from=sample_domain[1], to=sample_domain[2], length=n_pts)
-        d <- weighted.hist(x=factor_df[,variable], w=weights, breaks=breaks, plot=FALSE)
+        d <- plotrix::weighted.hist(x=factor_df[,variable], w=weights, breaks=breaks, plot=FALSE)
         return(data.frame(x=d$mids, y=d$density, counts=nrow(factor_df)))
       } else {
 				#TODO general_kernel_adjust should be able to be set from the configuration file
@@ -245,7 +245,7 @@ estimate_density_1d_logspline <-function(
     } else {
       if(!is.null(weight_fun)){
         values_transformed <- weight_fun(factor_df[,variable])
-        lgs <- logspline(
+        lgs <- logspline::logspline(
           values_transformed,
           lbound=xlim_transformed[1],
           ubound=xlim_transformed[2])
@@ -253,7 +253,7 @@ estimate_density_1d_logspline <-function(
           from=xlim_transformed[1],
           to=xlim_transformed[2],
           length.out=n_pts)
-        y <- dlogspline(x_transformed, lgs)
+        y <- dlogspline::dlogspline(x_transformed, lgs)
         x <- seq(from=xlim[1], to=xlim[2], length.out=n_pts)
 
       } else {

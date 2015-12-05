@@ -101,7 +101,7 @@ d_ply(f, .(sample_source), function(sub_f){
 	dens <- estimate_density_2d(
 		sub_f, c("don_dssp"), "capx", "capy", n_pts=500, scaled=T)
 
-	ggplot(data=dens) + plot_parts() +
+	ggplot(data=dens) + plot_parts +
 		facet_wrap(~don_dssp) +
 		ggtitle(
 			paste("Backbone Backbone Hydrogen Bonds AHchi vs AHD Angles\n",

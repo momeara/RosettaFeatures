@@ -8,8 +8,6 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
 
 
@@ -58,7 +56,7 @@ plot_parts <- list(
 		legend.direction="horizontal",
 		panel.grid.major=element_blank(),
 		panel.grid.minor=element_blank(),
-		panel.background=theme_rect(fill="#00007F")))
+		panel.background=element_rect(fill="#00007F")))
 
 narrow_output_formats <- transform(output_formats, width=height)
 

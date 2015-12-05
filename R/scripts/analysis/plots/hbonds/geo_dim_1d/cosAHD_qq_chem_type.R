@@ -47,10 +47,10 @@ qs <- compute_quantiles(
 
 qs.ref <- qs[qs$sample_source == ss_id.ref,]
 names(qs.ref) <- c(
-	"sample_source.ref", "don_chem_type", "acc_chem_type", "probs", "quantiles.ref")
+	"sample_source.ref", "don_chem_type", "acc_chem_type", "probs", "quantiles.ref", "counts.ref")
 qs.new <- qs[qs$sample_source != ss_id.ref,]
 names(qs.new) <- c(
-	"sample_source.new", "don_chem_type", "acc_chem_type", "probs", "quantiles.new")
+	"sample_source.new", "don_chem_type", "acc_chem_type", "probs", "quantiles.new", "counts.new")
 qs.merged <- merge(qs.ref, qs.new)
 qs.merged$don_chem_type_name <- don_chem_type_name_linear(qs.merged$don_chem_type)
 qs.merged$acc_chem_type_name <- acc_chem_type_name_linear(qs.merged$acc_chem_type)

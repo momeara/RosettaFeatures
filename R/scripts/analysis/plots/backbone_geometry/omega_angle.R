@@ -8,7 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
+library(plyr)
+library(dplyr)
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "omega_angle",
@@ -36,12 +37,14 @@ WHERE
 	ss.struct_id = res.struct_id AND ss.resNum == res.resNum AND
 	bb.struct_id = res.struct_id AND bb.resNum == res.resNum;"
 
-f <- query_sample_sources(sample_sources, sele)
+f <- query_sample_sources(sample_sources, sele) %>%
+	mutate(
+		omega_180 = ifelse(omega < 0, omega + 360, omega))
 
-f$omega_180 <- ifelse(f$omega < 0, f$omega + 360, f$omega)
 
-dens <- estimate_density_1d(f[f$isomerization == 'trans',],
-	c("sample_source"), "omega_180")
+dens <- f %>%
+	filter(isomerization == 'trans') %>%
+	estimate_density_1d(c("sample_source"), "omega_180")
 
 plot_id <- "backbone_geometry_omega_angle_trans"
 p <- ggplot(dens) + theme_bw() +
@@ -58,16 +61,19 @@ if(nrow(sample_sources) <= 3){
 }
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
-
-dens <- estimate_density_1d(f[f$isomerization == 'cis',],
-	c("sample_source"), "omega")
+dens <- f %>%
+	filter(isomerization == 'cis') %>%
+	estimate_density_1d(c("sample_source"), "omega_180")
 
 plot_id <- "backbone_geometry_omega_angle_cis"
 p <- ggplot(dens) + theme_bw() +
 	geom_line(aes(x, y, colour=sample_source), size=2) +
 	ggtitle("Cis Omega Angle; B-Factor < 30") +
 	geom_vline(x=0) +
-        scale_x_continuous("Omega Angle (degrees)", limit=c(-30,30), breaks=c(-30, -20, -10, 0, 10, 20, 30)) +
+	scale_x_continuous(
+		"Omega Angle (degrees)",
+		limit=c(-30,30),
+		breaks=c(-30, -20, -10, 0, 10, 20, 30)) +
 	scale_y_continuous("Feature Density")
 if(nrow(sample_sources) <= 3){
 	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
@@ -77,7 +83,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 z <- as.data.frame(xtabs(~sample_source + isomerization, f))
 plot_id <- "backbone_geometry_omega_angle_isomerization"
-p <- ggplot(f) + theme_bw() +
+p <- ggplot(z) + theme_bw() +
 	stat_bin(aes(x=isomerization, fill=sample_source), position="dodge") +
 	ggtitle("Omega Angle Trans/Cis Isomerization Ratio; B-factor < 30") +
 	scale_y_continuous("Counts") +

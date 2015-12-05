@@ -21,7 +21,7 @@ load_config_file <- function(config_filename, verbose=F){
 		return(configuration)
 	}, error=function(e){
 		cat(
-			"ERROR: Unable to parse configuration file '", config_filename, "'\n",
+			"ERROR: Unable to parse configuration file '", as.character(config_filename), "'\n",
 			"failed with the following error:\n",
 			e, sep="")
 	})
@@ -136,7 +136,7 @@ Each sample source needs at least a database_path, id, and reference fields. Thi
 				con
 			})
 	}
-	
+
 	configuration$sample_sources <- sample_sources
 	configuration
 }
@@ -252,10 +252,8 @@ parse_analysis_scripts <- function(configuration, verbose=F){
 
 		# assign the filename to each feature analysis
 		num_new_feature_analyses = length(feature_analyses) - num_feature_analyses_before
-		for(feature_analysis in
-			feature_analyses[
-				seq(num_feature_analyses_before+1, length.out=num_new_feature_analyses)]) {
-			feature_analysis@filename <- analysis_script
+		for(i in seq(num_feature_analyses_before+1, length.out=num_new_feature_analyses)){
+			feature_analyses[i][[1]]@filename <- analysis_script
 		}
 		num_feature_analyses_before <- length(feature_analyses)
 	}
@@ -290,7 +288,8 @@ compare_sample_sources <- function(
 
 	if(!dry_run){
 		for(features_analysis in feature_analyses){
-			cat(paste("Features Analysis: ", features_analysis@id, "\n", sep=""))
+			cat(paste0("Features Analysis: ", features_analysis@id, "\n"))
+			cat(paste0("Script path: ", features_analysis@filename, "\n"))
 
 			tryCatch({
 				features_analysis@run(

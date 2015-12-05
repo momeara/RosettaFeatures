@@ -8,11 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
-
+library(dplyr)
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -21,8 +18,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("StructureFeatures", "HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
-
 
 sele <-"
 SELECT
@@ -62,48 +57,32 @@ WHERE
 	don_pdb.heavy_atom_temperature < 20 AND acc_pdb.heavy_atom_temperature < 20;"
 f <- query_sample_sources(sample_sources, sele)
 
-f$don_chem_type_name <- don_chem_type_name_wrap(f$don_chem_type)
-f$acc_chem_type_name <- acc_chem_type_name_wrap(f$acc_chem_type)
-f <- na.omit(f, method="r")
+f <- f %>%
+	mutate(
+		don_chem_type_name = don_chem_type_name_wrap(don_chem_type),
+		acc_chem_type_name = acc_chem_type_name_wrap(acc_chem_type)) %>%
+	na.omit(method="r") %>%
+	mutate(
+		acc_rank = factor(acc_rank)) %>%
+	filter(
+		!is.na(don_chem_type_name),
+		!is.na(acc_chem_type_name)) %>%
+	mutate(
+		orbital = ifelse(chi < pi/2 & chi > -pi/2, "anti", "syn") %>% factor,
+		seq_sep = ifelse(abs(seq_sep) <= 5, seq_sep, factor("long_range")),
+		AHchi = vector_dihedral(
+			cbind(abx, aby, abz), cbind(ax, ay, az),
+			cbind(hx, hy, hz), cbind(dx, dy, dz)),
+		capx = 2*sin(acos(cosAHD)/2)*cos(AHchi),
+		capy = 2*sin(acos(cosAHD)/2)*sin(AHchi))
 
-f$acc_rank <- factor(f$acc_rank)
-
-f <- f[ !is.na(f$don_chem_type_name) & !is.na(f$acc_chem_type_name) ]
-
-f$orbital <- factor(ifelse(f$chi < pi/2 & f$chi > -pi/2, "anti", "syn"))
-f[ abs(f$seq_sep) > 5, "seq_sep"] = factor("long_range")
-
-f <- transform(f,
-	AHchi = vector_dihedral(
-		cbind(abx, aby, abz), cbind(ax, ay, az),
-		cbind(hx, hy, hz), cbind(dx, dy, dz)))
-
-#write.table(
-#	f[acos(f$cosAHD)*180/pi > 20 & f$AHchi > pi/2 & f$AHchi < pi*3/4,
-#		c("tag","don_chain","don_resNum", "don_iCode",
-#			"acc_chain", "acc_resNum", "acc_iCode")],
-#	file="/tmp/instance.csv", quote=FALSE, sep=",")
-
-write.table( with(f,
-	f[orbital=="anti" & seq_sep==4 & don_chem_type == "dGDH: r" &
-		acc_chem_type == "aCXL: d,e",
-		c("tag","don_chain","don_resNum", "don_iCode",
-			"acc_chain", "acc_resNum", "acc_iCode") ]),
-	file="/tmp/instances.csv", quote=FALSE, sep=",")
-
-#equal area projection
-f <- transform(f,
-	capx = 2*sin(acos(cosAHD)/2)*cos(AHchi),
-	capy = 2*sin(acos(cosAHD)/2)*sin(AHchi))
-
-capx_limits <- c(-1.5,1.5)
-capy_limits <- capx_limits
+capx_limits <- capy_limits <- c(-1.5,1.5)
 
 plot_parts <- list(
 	theme_bw(),
 	stat_density2d(
 		aes(x=capx,y=capy, fill=log(..density..+1)), geom="tile", contour=FALSE),
-	polar_equal_area_grids_bw(bgcolor="#00007F"),
+	polar_equal_area_grids_bw(),
 	geom_indicator(aes(indicator=counts), color="white", group=1),
 	scale_x_continuous("", limits=capx_limits, breaks=c(-1, 0, 1)),
 	scale_y_continuous("", limits=capy_limits, breaks=c(-1, 0, 1)),
