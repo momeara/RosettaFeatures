@@ -180,7 +180,7 @@ ggsave_with_footer <- function (
 		filename <- file.path(path, filename)
 	}
 	device(file = filename, width = width, height = height, ...)
-	on.exit(capture.output(dev.off()))
+	on.exit(capture.output(grDevices::dev.off()))
 	print(plot, keep = keep, drop = drop)
 	add_footer_text(footer_text)
 	invisible()

@@ -10,6 +10,7 @@
 library(ggplot2)
 library(plyr)
 library(dplyr)
+library(stats)
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "omega_angle",
@@ -81,9 +82,10 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 
 z <- as.data.frame(xtabs(~sample_source + isomerization, f))
+print(summary(z))
 plot_id <- "backbone_geometry_omega_angle_isomerization"
 p <- ggplot(z) + theme_bw() +
-	stat_bin(aes(x=isomerization, fill=sample_source), position="dodge") +
+	stat_bar(aes(x=isomerization, y=Freq, fill=sample_source), position="dodge") +
 	ggtitle("Omega Angle Trans/Cis Isomerization Ratio; B-factor < 30") +
 	scale_y_continuous("Counts") +
 	scale_x_discrete("Isomerization") +

@@ -147,7 +147,7 @@ finalize_sample_sources <- function(configuration, verbose=T){
 			cat("Closing connection to database for sample source '", ss$id, "' ... \n", sep="")
 		}
 		tryCatch({
-			DBI::dbDisconnect(ss$con)
+			DBI::dbDisconnect(ss$con[[1]])
 		}, error=function(e){
 			cat("ERROR: unable to close database connection to sample source '", ss$id, "' with error:\n", e, sep="")
 		})
@@ -177,7 +177,7 @@ initialize_analysis_scripts <- function(configuration, verbose=F){
 		configuration$analysis_scripts,
 		function(analysis_script){
 		# parse all the analysis scripts
-		if(file.exists(normalizePath(analysis_script, mustWork=F))){
+	if(file.exists(normalizePath(analysis_script, mustWork=F))){
 				analysis_script <- normalizePath(analysis_script, mustWork=T)
 		} else if(file.exists(paste(package_scripts_base, analysis_script, sep="/"))){
 				analysis_script <- paste(package_scripts_base, analysis_script, sep="/")
@@ -358,14 +358,14 @@ time /mnt/nfs/home/momeara/opt/bin/Rscript --default-packages=methods,utils anal
 # It loads the RosettaFeatures package and executes the features analysis
 
 # load the packages that normally are loaded when R starts
-#library(grid)
-#library(stats)
-#library(graphics)
-#library(grDevices)
-#library(utils)
-#library(datasets)
-#library(methods)
-#library(base)
+library(grid)
+library(stats)
+library(graphics)
+library(grDevices)
+library(utils)
+library(datasets)
+library(methods)
+library(base)
 
 library(RosettaFeatures)
 
