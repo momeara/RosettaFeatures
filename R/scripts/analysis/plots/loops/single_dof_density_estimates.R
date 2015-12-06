@@ -13,7 +13,7 @@ library(ggplot2)
 library(plyr)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "single_dof_density_estimates",
 filename = "scripts/analysis/plots/loops/single_dof_density_estimates.R",
 author = "Brian D. Weitzner",

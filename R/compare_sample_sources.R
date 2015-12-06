@@ -347,7 +347,7 @@ cd jobs/$TASK_INPUT
 echo \"In run_job.sh\" &> log
 echo \"  SGE_TASK_ID: ${SGE_TASK_ID}\" &> log
 echo \"  pwd: $(pwd)\" &> log
-time Rscript analyze_features.R &> log
+time /mnt/nfs/home/momeara/opt/bin/Rscript --default-packages=methods,utils analyze_features.R &> log
 ")
 
 	features_analysis.R <- "#!/usr/bin/env Rscript
@@ -357,10 +357,17 @@ time Rscript analyze_features.R &> log
 #
 # It loads the RosettaFeatures package and executes the features analysis
 
-#library(RosettaFeatures)
-cwd <- getwd()
-devtools::load_all(\"~/work/collaborations/rosetta/RosettaFeatures\")
-setwd(cwd)
+# load the packages that normally are loaded when R starts
+#library(grid)
+#library(stats)
+#library(graphics)
+#library(grDevices)
+#library(utils)
+#library(datasets)
+#library(methods)
+#library(base)
+
+library(RosettaFeatures)
 
 compare_sample_sources(
 	\"analysis_configuration.json\",
@@ -384,6 +391,6 @@ compare_sample_sources(
 			cat(file=paste(job_base_dir, "analysis_configuration.json", sep="/"))
 	}
 
-	cat("\nTo run benchmark on Sun Grid Engine\n\n  cd ", run_base, " && bash submit.sh\n")
+	cat("\nTo run benchmark on Sun Grid Engine\n\n  cd ", run_base, " && bash submit.sh\n", sep="")
 }
 

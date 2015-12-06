@@ -13,7 +13,7 @@ library(ggplot2)
 library(plyr)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "ramachandran_by_residue_type_and_secondary_structure",
 filename = "scripts/analysis/plots/backbone_geometry/ramachandran_by_residue_type_and_secondary_structure.R",
 author = "Matthew O'Meara",

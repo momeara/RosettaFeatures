@@ -10,7 +10,7 @@
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "pi_pi_hist_ScOrbCpi_Haro_by_angle",
 author = "Matthew O'Meara, Steven Combs",
 brief_description = "",

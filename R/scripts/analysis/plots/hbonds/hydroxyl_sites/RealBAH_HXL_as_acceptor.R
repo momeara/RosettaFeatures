@@ -10,7 +10,7 @@
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "RealBAH_HXL_as_acceptor.R",
 author = "Andrew Leaver-Fay",
 brief_description = "Measure the angle of the tyrosine, serine, and threonine BAH angle -- where the base is the heavy-atom base of the hydroxyl oxygen -- when acting as an acceptor",

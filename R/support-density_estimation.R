@@ -63,7 +63,7 @@ estimate_density_1d <-function(
 				#TODO general_kernel_adjust should be able to be set from the configuration file
 				#adjust <- adjust * general_kernel_adjust
 				tryCatch({
-	        d <- do.call(density,
+	        d <- do.call(stats::density,
 						c(list(x=factor_df[,variable], from=sample_domain[1], to=sample_domain[2], n=n_pts,
 	          weights=weights, bw=bw, adjust=adjust), density.args))
 	          return(data.frame(x=d$x, y=d$y, counts=nrow(factor_df)))
@@ -122,7 +122,7 @@ estimate_density_1d_wrap <-function(
       return( data.frame(x=seq(xlim[1], xlim[2], length.out=n_pts), y=0))
     } else {
       weights <- weight_fun(factor_df[,variable])
-			d <- do.call(density,
+			d <- do.call(density::density,
 				c(list(x=factor_df[,variable], from=xlim[1], to=xlim[2], n=extended_n_pts,
 					weights=weights, bw=bw, adjust=adjust), density.args))
       return(data.frame(
@@ -220,7 +220,7 @@ estimate_density_1d_reflect_boundary <-function(
 				return(data.frame(x=seq(left_boundary, right_boundary, length.out=n_pts), y=0, counts=nrow(factor_df)))
     } else {
       weights <- weight_fun(factor_df[,variable])
-			d <- density(
+			d <- stats::density(
 				x=factor_df$covering_variable,
 				adjust=adjust,
 				weights=weights,
@@ -335,14 +335,14 @@ estimate_density_2d <-function(
 	if(!(yvariable %in% names(data))){
 		stop(paste("The value variable '", yvariable, "' is not a column name of the data. The xvariable and yvariable are used to compute the density estimation.", sep=""))
 	}
-	dens <- ddply(
+	dens <- plyr::ddply(
 		.data=data,
 		.variables=ids,
 		.fun=function(df){
 		if(verbose){
 			print(paste(
 					"Estimating density 2d: ",
-					paste(llply(df[1,ids], as.character), collapse=", "), " for '", nrow(df), "' instances.", sep=""))
+					paste(plyr::llply(df[1,ids], as.character), collapse=", "), " for '", nrow(df), "' instances.", sep=""))
 		}
 	  if (nrow(df) < min_count){
       return(data.frame(x=NULL, y=NULL, z=NULL, counts=NULL))

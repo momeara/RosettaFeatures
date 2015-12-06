@@ -11,7 +11,7 @@ library(reshape2)
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "dssp_content",
 author = "Matthew O'Meara",
 brief_description = "",

@@ -10,7 +10,7 @@
 library(ggplot2)
 library(plyr)
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "anchor_transform_correlation",
 filename = "scripts/analysis/plots/loops/anchor_transform_correlation.R",
 author = "Brian D. Weitzner",

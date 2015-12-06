@@ -12,7 +12,7 @@ library(ggplot2)
 
 source("../hbonds/hbond_geo_dim_scales.R")
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "charge_charge_energies",
 author = "Matthew O'Meara",
 brief_description = "",

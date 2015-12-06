@@ -10,7 +10,7 @@
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "cation_pi_heatmap_scOrbCpi_Hpol_by_angle_dist",
 author = "Matthew O'Meara, Steven Combs",
 brief_description = "",

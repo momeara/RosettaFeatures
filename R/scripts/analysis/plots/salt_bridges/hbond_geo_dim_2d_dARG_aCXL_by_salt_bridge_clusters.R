@@ -14,7 +14,7 @@ source("salt_bridge_clusters.R")
 
 source("../hbonds/hbond_geo_dim_scales.R")
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "hbond_geo_dim_2d_dARG_aCXL_by_salt_bridge_clsuters",
 author = "Matthew O'Meara",
 brief_description = "",

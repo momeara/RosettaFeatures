@@ -30,7 +30,9 @@ save_trees <- function(
 	verbose=FALSE,
 	...
 ) {
-	library(ape)
+  if (!requireNamespace("ape", quietly = TRUE)) {
+		stop("The package 'earthmovedist' needed for this function to work. Please install it.", call. = FALSE)
+	}
 
 	extra_args <- list(...)
 
@@ -82,7 +84,7 @@ save_trees <- function(
 			"because no output formats were specified.", sep=""))
 	}
 
-	a_ply(tree_formats, 1, function(fmt){
+	plyr::a_ply(tree_formats, 1, function(fmt){
 		full_output_dir <- file.path(output_dir, features_analysis@id, fmt$id)
 		if(!file.exists(full_output_dir)){
 			dir.create(full_output_dir, recursive=TRUE)
@@ -94,7 +96,7 @@ save_trees <- function(
 		cat("Saving Tree with extension ", extension, ": ", full_path, sep="")
 		timing <- system.time({
 			tryCatch({
-				trees <- llply(distance_matrix, function(dm){
+				trees <- plyr::llply(distance_matrix, function(dm){
 					if(verbose){
 						print(names(dm))
 					}

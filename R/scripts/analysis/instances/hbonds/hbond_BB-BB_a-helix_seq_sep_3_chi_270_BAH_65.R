@@ -10,7 +10,7 @@
 library(reshape2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "hbond_BB-BB_a-helix_seq_sep_3_chi_270_BAH_65",
 author = "Matthew O'Meara",
 brief_description = "",

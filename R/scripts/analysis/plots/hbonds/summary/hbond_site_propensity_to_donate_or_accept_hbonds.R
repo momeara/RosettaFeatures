@@ -12,7 +12,7 @@ library(ggplot2)
 library(plyr)
 source("../hbond_geo_dim_scales.R")
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "hbond_site_propensity_to_donate_or_accept_hbonds",
 author = "Matthew O'Meara",
 brief_description = "",

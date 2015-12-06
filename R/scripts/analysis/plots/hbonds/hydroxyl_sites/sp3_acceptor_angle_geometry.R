@@ -13,7 +13,7 @@ library(ggplot2)
 library(plyr)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "sp3_acceptor_angle_geometry",
 author = "Matthew O'Meara",
 brief_description = "",

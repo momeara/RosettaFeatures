@@ -10,7 +10,7 @@
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "angle_kernels",
 author = "Matthew O'Meara",
 brief_description = "Compare the effects of kernel on estimating the angular projection of a 3d distribution",

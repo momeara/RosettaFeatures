@@ -10,7 +10,7 @@
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "SSDists_Helix_gt2bonds",
 author = "Andrew Leaver-Fay",
 brief_description = "",

@@ -11,7 +11,7 @@
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "salt_bridge_geo_dim_1d",
 author = "Matthew O'Meara",
 brief_description = "",

@@ -12,7 +12,7 @@ library(plyr)
 library(dplyr)
 source("../hbond_geo_dim_scales.R")
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "sp2_BAH_chi_polar_density_by_seq_sep_dssp",
 author = "Matthew O'Meara",
 brief_description = "",

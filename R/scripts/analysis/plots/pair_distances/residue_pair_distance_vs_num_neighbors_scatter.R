@@ -10,7 +10,7 @@
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "residue_pair_distance_vs_num_neighbors",
 author = "Matthew O'Meara",
 brief_description = "",

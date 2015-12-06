@@ -10,7 +10,7 @@
 library(reshape2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "hbond_AHD_pole",
 author = "Matthew O'Meara",
 brief_description = "",

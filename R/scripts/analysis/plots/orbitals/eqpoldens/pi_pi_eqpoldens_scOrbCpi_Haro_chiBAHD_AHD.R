@@ -11,7 +11,7 @@
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "pi_pi_eqpoldens_scOrbCpi_Haro_chiBAHD_cosAHD",
 author = "Matthew O'Meara, Steven Combs",
 brief_description = "",

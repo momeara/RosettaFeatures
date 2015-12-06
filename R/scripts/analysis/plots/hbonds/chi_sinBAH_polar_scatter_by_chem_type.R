@@ -11,7 +11,7 @@ library(ggplot2)
 library(plyr)
 source("hbond_geo_dim_scales.R")
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "chi_sinBAH_polar_scatter_by_chem_type",
 author = "Matthew O'Meara",
 brief_description = "",

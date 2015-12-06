@@ -12,7 +12,7 @@ library(ggthemes)
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "tau_angles",
 filename = "scripts/analysis/plots/loops/tau_angles.R",
 author = "Brian D. Weitzner",

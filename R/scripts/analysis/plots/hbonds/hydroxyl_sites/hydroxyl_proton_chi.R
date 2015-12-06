@@ -11,7 +11,7 @@ library(ggplot2)
 library(plyr)
 library(dplyr)
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "hydroxyl_proton_chi",
 author = "Matthew O'Meara",
 brief_description = "Measure the angle of the dihedral angle of the hydroxyl hydrogen and the best hydrogen bonded hydrogen relative to the plane of the aromatic ring for tyrosine amino acid types or BB atom for serine and theonine",

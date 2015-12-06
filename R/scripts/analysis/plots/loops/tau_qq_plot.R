@@ -10,7 +10,7 @@
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "tau_qq_plot",
 filename = "scripts/analysis/plots/loops/tau_qq_plot.R",
 author = "Brian D. Weitzner",

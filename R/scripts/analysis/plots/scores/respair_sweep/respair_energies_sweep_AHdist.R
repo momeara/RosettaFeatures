@@ -13,7 +13,7 @@ library(ggplot2)
 library(plyr)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "respair_energies_sweep_AHdist",
 author = "Andrew Leaver-Fay",
 brief_description = "This is a script to plot the inter-residue energies achieved by scanning through distances separating an acceptor on one residue and a donor hydrogen on another residue.  The schema used for the database in this defined in the pilot app sweep_respair_energies",

@@ -11,7 +11,7 @@ library(ggplot2)
 library(plyr)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "rama_not_helix_tight_kenrel",
 filename = "scripts/analysis/plots/backbone_geometry/rama_not_helix_tight_kernel.R",
 author = "Matthew O'Meara",

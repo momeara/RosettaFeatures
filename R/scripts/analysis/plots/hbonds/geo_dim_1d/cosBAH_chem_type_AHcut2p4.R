@@ -10,7 +10,7 @@
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "cosBAH_chem_type_AHcut2p4",
 author = "Matthew O'Meara",
 brief_description = "",

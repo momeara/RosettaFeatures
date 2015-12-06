@@ -12,7 +12,7 @@ library(ggplot2)
 library(plyr)
 library(dplyr)
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "score_vs_rmsd",
 author = "Matthew O'Meara",
 brief_description = "",

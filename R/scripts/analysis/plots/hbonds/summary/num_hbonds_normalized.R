@@ -12,7 +12,7 @@ library(plyr)
 library(reshape2)
 source("../hbond_geo_dim_scales.R")
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "num_hbonds_normalized",
 author = "Matthew O'Meara",
 brief_description = "Count the number of hydrogen bonds formed conditional on the donor and acceptor chemical types.",

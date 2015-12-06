@@ -12,7 +12,7 @@ library(ggplot2)
 
 source("../hbond_geo_dim_scales.R")
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "AHdist_by_resolution",
 author = "Matthew O'Meara",
 brief_description = "This measures the H-Bond A-H distance conditional on the resolution. Note that currently there is no features reporter for resolution so it must be included after the fact.",

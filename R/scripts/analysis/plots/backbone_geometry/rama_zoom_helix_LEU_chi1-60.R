@@ -13,7 +13,7 @@ library(ggplot2)
 library(plyr)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "rama_zoom_helix_LEU_chi1-60",
 author = "Matthew O'Meara",
 brief_description = "Ramachandran plots conditional on the first sidechain torsional angle for LEU when chi1 is in the -60 degree bin",

@@ -10,7 +10,7 @@
 library(ggplot2)
 library(plyr)
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "hbond_AHdist_cosAHD_regression",
 author = "Matthew O'Meara",
 brief_description = "",

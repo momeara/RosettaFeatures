@@ -10,7 +10,7 @@
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "cation_pi_eqpoldens_scOrbCpi_scOrbNpi_chiBAOH_cosAOH",
 filename = "chiBAOH_cosAOH_eqpoldens_cation_pi_cpisp2.R",
 author = "Matthew O'Meara, Steven Combs",

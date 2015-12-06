@@ -13,7 +13,7 @@ library(ggplot2)
 library(plyr)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "hbond_backbone_correlation",
 author = "Matthew O'Meara",
 brief_description = "This script addresses the question: Are the hydrogen bond geometries on either side of the backbone correlated?",

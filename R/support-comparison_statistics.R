@@ -144,7 +144,6 @@ earth_mover_distance_L1 <- function(a, b){
 		stop("The package 'earthmovedist' needed for this function to work. Please install it.", call. = FALSE)
 	}
 
-
 	a <- sample(a, 5000, replace=T)
 	b <- sample(b, 5000, replace=T)
 

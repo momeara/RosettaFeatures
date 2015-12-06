@@ -12,7 +12,7 @@ library(plyr)
 
 source("../../plots/hbonds/hbond_geo_dim_scales.R")
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "BAH_chem_type_solvent_exposure_comparison",
 author = "Matthew O'Meara",
 brief_description = "",

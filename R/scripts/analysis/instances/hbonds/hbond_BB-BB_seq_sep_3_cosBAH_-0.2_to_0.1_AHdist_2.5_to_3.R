@@ -10,7 +10,7 @@
 library(reshape2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "hbond_BB-BB_seq_sep_3_cosBAH_-0.2_to_0.1_AHdist_2.5_to_3",
 author = "Matthew O'Meara",
 brief_description = "",

@@ -13,7 +13,7 @@ library(dplyr)
 
 source("../hbonds/hbond_geo_dim_scales.R")
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "helical_i_p3",
 author = "Matthew O'Meara",
 brief_description = "",

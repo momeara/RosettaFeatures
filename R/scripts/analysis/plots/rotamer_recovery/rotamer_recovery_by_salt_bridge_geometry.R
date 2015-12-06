@@ -9,7 +9,7 @@
 
 library(reshape2)
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "rotamer_recovery_by_salt_bridge_geometry",
 author = "Matthew O'Meara",
 brief_description = "",

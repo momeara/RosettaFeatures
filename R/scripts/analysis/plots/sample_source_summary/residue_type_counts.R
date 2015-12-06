@@ -11,7 +11,7 @@ library(reshape2)
 library(ggplot2)
 
 
-feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
+feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "residue_type_counts",
 author = "Matthew O'Meara",
 brief_description = "",
