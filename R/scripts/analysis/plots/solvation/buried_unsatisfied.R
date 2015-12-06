@@ -37,7 +37,7 @@ f <- na.omit(f, method="r")
 
 print(summary(f))
 
-f <- reshape2::melt(f, id.vars=c("sample_source", "chem_type"), variable_name="probe_radius")
+f <- reshape2::melt(f, id.vars=c("sample_source", "chem_type"), value.name="probe_radius")
 names(f) <- c("sample_source", "chem_type", "probe_radius", "counts")
 
 plot_id <- "hb_unsat"
@@ -46,7 +46,7 @@ ggplot(f) + theme_bw() +
   facet_grid(chem_type ~ probe_radius) +
   ggtitle("Number of Buried Unsatisfied Hydrogen Bond Sites for Different Probe Radii") +
   coord_flip() +
-	theme(strip.text.y=theme_text(size=7)) +
+	theme(strip.text.y=element_text(size=7)) +
 	theme(legend.position="none")
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 

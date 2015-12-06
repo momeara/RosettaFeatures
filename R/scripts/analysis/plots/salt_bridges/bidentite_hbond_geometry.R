@@ -20,7 +20,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 problem_region <- data.frame(xmin=-121, xmax=-115)
 
 sele <-paste("
-CREATE TABLE IF NOT EXISTS CXL_ARG_salt_bridges AS SELECT
+CREATE TEMPORARY TABLE IF NOT EXISTS CXL_ARG_salt_bridges AS SELECT
 	struct.tag AS tag,
 	sb.struct_id AS struct_id,
 	sb.don_resNum AS don_residue_number,

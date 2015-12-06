@@ -8,11 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
-
+library(viridis)
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",

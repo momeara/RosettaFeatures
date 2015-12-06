@@ -68,7 +68,6 @@ plot_each_ss <- function(sub_f){
 	ss <- sample_sources[sample_sources$sample_source == ss_id,]
 
 	print(ss_id)
-	print(ss)
 
 	plot_id <- set_plot_id("cosBAH", "AHdist", ss_id)
 	ggplot(data=sub_f, aes(x=cosBAH, y=AHdist)) + plot_parts +

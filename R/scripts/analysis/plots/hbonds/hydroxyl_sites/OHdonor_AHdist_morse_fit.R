@@ -22,7 +22,10 @@ run=function(self, sample_sources, output_dir, output_formats){
 extract_transform_features <- function(sample_sources){
 	sele <-"
 SELECT
-	geom.AHdist
+	geom.AHdist,
+	geom.cosBAH,
+	geom.cosAHD,
+	geom.chi
 FROM
 	hbond_geom_coords AS geom,
 	hbonds AS hb,

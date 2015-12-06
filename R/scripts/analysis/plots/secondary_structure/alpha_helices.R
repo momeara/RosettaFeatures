@@ -86,7 +86,7 @@ p <- ggplot(data=dens) + theme_bw() +
 	ggtitle("Backbone-Backbone H-Bonds A-H Distance by Alpha Type\nB-Factor < 30 normalized for equal weight per unit distance") +
 	scale_y_continuous("FeatureDensity", limits=c(0,6), breaks=c(1,3,5)) +
 	scale_x_continuous(expression(paste('Acceptor -- Proton Distance (', ring(A), ')')), limits=c(1.4,2.7), breaks=c(1.6, 1.9, 2.2, 2.6)) +
-	scale_colours_discrete("Alpha Type")
+	scale_colour_discrete("Alpha Type")
 
 if(nrow(sample_sources) <= 3){
 	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
@@ -103,7 +103,7 @@ p <- ggplot(data=dens) + theme_bw() +
 	ggtitle("Backbone-Backbone H-Bonds A-H Distance by Alpha Type\nB-Factor < 30 normalized for equal weight per unit distance") +
 	scale_y_continuous("FeatureDensity", limits=c(0,6), breaks=c(1,3,5)) +
 	scale_x_continuous(expression(paste('Acceptor -- Proton Distance (', ring(A), ')')), limits=c(1.4,2.7), breaks=c(1.6, 1.9, 2.2, 2.6)) +
-	scale_colours_discrete("Sample Source")
+	scale_colour_discrete("Sample Source")
 
 if(nrow(sample_sources) <= 3){
 	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
@@ -126,7 +126,7 @@ p <- ggplot(data=dens) + theme_bw() +
 	ggtitle("Backbone-Backbone H-Bonds AHD Angle by Alpha Type\nB-Factor < 30 normalized for equal weight per unit distance") +
 	scale_y_continuous("FeatureDensity", limits=c(0,20), breaks=c(0,5,10,15)) +
 	scale_x_continuous("Acceptor -- Hydrogen -- Donor (degrees)", trans="reverse") +
-	scale_colours_discrete("Alpha Type")
+	scale_colour_discrete("Alpha Type")
 
 if(nrow(sample_sources) <= 3){
 	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
@@ -183,7 +183,7 @@ p <- ggplot(data=dens) + theme_bw() +
 	ggtitle("Backbone-Backbone H-Bonds BAH Angle by Alpha Type\nB-Factor < 30 normalized for equal weight per unit distance") +
 	scale_x_continuous(paste('Base -- Acceptor -- Hydrogen (degrees)')) +
 	scale_y_continuous("FeatureDensity") +
-	scale_colours_discrete("Alpha Type")
+	scale_colour_discrete("Alpha Type")
 if(nrow(sample_sources) <= 3){
 	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
 }
@@ -197,7 +197,7 @@ p <- ggplot(data=dens) + theme_bw() +
 	ggtitle("Backbone-Backbone H-Bonds BAH Angle by Alpha Type\nB-Factor < 30 normalized for equal weight per unit distance") +
 	scale_x_continuous(paste('Base -- Acceptor -- Hydrogen (degrees)')) +
 	scale_y_continuous("FeatureDensity") +
-	scale_colours_discrete("Sample Source")
+	scale_colour_discrete("Sample Source")
 if(nrow(sample_sources) <= 3){
 	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
 }

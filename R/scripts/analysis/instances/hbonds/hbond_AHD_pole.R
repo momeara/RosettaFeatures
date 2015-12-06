@@ -84,7 +84,7 @@ don_atoms <-
 			c("id", "sample_source",
 				"tag", "don_chain", "don_residue_number", "don_insertion_code"),
 		measure.vars=c("don_atom1", "don_atom2", "don_atom3"),
-		variable_name = "atom_name")
+		value.xname = "atom_name")
 names(don_atoms)[4] <- "chain"
 names(don_atoms)[5] <- "residue_number"
 names(don_atoms)[6] <- "insertion_code"
@@ -96,7 +96,7 @@ acc_atoms <-
 			c("id", "sample_source", "tag",
 				"acc_chain", "acc_residue_number", "acc_insertion_code"),
 		measure.vars=c("acc_atom1", "acc_atom2", "acc_atom3"),
-		variable_name = "atom_name")
+		value.name = "atom_name")
 names(acc_atoms)[4] <- "chain"
 names(acc_atoms)[5] <- "residue_number"
 names(acc_atoms)[6] <- "insertion_code"

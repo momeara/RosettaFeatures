@@ -56,7 +56,7 @@ f <- na.omit(f, method="r")
 plot_id <- "hbond_site_propensity_to_hydrogen_bond"
 p <- ggplot(data=f, aes(x=satisfied)) + plot_parts +
 	ggtitle("H-Bond Site Propensity to Hydrogen Bond") +
-	theme(axis.text.x=theme_text(angle=-90, hjust=0)) +
+	theme(axis.text.x=element_text(angle=-90, hjust=0)) +
 	facet_grid(buried ~ chem_type_name)
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 

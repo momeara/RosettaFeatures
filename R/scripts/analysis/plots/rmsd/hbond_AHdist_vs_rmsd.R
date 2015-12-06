@@ -7,7 +7,6 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-
 library(ggplot2)
 
 
@@ -46,7 +45,7 @@ WHERE
 
 f <- query_sample_sources(sample_sources, sele)
 
-f_sliding_windows <- sliding_windows(f, "rmsd", verbose=T)
+f_sliding_windows <- sliding_windows(f, c(), "rmsd", verbose=T)
 
 dens <- estimate_density_1d(
 	data = f_sliding_windows,

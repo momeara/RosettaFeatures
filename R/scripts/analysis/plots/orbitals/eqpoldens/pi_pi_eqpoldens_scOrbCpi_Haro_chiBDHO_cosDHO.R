@@ -8,7 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
+library(viridis)
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "pi_pi_eqpoldens_scOrbCpi_Haro_chiBDHO_cosDHO",
@@ -17,11 +17,11 @@ brief_description = "",
 feature_reporter_dependencies = c("OrbitalFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-	
+
 	#################################################################################
 	###########################All pi-pi at 2.5A#############################
 	#################################################################################
-	
+
 	sele <- "
 			SELECT
 			resNum1,
@@ -36,27 +36,27 @@ run=function(self, sample_sources, output_dir, output_formats){
 			FROM
 			Haro_orbital
 			WHERE
-			(((resName1 = 'PHE' OR resName1 = 'TYR' OR resName1 = 'TRP' ) AND (resName2 = 'PHE' OR resName2 = 'TYR' OR resName2 = 'TRP')))  AND 
-			OrbHdist < 2.5 AND 
+			(((resName1 = 'PHE' OR resName1 = 'TYR' OR resName1 = 'TRP' ) AND (resName2 = 'PHE' OR resName2 = 'TYR' OR resName2 = 'TRP')))  AND
+			OrbHdist < 2.5 AND
 			OrbName1 = 'C.pi.sp2' AND
 			ABS(resNum1 - resNum2) > 5;"
-	
+
 	f <- query_sample_sources(sample_sources, sele)
-	
+
 	f <- transform(f,
 			capx = 2*sin(acos(cosDHO)/2)*cos(chiBDHO),
 			capy = 2*sin(acos(cosDHO)/2)*sin(chiBDHO))
-	
+
 	capx_limits <- c(-1.5,1.5)
 	capy_limits <- capx_limits
-	
-	
-	plot_id = "pi_pi_eqpoldens_scOrbCpi_Haro_chiBDHO_cosDHO_all_2.5A"
-	
-	f_first <- f[ f$sample_source == levels(sample_sources$sample_source), ]
-	
 
-	
+
+	plot_id = "pi_pi_eqpoldens_scOrbCpi_Haro_chiBDHO_cosDHO_all_2.5A"
+
+	f_first <- f[ f$sample_source == levels(sample_sources$sample_source), ]
+
+
+
 	ggplot(data=f_first) + theme_bw() +
 			theme(panel.background=element_rect(fill="#00007F", colour="#00007F")) +
 			stat_density2d(
@@ -73,13 +73,13 @@ run=function(self, sample_sources, output_dir, output_formats){
 			coord_fixed(ratio = 1) +
 			scale_fill_viridis("Density")
 	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
-	
-	
-	
+
+
+
 	#################################################################################
 	###########################Phe-Phe pi-pi at 2.5A#############################
 	#################################################################################
-	
+
 	sele <- "
 			SELECT
 			resNum1,
@@ -94,26 +94,26 @@ run=function(self, sample_sources, output_dir, output_formats){
 			FROM
 			Haro_orbital
 			WHERE
-			(((resName1 = 'PHE' ) AND (resName2 = 'PHE' )))  AND 
-			OrbHdist < 2.5 AND 
+			(((resName1 = 'PHE' ) AND (resName2 = 'PHE' )))  AND
+			OrbHdist < 2.5 AND
 			OrbName1 = 'C.pi.sp2' AND
 			ABS(resNum1 - resNum2) > 5;"
-	
+
 	f <- query_sample_sources(sample_sources, sele)
-	
+
 	f <- transform(f,
 			capx = 2*sin(acos(cosDHO)/2)*cos(chiBDHO),
 			capy = 2*sin(acos(cosDHO)/2)*sin(chiBDHO))
-	
+
 	capx_limits <- c(-1.5,1.5)
 	capy_limits <- capx_limits
-	
-	
+
+
 	plot_id = "pi_pi_eqpoldens_scOrbCpi_Haro_chiBDHO_cosDHO_phe_phe_2.5A"
-	
+
 	f_first <- f[ f$sample_source == levels(sample_sources$sample_source), ]
-	
-	
+
+
 	ggplot(data=f_first) + theme_bw() +
 			theme(panel.background=element_rect(fill="#00007F", colour="#00007F")) +
 			stat_density2d(
@@ -130,7 +130,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 			coord_fixed(ratio = 1) +
 			scale_fill_viridis("Density")
 	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
-	
+
 	#####Pi Stacking interactions 3.5
 #
 #sele <- "
@@ -147,8 +147,8 @@ run=function(self, sample_sources, output_dir, output_formats){
 #FROM
 #  Haro_orbital
 #WHERE
-#  (((resName1 = 'PHE' OR resName1 = 'TYR' OR resName1 = 'TRP' ) AND (resName2 = 'PHE' OR resName2 = 'TYR' OR resName2 = 'TRP')))  AND 
-#  OrbHdist < 3.5 AND 
+#  (((resName1 = 'PHE' OR resName1 = 'TYR' OR resName1 = 'TRP' ) AND (resName2 = 'PHE' OR resName2 = 'TYR' OR resName2 = 'TRP')))  AND
+#  OrbHdist < 3.5 AND
 #  OrbName1 = 'C.pi.sp2' AND
 #  ABS(resNum1 - resNum2) > 5;"
 #
@@ -182,10 +182,10 @@ run=function(self, sample_sources, output_dir, output_formats){
 #  coord_fixed(ratio = 1) +
 #  scale_fill_viridis("Density")
 #save_plots(self, plot_id, sample_sources, output_dir, output_formats)
-	
+
 	###Phe-Phe 2.0
-	
-	
+
+
 	###Phe -Phe 3.5
 #sele <- "
 #SELECT
@@ -201,8 +201,8 @@ run=function(self, sample_sources, output_dir, output_formats){
 #FROM
 #  Haro_orbital
 #WHERE
-#  (((resName1 = 'PHE' ) AND (resName2 = 'PHE' )))  AND 
-#  OrbHdist < 3.5 AND 
+#  (((resName1 = 'PHE' ) AND (resName2 = 'PHE' )))  AND
+#  OrbHdist < 3.5 AND
 #  OrbName1 = 'C.pi.sp2' AND
 #  ABS(resNum1 - resNum2) > 5;"
 #
@@ -236,6 +236,6 @@ run=function(self, sample_sources, output_dir, output_formats){
 #  coord_fixed(ratio = 1) +
 #  scale_fill_viridis("Density")
 #save_plots(self, plot_id, sample_sources, output_dir, output_formats)
-	
+
 
 })) # end FeaturesAnalysis

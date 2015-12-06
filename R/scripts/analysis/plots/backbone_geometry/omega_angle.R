@@ -85,7 +85,7 @@ z <- as.data.frame(xtabs(~sample_source + isomerization, f))
 print(summary(z))
 plot_id <- "backbone_geometry_omega_angle_isomerization"
 p <- ggplot(z) + theme_bw() +
-	stat_bar(aes(x=isomerization, y=Freq, fill=sample_source), position="dodge") +
+	geom_bar(aes(x=isomerization, y=Freq, fill=sample_source), stat="identity", position="dodge") +
 	ggtitle("Omega Angle Trans/Cis Isomerization Ratio; B-factor < 30") +
 	scale_y_continuous("Counts") +
 	scale_x_discrete("Isomerization") +

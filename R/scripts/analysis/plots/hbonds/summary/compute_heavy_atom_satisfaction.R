@@ -15,8 +15,7 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 sele <- "
-DROP TABLE IF EXISTS hbond_heavy_sites;
-CREATE TABLE IF NOT EXISTS hbond_heavy_sites (
+CREATE TEMPORARY TABLE IF NOT EXISTS hbond_heavy_sites (
 	site_id INTEGER PRIMARY KEY AUTOINCREMENT,
 	struct_id BLOB,
 	residue_number INTEGER,

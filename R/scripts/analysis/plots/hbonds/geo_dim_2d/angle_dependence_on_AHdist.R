@@ -8,11 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
-
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
@@ -21,7 +17,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
 
 
 sele <-"
@@ -58,8 +53,14 @@ f <- transform(f,
 f <- na.omit(f, method="r")
 
 compute_AHD_qs <- function(f, ids, verbose=F){
-	w <- sliding_windows(f, ids, "AHdist", verbose=verbose)
-	compute_quantiles(w, c(ids, "windows"), "AHD")
+	tryCatch({
+		w <- sliding_windows(f, ids, "AHdist", verbose=verbose)
+		return(compute_quantiles(w, c(ids, "windows"), "AHD"))
+	}, error=function(e){
+		cat("unable to compute sliding window quantiles for ids ", paste(ids, collapse=", "), ":", sep="")
+		print(str(f))
+		return(NULL)
+	})
 }
 
 plot_parts_AHD <- list(
@@ -84,117 +85,126 @@ make_title_AHD <- function(ids) {
 ids <- c("sample_source")
 plot_id <- make_id_AHD(ids)
 qs <- compute_AHD_qs(f, ids)
-p <- ggplot(data=qs, aes(colour=windows, group=windows)) + plot_parts_AHD +
-	make_title_AHD(c("")) +
-	facet_wrap(~sample_source, ncol=ceiling(sqrt(nrow(sample_sources)))) +
-	scale_colour_discrete("AHdist Window")
-if(nrow(sample_sources) <= 3){
-	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
+if(!is.null(qs)){
+	p <- ggplot(data=qs, aes(colour=windows, group=windows)) + plot_parts_AHD +
+		make_title_AHD(c("")) +
+		facet_wrap(~sample_source, ncol=ceiling(sqrt(nrow(sample_sources)))) +
+		scale_colour_discrete("AHdist Window")
+	if(nrow(sample_sources) <= 3){
+		p <- p + theme(legend.position="bottom", legend.direction="horizontal")
+	}
+	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 }
-save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 ids <- c("sample_source")
 plot_id <- paste(make_id_AHD(ids), "_restricted", sep="")
 qs <- compute_AHD_qs(f[f$AHdist <= 2.3 & f$AHdist >= 1.9,], ids)
-p <- ggplot(data=qs, aes(colour=windows, group=windows)) + plot_parts_AHD +
-	make_title_AHD(c("")) +
-	facet_wrap(~sample_source, ncol=ceiling(sqrt(nrow(sample_sources)))) +
-	scale_colour_discrete("AHdist Window")
-if(nrow(sample_sources) <= 3){
-	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
+if(!is.null(qs)){
+	p <- ggplot(data=qs, aes(colour=windows, group=windows)) + plot_parts_AHD +
+		make_title_AHD(c("")) +
+		facet_wrap(~sample_source, ncol=ceiling(sqrt(nrow(sample_sources)))) +
+		scale_colour_discrete("AHdist Window")
+	if(nrow(sample_sources) <= 3){
+		p <- p + theme(legend.position="bottom", legend.direction="horizontal")
+	}
+	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 }
-save_plots(self, plot_id, sample_sources, output_dir, output_formats)
-
 
 ids <- c("sample_source", "don_chem_type_name")
 plot_id <- make_id_AHD(ids)
 f$don_chem_type_name <- don_chem_type_name_linear(f$don_chem_type)
 qs <- compute_AHD_qs(f, ids)
-p <- ggplot(data=qs, aes(colour=windows, group=windows)) + plot_parts_AHD +
-	make_title_AHD("DonChemType") +
-	facet_grid(don_chem_type_name ~ sample_source) +
-	scale_colour_discrete("AHdist Window")
-if(nrow(sample_sources) <= 3){
-	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
+if(!is.null(qs)){
+	p <- ggplot(data=qs, aes(colour=windows, group=windows)) + plot_parts_AHD +
+		make_title_AHD("DonChemType") +
+		facet_grid(don_chem_type_name ~ sample_source) +
+		scale_colour_discrete("AHdist Window")
+	if(nrow(sample_sources) <= 3){
+		p <- p + theme(legend.position="bottom", legend.direction="horizontal")
+	}
+	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 }
-save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 ids <- c("sample_source", "acc_chem_type_name")
 plot_id <- make_id_AHD(ids)
 f$acc_chem_type_name <- acc_chem_type_name_linear(f$acc_chem_type)
 qs <- compute_AHD_qs(f, ids)
-p <- ggplot(data=qs, aes(colour=windows, group=windows)) + plot_parts_AHD +
-	make_title_AHD("AccChemType") +
-	facet_grid(acc_chem_type_name ~ sample_source) +
-	scale_colour_discrete("AHdist Window")
-if(nrow(sample_sources) <= 3){
-	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
+if(!is.null(qs)){
+	p <- ggplot(data=qs, aes(colour=windows, group=windows)) + plot_parts_AHD +
+		make_title_AHD("AccChemType") +
+		facet_grid(acc_chem_type_name ~ sample_source) +
+		scale_colour_discrete("AHdist Window")
+	if(nrow(sample_sources) <= 3){
+		p <- p + theme(legend.position="bottom", legend.direction="horizontal")
+	}
+	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 }
-save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 ids <- c("sample_source", "acc_chem_type_name", "don_chem_type_name")
 f$don_chem_type_name <- don_chem_type_name_linear(f$don_chem_type)
 f$acc_chem_type_name <- acc_chem_type_name_linear(f$acc_chem_type)
 qs <- compute_AHD_qs(f, ids)
-
-d_ply(qs, .(sample_source), function(qsf){
-	ss <- as.character(qsf$sample_source[1])
-	plot_id <- make_id_AHD(c(ids, ss))
-	p <- ggplot(data=qsf, aes(colour=windows, group=windows)) + plot_parts_AHD +
-		make_title_AHD(paste("ChemType, SS: ", ss, sep="")) +
-		facet_grid(don_chem_type_name ~ acc_chem_type_name) +
-		scale_colour_discrete("AHdist Window")
-	if(nrow(sample_sources) <= 3){
-		p <- p + theme(legend.position="bottom", legend.direction="horizontal")
-	}
-	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
-})
-
-qs <- compute_AHD_qs(
-	f[f$AHdist <= 2.3 & f$AHdist >= 1.9,], "sample_source", verbose=F)
-d_ply(qs, c("sample_source"), function(sub_qs){
-	ss_id <- as.character(sub_qs[1,"sample_source"])
-	plot_id <- paste(make_id_AHD(ss_id), "_restricted", sep="")
-	p <- ggplot(data=sub_qs, aes(colour=windows, group=windows)) + plot_parts_AHD +
-		make_title_AHD(c("")) +
-		scale_colour_discrete("AHdist Window")
-	if(nrow(sample_sources) <= 3){
-		p <- p + theme(legend.position="bottom", legend.direction="horizontal")
-	}
-	save_plots(self, plot_id, sample_sources, output_dir, output_formats)
-})
-
-
-ref_sample_sources <- as.character(sample_sources[sample_sources$reference,"sample_source"])
-new_sample_sources <- as.character(sample_sources[!sample_sources$reference,"sample_source"])
-
-qs <- compute_AHD_qs(
-	f[f$AHdist <= 2.3 & f$AHdist >= 1.9,], "sample_source", verbose=F)
-
-d_ply(
-	qs[qs$sample_source %in% ref_sample_sources,],
-	c("sample_source"), function(qs_ref) {
-	ref_ss_id <- as.character(qs_ref[1,"sample_source"])
-	d_ply(
-		qs[qs$sample_source %in% new_sample_sources,],
-		c("sample_source"), function(qs_new){
-		new_ss_id <- as.character(qs_new[1,"sample_source"])
-		plot_id <- paste(make_id_AHD(ref_ss_id), new_ss_id, "_restricted", sep="")
-		p <- ggplot(rbind(qs_ref, qs_new)) +
-			theme_bw() +
-			scale_y_continuous("Fraction", limit=c(0,1), breaks=c(0,.25, .50, .75)) +
-			scale_x_continuous("Angle Deviation from Linear for Acceptor -- Hydrogen -- Donor (degrees)") +
-			scale_line_type_manual("Sample Source", c(3,1)) +
-#			geom_indicator(aes(indicator=counts), ypos=.9, yjust="bottom")) +
-			list(make_title_AHD(c(""))) +
+if(!is.null(qs)){
+	d_ply(qs, .(sample_source), function(qsf){
+		ss <- as.character(qsf$sample_source[1])
+		plot_id <- make_id_AHD(c(ids, ss))
+		p <- ggplot(data=qsf, aes(colour=windows, group=windows)) + plot_parts_AHD +
+			make_title_AHD(paste("ChemType, SS: ", ss, sep="")) +
+			facet_grid(don_chem_type_name ~ acc_chem_type_name) +
 			scale_colour_discrete("AHdist Window")
 		if(nrow(sample_sources) <= 3){
 			p <- p + theme(legend.position="bottom", legend.direction="horizontal")
 		}
 		save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 	})
-})
+}
 
+qs <- compute_AHD_qs(
+	f[f$AHdist <= 2.3 & f$AHdist >= 1.9,], "sample_source", verbose=F)
+if(!is.null(qs)){
+	d_ply(qs, c("sample_source"), function(sub_qs){
+		ss_id <- as.character(sub_qs[1,"sample_source"])
+		plot_id <- paste(make_id_AHD(ss_id), "_restricted", sep="")
+		p <- ggplot(data=sub_qs, aes(colour=windows, group=windows)) + plot_parts_AHD +
+			make_title_AHD(c("")) +
+			scale_colour_discrete("AHdist Window")
+		if(nrow(sample_sources) <= 3){
+			p <- p + theme(legend.position="bottom", legend.direction="horizontal")
+		}
+		save_plots(self, plot_id, sample_sources, output_dir, output_formats)
+	})
+}
+
+ref_sample_sources <- as.character(sample_sources[sample_sources$reference,"sample_source"])
+new_sample_sources <- as.character(sample_sources[!sample_sources$reference,"sample_source"])
+
+qs <- compute_AHD_qs(
+	f[f$AHdist <= 2.3 & f$AHdist >= 1.9,], "sample_source", verbose=F)
+if(!is.null(qs)){
+	d_ply(
+		qs[qs$sample_source %in% ref_sample_sources,],
+		c("sample_source"), function(qs_ref) {
+		ref_ss_id <- as.character(qs_ref[1,"sample_source"])
+		d_ply(
+			qs[qs$sample_source %in% new_sample_sources,],
+			c("sample_source"), function(qs_new){
+			new_ss_id <- as.character(qs_new[1,"sample_source"])
+			plot_id <- paste(make_id_AHD(ref_ss_id), new_ss_id, "_restricted", sep="")
+			p <- ggplot(rbind(qs_ref, qs_new)) +
+				theme_bw() +
+				scale_y_continuous("Fraction", limit=c(0,1), breaks=c(0,.25, .50, .75)) +
+				scale_x_continuous("Angle Deviation from Linear for Acceptor -- Hydrogen -- Donor (degrees)") +
+				scale_line_type_manual("Sample Source", c(3,1)) +
+	#			geom_indicator(aes(indicator=counts), ypos=.9, yjust="bottom")) +
+				list(make_title_AHD(c(""))) +
+				scale_colour_discrete("AHdist Window")
+			if(nrow(sample_sources) <= 3){
+				p <- p + theme(legend.position="bottom", legend.direction="horizontal")
+			}
+			save_plots(self, plot_id, sample_sources, output_dir, output_formats)
+		})
+	})
+}
 
 
 

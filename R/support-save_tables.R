@@ -28,7 +28,7 @@ save_tables <- function(
 	output_dir,
 	output_formats,
 	table_title=NULL,
-	caption=caption,
+	caption=NULL,
   quote_strings=F,
 	...
 ) {

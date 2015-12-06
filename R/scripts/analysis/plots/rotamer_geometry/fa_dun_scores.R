@@ -47,8 +47,8 @@ p <- ggplot(data=dens) + theme_bw() +
 	geom_line(aes(x=x, y=y, colour=sample_source), size=2) +
 	geom_indicator(aes(indicator=counts, colour=sample_source, group=sample_source)) +
 	ggtitle("Rosetta Dunbrack Energy") +
-	facet_wrap(~res_type);
-	labs(x="Rosetta Energy Units") +
+	facet_wrap(~res_type) +
+	scale_x_continuous("Rosetta Energy Units") +
 	scale_y_continuous("FeatureDensity")
 if(nrow(sample_sources) <= 3){
 	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
@@ -64,7 +64,7 @@ d_ply(dens, .(res_type), function(sub_dens){
 		geom_line(aes(x=x, y=y, colour=sample_source), size=2) +
 		geom_indicator(aes(indicator=counts, colour=sample_source, group=sample_source)) +
 		ggtitle(paste("Rosetta Dunbrack Energy for ", res_type, sep="")) +
-		labs(x="Rosetta Energy Units") +
+		scale_x_continuous("Rosetta Energy Units") +
 		scale_y_continuous("FeatureDensity")
 				if(nrow(sample_sources) <= 3){
 		p <- p + theme(legend.position="bottom", legend.direction="horizontal")

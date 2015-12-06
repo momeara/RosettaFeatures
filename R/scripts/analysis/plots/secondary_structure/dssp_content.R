@@ -50,7 +50,7 @@ f$dssp_description <- factor(f$dssp_description)
 
 plot_id <- "dssp_content"
 ggplot(data=f) + theme_bw() +
-	geom_bar(aes(x=sample_source, y=fraction, fill=sample_source)) +
+	geom_bar(aes(x=sample_source, y=fraction, fill=sample_source), stat="identity") +
 	facet_wrap(~dssp_description, ncol=1) +
 	ggtitle("Secondary Structure Content") +
 	coord_flip() +

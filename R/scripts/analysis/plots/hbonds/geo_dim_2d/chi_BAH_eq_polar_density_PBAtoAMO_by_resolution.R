@@ -8,10 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
+library(viridis)
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "chi_BAH_eq_polar_density_PBAtoAMO_by_resolution",

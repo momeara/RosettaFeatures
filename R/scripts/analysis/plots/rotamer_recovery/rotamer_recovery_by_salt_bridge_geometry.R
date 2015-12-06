@@ -21,7 +21,7 @@ feature_reporter_dependencies = c("ResidueFeatures", "RotamerRecoveryFeatures", 
 run=function(self, sample_sources, output_dir, output_formats){
 
 sele <-"
-CREATE TABLE IF NOT EXISTS CXL_ARG_salt_bridges AS SELECT
+CREATE TEMPORARY TABLE IF NOT EXISTS CXL_ARG_salt_bridges AS SELECT
 	struct.tag AS tag,
 	sb.struct_id AS struct_id,
 	sb.don_resNum AS don_residue_number,

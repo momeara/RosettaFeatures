@@ -23,7 +23,7 @@ problem_region <- data.frame(xmin=-119, xmax=-116)
 
 
 sele <-paste("
-CREATE TABLE IF NOT EXISTS CXL_ARG_salt_bridges AS SELECT
+CREATE TEMPORARY TABLE IF NOT EXISTS CXL_ARG_salt_bridges AS SELECT
 	struct.tag AS tag,
 	sb.struct_id AS struct_id,
 	sb.don_resNum AS don_residue_number,
@@ -45,8 +45,7 @@ WHERE
 	acc.HBChemType = 'hbacc_CXL' AND
 	ABS(acc.resNum - don.resNum) > 4;
 
-DROP TABLE IF EXISTS total_residue_scores;
-CREATE TABLE total_residue_scores (
+CREATE TEMPORARY TABLE IF NOT EXISTS total_residue_scores (
 	struct_id INTEGER,
 	resNum INTEGER,
 	score_value);
@@ -102,8 +101,7 @@ WHERE
 GROUP BY
 	e2a.struct_id, e2a.resNum2;
 
-DROP TABLE summed_total_residue_scores;
-CREATE TABLE summed_total_residue_scores AS SELECT
+CREATE TEMPORARY TABLE summed_total_residue_scores AS SELECT
 	struct_id, resNum, SUM(score_value) AS score_value
 FROM
 	total_residue_scores
@@ -112,7 +110,7 @@ GROUP BY
 
 
 
-CREATE TABLE IF NOT EXISTS CXL_ARG_salt_bridge_energies AS SELECT
+CREATE TEMPORARY TABLE IF NOT EXISTS CXL_ARG_salt_bridge_energies AS SELECT
 	sb.struct_id AS struct_id,
 	sb.acc_residue_number AS acc_residue_number,
 	sb.don_residue_number AS don_residue_number,

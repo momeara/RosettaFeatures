@@ -21,7 +21,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 
 
 sele <-"
-CREATE TABLE IF NOT EXISTS nchi_in_res (
+CREATE TEMPORARY TABLE IF NOT EXISTS nchi_in_res (
         name3 TEXT,
         nchi INTEGER,
         PRIMARY KEY (name3));
@@ -70,7 +70,7 @@ DROP TABLE nchi_in_res;"
 query_sample_sources(sample_sources, sele, warn_zero_rows=F)
 
 
-m_f <- reshape2::melt(f, measure.vars=c("chi1", "chi2", "chi3", "chi4"), variable_name="chi_angle")
+m_f <- reshape2::melt(f, measure.vars=c("chi1", "chi2", "chi3", "chi4"), value.name="chi_angle")
 
 print(str(m_f))
 

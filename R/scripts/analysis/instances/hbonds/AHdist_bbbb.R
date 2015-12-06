@@ -72,7 +72,7 @@ f <- query_sample_sources(sample_sources, sele)
 #gm <- melt(g[g$id <= n_examples,],
 #	id.vars=c("sample_source", "tag", "id", "chain", "resNum"),
 #	measure.vars=c("CA", "C", "O"),
-#	variable_name = "atom")
+#	value.name = "atom")
 #
 #instances_id <- "AHdist_bbbb"
 #prepare_feature_instances(instances_id, sample_sources, gm, output_dir)

@@ -9,6 +9,7 @@
 
 library(ggplot2)
 library(plyr)
+library(viridis)
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
@@ -95,7 +96,7 @@ WHERE	 geom.struct_id =  phbond.struct_id AND geom.hbond_id = phbond.hbond_id;
 SELECT * FROM antiparallel_geoms UNION
 SELECT * FROM     parallel_geoms;"
 
-f <- RosettaFeatures::query_sample_sources(sample_sources, sele)
+f <- query_sample_sources(sample_sources, sele)
 
 sele <- "
 DROP TABLE ee_bb_bb_hbonds;

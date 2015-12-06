@@ -68,7 +68,7 @@ estimate_density_1d <-function(
 	          weights=weights, bw=bw, adjust=adjust), density.args))
 	          return(data.frame(x=d$x, y=d$y, counts=nrow(factor_df)))
 				}, error=function(e){
-					cat(paste("ERROR computing density for ids=(", paste(laply(factor_df[1,ids], as.character), collapse=", "), "): ", e, "\n", sep=""))
+					cat(paste("ERROR computing density for ids=(", paste(plyr::laply(factor_df[1,ids], as.character), collapse=", "), "): ", e, "\n", sep=""))
 					return(data.frame(x=c(), y=c(), counts=c()))
 				})
       }
@@ -122,7 +122,7 @@ estimate_density_1d_wrap <-function(
       return( data.frame(x=seq(xlim[1], xlim[2], length.out=n_pts), y=0))
     } else {
       weights <- weight_fun(factor_df[,variable])
-			d <- do.call(density::density,
+			d <- do.call(stats::density,
 				c(list(x=factor_df[,variable], from=xlim[1], to=xlim[2], n=extended_n_pts,
 					weights=weights, bw=bw, adjust=adjust), density.args))
       return(data.frame(
@@ -212,7 +212,7 @@ estimate_density_1d_reflect_boundary <-function(
 
 		cat("Adjust = ", adjust, "\n")
 		cat("data:")
-		print(ddply(data, ids, function(df) data.frame(x=nrow(df))))
+		print(plyr::ddply(data, ids, function(df) data.frame(x=nrow(df))))
 	}
 
   compute_density <- function(factor_df){
@@ -288,13 +288,13 @@ estimate_density_1d_logspline <-function(
           from=xlim_transformed[1],
           to=xlim_transformed[2],
           length.out=n_pts)
-        y <- dlogspline::dlogspline(x_transformed, lgs)
+        y <- logspline::dlogspline(x_transformed, lgs)
         x <- seq(from=xlim[1], to=xlim[2], length.out=n_pts)
 
       } else {
-        lgs <- logspline(factor_df[,variable], lbound=xlim[1], ubound=xlim[2])
+        lgs <- logspline::logspline(factor_df[,variable], lbound=xlim[1], ubound=xlim[2])
         x <- seq(from=xlim[1], to=xlim[2], length.out=n_pts)
-        y <- dlogspline(x, lgs)
+        y <- logspline::dlogspline(x, lgs)
       }
       return(data.frame(x=x, y=y, counts=nrow(factor_df)))
     }
@@ -410,7 +410,7 @@ compute_quantiles <- function(
 	if(length(probs) == 1){
 		probs <- ppoints(probs)
 	}
-	ddply(
+	plyr::ddply(
 		.data=data,
 		.variables=ids,
 		.fun=function(df){
@@ -438,7 +438,7 @@ compute_qq <- function(
 		probs <- ppoints(probs)
 	}
 
-	ref_q <- ddply(
+	ref_q <- plyr::ddply(
 		.data=ref_data,
 		.variables=group_ids,
 		.run=function(df){
@@ -446,7 +446,7 @@ compute_qq <- function(
 			probs=probs, quantiles=quantile(df[,variable], probs=probs), counts=nrow(df))
 	})
 
-	new_q <- ddply(
+	new_q <- plyr::ddply(
 		.data=new_data,
 		.variables=group_ids,
 		.fun=function(df){
@@ -526,8 +526,8 @@ if(!is.numeric(overlap_fraction)){
 		print(windows)
 	}
 
-	ddply(data, id.vars, function(df) {
-		adply(windows, 1L, function(window) {
+	plyr::ddply(data, id.vars, function(df) {
+		plyr::adply(windows, 1L, function(window) {
 			sub_df <- df[
 				df[,measure.var] >= window$rmin[1] &
 				df[,measure.var] <= window$rmax[1],]
@@ -553,8 +553,8 @@ distance_matrix <- function(
 	cmp_fun,
 	verbose=FALSE
 ) {
-	daply(data, id.var, function(da) {
-		mid_z <- daply(data, id.var, function(db) {
+	plyr::daply(data, id.var, function(da) {
+		mid_z <- plyr::daply(data, id.var, function(db) {
 			z <- cmp_fun(da[,measure.var], db[,measure.var])$statistic
 			if(verbose){
 				print(paste("    inner: ", z, sep=""))

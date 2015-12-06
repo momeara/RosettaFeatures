@@ -18,8 +18,7 @@ feature_reporter_dependencies = c("StructureFeatures", "ResidueFeatures", "SaltB
 run=function(self, sample_sources, output_dir, output_formats){
 
 sele <- "
-DROP TABLE IF EXISTS CXL_ARG_salt_bridges;
-CREATE TABLE IF NOT EXISTS CXL_ARG_salt_bridges AS SELECT
+CREATE TEMPORARY TABLE IF NOT EXISTS CXL_ARG_salt_bridges AS SELECT
 	sb.*,
 	sb_alt.struct_id IS NOT NULL AS bidentite
 FROM

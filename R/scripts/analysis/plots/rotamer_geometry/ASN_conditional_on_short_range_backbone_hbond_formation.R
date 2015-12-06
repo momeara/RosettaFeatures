@@ -32,7 +32,6 @@ FROM
 	hbond_sites AS don_bb,
 	residues AS res
 WHERE
-
 	acc_asn.site_id = hb.acc_id AND
 	acc_asn.struct_id = hb.struct_id AND
 	acc_asn.HBChemType = 'hbacc_CXA' AND
@@ -50,7 +49,6 @@ SELECT
 	res_dofs.chi1, res_dofs.chi2,
 	CASE sr_asn.sr_bb_hb
 		WHEN 1 THEN 1 WHEN -1 THEN -1 ELSE 'other' END AS sr_bb_hb
-
 FROM
 	residues AS res,
 	residue_pdb_confidence AS res_conf,
@@ -71,13 +69,12 @@ DROP TABLE asn_sr_bb_hb;"
 query_sample_sources(sample_sources, sele, warn_zero_rows=F)
 
 
-m_f <- reshape2::melt(f, measure.vars=c("chi1", "chi2"), variable_name="chi_angle")
+m_f <- reshape2::melt(f, measure.vars=c("chi1", "chi2"), value.name="chi_angle")
 
 print(str(m_f))
 
 dens <- estimate_density_1d_wrap(
 	m_f, c("sample_source", "chi_angle", "sr_bb_hb"), "value", xlim=c(-180, 180), adjust=.35)
-
 
 plot_id <-"rotamer_ASN_conditional_on_short_range_backbone_hbond_formation"
 p <- ggplot(data=dens) +

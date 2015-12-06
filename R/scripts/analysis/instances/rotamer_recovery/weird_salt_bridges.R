@@ -75,7 +75,7 @@ g$id <- 1:nrow(g)
 g <- reshape2::melt(g[g$id <= n_examples,],
 	id.vars=c("sample_source", "tag", "id", "chain", "resNum"),
 	measure.vars=c("CA", "C", "CB"),
-	variable_name = "atom")
+	value.name = "atom")
 
 instances_id <- "salt_bridge_instances_psi_rho_LYS_CXL"
 prepare_feature_instances(instances_id, sample_sources, g, output_dir)

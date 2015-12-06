@@ -125,7 +125,7 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 ##plot_id <- "backbone_propensity_to_donate_or_accept_hbonds"
 ##p <- ggplot(data=f_bb, aes(x=don_acc_satisfied)) + theme_bw() +
 ##	ggtitle("Backbone Propensity to Donate or Accept Hydrogen Bonds (SAT / unsat)") +
-##	theme(axis.text.x=theme_text(angle=-90, hjust=0)) +
+##	theme(axis.text.x=element_text(angle=-90, hjust=0)) +
 ##	facet_grid(buried ~ res_type)
 ##save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 #
@@ -157,11 +157,9 @@ f <- na.omit(f, method="r")
 plot_id <- "hbond_site_propensity_to_hydrogen_bond"
 p <- ggplot(data=f, aes(x=satisfied)) + plot_parts +
 	ggtitle("H-Bond Site Propensity to Hydrogen Bond") +
-	theme(axis.text.x=theme_text(angle=-90, hjust=0)) +
+	theme(axis.text.x=element_text(angle=-90, hjust=0)) +
 	facet_grid(buried ~ chem_type_name)
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
-
-
 
 
 

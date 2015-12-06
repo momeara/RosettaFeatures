@@ -76,8 +76,9 @@ ldply(res_types, function(res_type){
   all <- rbind( all_1b, all_2b )
   all$score_type <- factor(all$score_type)
 
-	some <- plyr::ddply(all, c("score_type"),
-		function(df){ifelse(nrow(df) <= 4000, df, df %>% sample_n(4000))})
+	some <- all %>%
+		group_by(score_type) %>%
+		filter(sample.int(n()) <= 4000)
 
 	plot_id <- "rotamer_recovery_vs_score"
   p <- ggplot(

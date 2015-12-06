@@ -21,8 +21,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-
-
 sele <-"
 SELECT
 	geom.AHdist, geom.cosBAH, geom.cosAHD, geom.chi
@@ -100,7 +98,10 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 plot_id <- "helical_i_p3_cosAHD_AHdist3"
 f <- f %>% left_join(
 	f %>% count(sample_source) %>% mutate(counts=n),
-	by="sample_source")
+	by="sample_source") %>%
+	as.data.frame
+
+print(str(f))
 
 ggplot(data=f, aes(x=cosAHD, y=AHdist^3)) +
 		theme_bw() +

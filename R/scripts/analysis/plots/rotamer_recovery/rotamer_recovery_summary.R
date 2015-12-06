@@ -20,7 +20,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 
 # Rotamer recovery rate of first chi angle
 sele <-"
-CREATE TABLE IF NOT EXISTS nchi (
+CREATE TEMPORARY TABLE IF NOT EXISTS nchi (
         name3 TEXT,
         nchi INTEGER,
         PRIMARY KEY (name3));

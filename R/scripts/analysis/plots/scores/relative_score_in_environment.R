@@ -61,8 +61,7 @@ GROUP BY
 	struct_id,
 	resNum2;
 
-DROP TABLE IF EXISTS residue_vDW_atr;
-CREATE TABLE residue_vDW_atr(
+CREATE TEMPORARY TABLE residue_vDW_atr(
 	struct_id INTEGER,
 	resNum INTEGER,
 	vDW_atr);

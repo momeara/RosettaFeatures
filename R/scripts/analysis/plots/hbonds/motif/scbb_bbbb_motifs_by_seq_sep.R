@@ -69,7 +69,7 @@ p <- ggplot(f) + theme_bw() +
   facet_wrap( ~ hb1_acc_chem_type) +
   geom_indicator(aes(indicator=counts, colour=sample_source, group=sample_source)) +
   ggtitle("SC-BB + BB-BB HBond Motifs") +
-  scale_x_discrete("Sequence Separation", labels=seq_sep, breaks=c(-200,-25,-4,0,4,25,200)) +
+  scale_x_discrete("sign(seq_sep) * log(abs(seq_sep) + 1)") +
   scale_y_log10("Count")
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 

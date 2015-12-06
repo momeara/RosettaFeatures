@@ -9,7 +9,7 @@
 
 library(ggplot2)
 library(plyr)
-
+library(viridis)
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "rama_not_helix_tight_kenrel",

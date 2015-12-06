@@ -147,7 +147,7 @@ f_combined <- reshape2::melt(
 			Coulomb = (fa_elec + fa_elec) / total_residue,
 			Rotamer = fa_dun / total_residue,
 			Backbone = (rama + p_aa_pp + omega) / total_residue)),
-	id.vars=c("sample_source", "struct_id"), variable_name="score_type_name")
+	id.vars=c("sample_source", "struct_id"), value.name="score_type_name")
 names(f_combined)[4] <- "score_per_residue"
 
 dens <- ddply(f_combined, .(score_type_name), function(df) {

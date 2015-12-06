@@ -52,7 +52,7 @@ estimate_density <- function(f, geo_dim, quantile_ranges, ...){
 			 sub <- f[f$AHdist >= range$xmin[1] & f$AHdist < range$xmax[1],]
 			 dens <- estimate_density_1d_logspline(
 							 			sub, c("acc_chem_type", "sample_source"), geo_dim)
-			 dens$AHdist_range <- factor(paste("[", round(range$xmin,2), ", ", round(range$xmax,2), ")", sep=""))
+			 dens$AHdist_range <- factor(paste("[", round(range$xmin[1],2), ", ", round(range$xmax[1],2), ")", sep=""))
 			 dens
 	})
 }

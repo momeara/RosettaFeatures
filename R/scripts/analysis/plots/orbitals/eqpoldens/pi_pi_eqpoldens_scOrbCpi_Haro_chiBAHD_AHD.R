@@ -9,7 +9,7 @@
 
 
 library(ggplot2)
-
+library(viridis)
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "pi_pi_eqpoldens_scOrbCpi_Haro_chiBAHD_cosAHD",

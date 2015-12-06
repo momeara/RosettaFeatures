@@ -8,11 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
-
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
@@ -63,10 +59,12 @@ f <- transform(f,
 	BAH_CHI_y = 2*sin(acos(cosBAH)/2)*sin(chi))
 f <- na.omit(f, method="r")
 
-#sub_f <- ddply(f, .(sample_source), sample_rows, 10000)
 
-real_f <- f
-f <- sub_f
+sub_f <- f %>%
+	group_by(don_ss, acc_ss) %>%
+	filter(sample.int(n()) <= 10000) %>%
+	ungroup()
+
 
 plot_parts <- list(
 	theme_bw(),
@@ -171,7 +169,7 @@ plot_each_chem_type <- function(sub_f){
 
 }
 
-runtime <- system.time(d_ply(f, .(don_chem_type, acc_chem_type), .fun=plot_each_chem_type))
+runtime <- system.time(d_ply(sub_f, c("don_chem_type", "acc_chem_type"), plot_each_chem_type))
 print(paste("Plot Generation Time: ", runtime, sep=""))
 
 

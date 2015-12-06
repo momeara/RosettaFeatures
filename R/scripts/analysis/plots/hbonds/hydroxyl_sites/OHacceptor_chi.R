@@ -10,6 +10,7 @@
 library(ggplot2)
 library(plyr)
 library(dplyr)
+library(viridis)
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "OHacceptor_chi",

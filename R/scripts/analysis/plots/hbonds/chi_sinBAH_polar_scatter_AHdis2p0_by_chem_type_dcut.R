@@ -49,9 +49,10 @@ d_ply(sample_sources, .variables=("sample_source"), function(sample_source){
     capx = 2*sin(acos(cosBAH)/2)*cos(chi),
     capy = 2*sin(acos(cosBAH)/2)*sin(chi))
 
-  sub_f <- ddply(f, .variables=c("don_chem_type", "acc_chem_type"),
-    function(df){ifelse(nrow(df) <= 5000, df, df %>% sample_n(5000))})
-
+	sub_f <- f %>%
+		group_by(don_chem_type, acc_chem_type) %>%
+		filter(sample.int(n()) <= 5000)
+	
 
   plot_id = "hbond_sinBAH_longrange_dAH2p0cut_colorbydist_eq_polar_scatter_by_chem_type"
   ggplot(data=sub_f) + theme_bw() +
