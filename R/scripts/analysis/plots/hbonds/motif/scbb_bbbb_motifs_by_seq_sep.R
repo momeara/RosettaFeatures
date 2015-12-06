@@ -9,11 +9,7 @@
 
 
 library(ggplot2)
-
-
 library(plyr)
-
-
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -22,8 +18,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
-
 
 #st motif
 sele <-"
@@ -67,11 +61,15 @@ f <- ddply(f, .(sample_source, hb1_acc_chem_type),
 
 plot_id <- "seq_sep_histogram"
 p <- ggplot(f) + theme_bw() +
-  stat_bin(aes(x=seq_sep, y=log(..count..), colour=sample_source), geom="line", binwidth=1, position="identity") +
+  stat_bin(
+		aes(
+			x=sign(seq_sep)*log(abs(seq_sep)+1),
+			y=log(..count..),
+			colour=sample_source), geom="line", binwidth=1, position="identity") +
   facet_wrap( ~ hb1_acc_chem_type) +
   geom_indicator(aes(indicator=counts, colour=sample_source, group=sample_source)) +
   ggtitle("SC-BB + BB-BB HBond Motifs") +
-  scale_x_log_pos_neg("Sequence Separation", breaks=c(-200,-25,-4,0,4,25,200)) +
+  scale_x_discrete("Sequence Separation", labels=seq_sep, breaks=c(-200,-25,-4,0,4,25,200)) +
   scale_y_log10("Count")
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 

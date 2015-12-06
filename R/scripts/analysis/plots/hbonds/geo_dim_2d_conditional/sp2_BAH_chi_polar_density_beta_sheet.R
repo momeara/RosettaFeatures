@@ -8,11 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
-
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -21,9 +17,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
-
-#
 
 sele <-"
 CREATE TEMPORARY TABLE ee_bb_bb_hbonds AS
@@ -103,6 +96,15 @@ SELECT * FROM antiparallel_geoms UNION
 SELECT * FROM     parallel_geoms;"
 
 f <- RosettaFeatures::query_sample_sources(sample_sources, sele)
+
+sele <- "
+DROP TABLE ee_bb_bb_hbonds;
+DROP TABLE antiparallel_close_contact_hbonds;
+DROP TABLE parallel_close_contact_hbonds;
+DROP TABLE antiparallel_geoms;
+DROP TABLE parallel_geoms;"
+query_sample_sources(sample_sources, sele, warn_zero_rows=F)
+
 
 #equal area projection
 f <- transform(f,

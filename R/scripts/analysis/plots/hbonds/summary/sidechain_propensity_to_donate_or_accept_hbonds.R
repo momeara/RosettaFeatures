@@ -27,7 +27,7 @@ SELECT
 	don.res_type,
 	don.satisfied_label AS don_satisfied,
 	acc.satisfied_label AS acc_satisfied,
-	CASE WHEN don.buried AND acc.buried THEN 'Buried' ELSE 'Exposed' END AS buried,
+	CASE WHEN don.buried AND acc.buried THEN 'Buried' ELSE 'Exposed' END AS both_buried,
 	don.HBChemType AS don_chem_type,
 	acc.HBChemType AS acc_chem_type,
 	count(*) AS count
@@ -43,11 +43,11 @@ WHERE
 	don.struct_id = res_b.struct_id AND don.residue_number = res_b.residue_number AND
 	res_b.max_temperature < 30
 GROUP BY
-	don.res_type, don_satisfied, acc_satisfied, buried, don_chem_type, acc_chem_type;"
+	don.res_type, don_satisfied, acc_satisfied, both_buried, don_chem_type, acc_chem_type;"
 f <- query_sample_sources(sample_sources, sele)
 f <- f[f$count > 100,]
 
-dfs <- f[f$res_type %in% c("ASN", "GLN", "HIS", "SER", "THR", "TYR") & f$don_chem_type != "hbdon_PBA" & f$acc_chem_type != "hbacc_PBA" & f$buried == "Buried",]
+dfs <- f[f$res_type %in% c("ASN", "GLN", "HIS", "SER", "THR", "TYR") & f$don_chem_type != "hbdon_PBA" & f$acc_chem_type != "hbacc_PBA" & f$both_buried == "Buried",]
 sat_summary <- ddply(dfs, c("res_type", "sample_source"), function(df) {
 	total <- sum(df[,"count"])
 	data.frame(
@@ -76,7 +76,7 @@ save_tables(
 table_id <- "hb_chem_type_don_acc_satisfaction_buried_sc"
 save_tables(
 	self,
-	f[f$don_chem_type != "hbdon_PBA" & f$acc_chem_type != "hbacc_PBA" & f$buried == "Buried",],
+	f[f$don_chem_type != "hbdon_PBA" & f$acc_chem_type != "hbacc_PBA" & f$both_buried == "Buried",],
 	table_id, sample_sources, output_dir, output_formats)
 
 
@@ -106,14 +106,14 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 #####################################
 plot_id <- "sidechain_propensity_to_donate_or_accept_hbonds_buried"
-p <- ggplot(data=f_sc[f_sc$buried=="Buried",], aes(x=don_satisfied)) + plot_parts +
+p <- ggplot(data=f_sc[f_sc$both_buried=="Buried",], aes(x=don_satisfied)) + plot_parts +
 	ggtitle("Buried Sidechain Propensity to Donate or Accept Hydrogen Bonds (unsat/SAT)") +
 	facet_grid(acc_satisfied ~ res_type)
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 
 ###################################
 plot_id <- "sidechain_propensity_to_donate_or_accept_hbonds_exposed"
-p <- ggplot(data=f_sc[f_sc$buried=="Exposed",], aes(x=don_satisfied)) + plot_parts +
+p <- ggplot(data=f_sc[f_sc$both_buried=="Exposed",], aes(x=don_satisfied)) + plot_parts +
 	ggtitle("Exposed Sidechain Propensity to Donate or Accept Hydrogen Bonds (unsat/SAT)") +
 	facet_grid(acc_satisfied ~ res_type)
 save_plots(self, plot_id, sample_sources, output_dir, output_formats)

@@ -8,7 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
+library(plyr)
+library(dplyr)
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "hydroxyl_proton_chi",
@@ -83,6 +84,9 @@ f <- query_sample_sources(sample_sources, sele)
 
 f$don_chem_type_name <- don_chem_type_name_linear(f$don_chem_type)
 f$acc_chem_type_name <- acc_chem_type_name_linear(f$acc_chem_type)
+
+print(f %>% str)
+
 f <- na.omit(f, method="r")
 
 dens <- estimate_density_1d_wrap(

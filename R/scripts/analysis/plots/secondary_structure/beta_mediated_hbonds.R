@@ -24,7 +24,6 @@ feature_reporter_dependencies = c("StructureFeatures", "ResidueSecondaryStructur
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-
 sele <-"
 SELECT
   s.tag,
@@ -52,7 +51,7 @@ WHERE
 	acc_ss.struct_id = s.struct_id AND acc_ss.resNum = acc.resNum AND
 	don_ss.dssp = 'E' AND acc_ss.dssp = 'E' AND
 	don.HBChemType = 'hbdon_PBA' AND acc.HBChemType = 'hbacc_PBA' AND
-	don_pdb.chain != acc_pdb.chain';"
+	don_pdb.chain != 'acc_pdb.chain';"
 
 f <- query_sample_sources(sample_sources, sele)
 

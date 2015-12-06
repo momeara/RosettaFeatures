@@ -62,7 +62,7 @@ p <- ggplot(data=dens) +
 	geom_indicator(aes(indicator=counts, group=sample_source, colour=sample_source), size=3) +
 	facet_grid(res1_type ~ res2_type) +
 	ggtitle("Residue Pair Distances When Both Are Buried; B-Fact < 30") +
-	scale_x_continuous("Distance between Action Coordinates", range=c(2, 7.5)) +
+	scale_x_continuous("Distance between Action Coordinates", limits=c(2, 7.5)) +
 	scale_y_continuous("Feature Density")
 if(nrow(sample_sources) <= 3){
 	p <- p + theme(legend.position="bottom", legend.direction="horizontal")

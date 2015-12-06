@@ -44,11 +44,11 @@ WHERE
 	acc.HBChemType = '", acc_chem_type, "';", sep="")
 	f <- query_sample_sources(sample_sources, sele)
 
-        # A-D distance is not stored directly in the features database,
-        # however it can be computed from the coordinates of the hydrogen
-        # bonding atoms.
-        transform(f,
-        	ADdist = vector_distance(cbind(dx, dy, dz), cbind(ax, ay, az)))
+	# A-D distance is not stored directly in the features database,
+	# however it can be computed from the coordinates of the hydrogen
+	# bonding atoms.
+	transform(f,
+		ADdist = vector_distance(cbind(dx, dy, dz), cbind(ax, ay, az)))
 
 }
 

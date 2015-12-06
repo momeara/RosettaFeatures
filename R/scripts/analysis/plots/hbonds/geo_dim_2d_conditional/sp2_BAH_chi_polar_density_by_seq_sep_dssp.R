@@ -8,11 +8,8 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
-
+library(dplyr)
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -177,10 +174,10 @@ est_dens <- function(z, ids, n_pts=400) {
 }
 
 plot_id = "sp2_hbond_BAH_BAchi_equal_area_log_scale_bb_bb_by_acc_ss"
-sub_f <- f[
-	f$don_chem_type == "hbdon_PBA" & f$acc_chem_type == "hbacc_PBA",
-	c("sample_source", "acc_ss_linear", "capx", "capy")]
-dens <- est_dens(sub_f, c("acc_ss_linear", "sample_source"))
+dens <- f %>%
+	dplyr::filter(don_chem_type == "hbdon_PBA", acc_chem_type == "hbacc_PBA") %>%
+	dplyr::select(sample_source, acc_ss_linear, capx, capy) %>%
+	est_dens(c("acc_ss_linear", "sample_source"))
 ggplot(data=dens) + plot_parts_grid_log() +
 	facet_grid(acc_ss_linear ~ sample_source) +
 	ggtitle("BB-BB H-Bonds Base-Acceptor-Hydrogen Scaled Eq-Area Projection by Don-DSSP")
@@ -188,10 +185,10 @@ narrow_output_formats <- transform(output_formats, width=height/1.5)
 save_plots(self, plot_id, sample_sources, output_dir, narrow_output_formats)
 
 plot_id = "sp2_hbond_BAH_BAchi_equal_area_log_scale_cxl_bb_by_seq_sep"
-sub_f <- f[
-	f$don_chem_type == "hbdon_PBA" & f$acc_chem_type == "hbacc_CXL",
-	c("sample_source", "seq_sep", "capx", "capy")]
-dens <- est_dens(sub_f, c("seq_sep", "sample_source"))
+dens <- f %>%
+	dplyr::filter(don_chem_type == "hbdon_PBA", acc_chem_type == "hbacc_CXL") %>%
+	dplyr::select(sample_source, seq_sep, capx, capy) %>%
+	est_dens(c("seq_sep", "sample_source"))
 ggplot(data=dens) + plot_parts_grid_log() +
 	facet_grid(seq_sep ~ sample_source) +
 	ggtitle("ASP/GLU-BB H-Bonds Base-Acceptor-Hydrogen Scaled Eq-Area Projection")
@@ -241,7 +238,6 @@ ggplot(data=dens) + plot_parts_grid_log() +
 	ggtitle("aCXA-dSC H-Bonds Base-Acceptor-Hydrogen Scaled Eq-Area Projection")
 narrow_output_formats <- transform(output_formats, width=height/2)
 save_plots(self, plot_id, sample_sources, output_dir, narrow_output_formats)
-
 
 
 

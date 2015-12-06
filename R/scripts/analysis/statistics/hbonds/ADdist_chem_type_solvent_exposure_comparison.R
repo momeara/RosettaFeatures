@@ -8,8 +8,6 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(plyr)
-
-
 source("../../plots/hbonds/hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -20,16 +18,14 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-
-
 sele <- "
 SELECT
 	don_atoms.base_x AS dx, don_atoms.base_y AS dy, don_atoms.base_z AS dz,
 	acc_atoms.atm_x  AS ax, acc_atoms.atm_y  AS ay, acc_atoms.atm_z  AS az,
 	don.HBChemType AS don_chem_type, acc.HBChemType AS acc_chem_type,
 	CASE
-		WHEN don_env.sasa_r140 == 0 && acc_env.sasa_r140 == 0 THEN 'Buried'
-		WHEN don_env.sasa_r140 > 0 && acc_env.sasa_r140 > 0 THEN 'Exposed'
+		WHEN don_env.sasa_r140 == 0 and acc_env.sasa_r140 == 0 THEN 'Buried'
+		WHEN don_env.sasa_r140 > 0 and acc_env.sasa_r140 > 0 THEN 'Exposed'
 		ELSE 'Partial' END AS sasa_burial,
 	CASE acc.HBChemType
 		WHEN 'hbacc_IMD' THEN 'ring' WHEN 'hbacc_IME' THEN 'ring'

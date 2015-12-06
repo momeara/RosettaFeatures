@@ -9,10 +9,8 @@
 
 
 library(ggplot2)
-
-
 library(plyr)
-
+library(dplyr)
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "score_vs_rmsd",
@@ -38,8 +36,12 @@ WHERE
 	p.struct_id = s.struct_id AND
 	r.struct_id = s.struct_id;"
 
-f <- query_sample_sources(sample_sources, sele)
-f$score_per_residue <- f$score / f$total_residue
+# only compute RMSD vs score plots for non-reference sample sources
+f <- sample_sources %>%
+	dplyr::filter(!reference) %>%
+	query_sample_sources(sele) %>%
+	dplyr::mutate(
+		score_per_residue = score / total_residue)
 
 print(summary(f))
 

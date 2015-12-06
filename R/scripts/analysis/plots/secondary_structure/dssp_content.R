@@ -19,7 +19,6 @@ feature_reporter_dependencies = c("ResidueSecondaryStructureFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-
 # I think this may be broken, shouldn't there be a where clause?
 sele <-"
 SELECT

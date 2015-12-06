@@ -8,8 +8,6 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(plyr)
-
-
 source("../../plots/hbonds/hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
@@ -18,8 +16,6 @@ author = "Matthew O'Meara",
 brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
-
-
 
 
 sele <-"
@@ -137,6 +133,11 @@ do_comp <- function(
 	dim_type,
 	comp_funs
 ) {
+	cat(paste0(
+		"Do comparison:",
+		"\n\tid variables: ", paste(id.vars_str, collapse=", "),
+		"\n\tmeasure variable: ", measure.var,
+		"\n\tdim_type: ", dim_type))
 
 	if(id.vars_str == ""){
 		id.vars <- c()

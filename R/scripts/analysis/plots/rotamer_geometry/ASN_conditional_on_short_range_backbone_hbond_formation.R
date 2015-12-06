@@ -18,7 +18,6 @@ feature_reporter_dependencies = c("ResidueFeatures", "ProteinResidueConformation
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-
 sele <-"
 CREATE TEMPORARY TABLE asn_sr_bb_hb AS
 SELECT DISTINCT
@@ -73,6 +72,8 @@ query_sample_sources(sample_sources, sele, warn_zero_rows=F)
 
 
 m_f <- reshape2::melt(f, measure.vars=c("chi1", "chi2"), variable_name="chi_angle")
+
+print(str(m_f))
 
 dens <- estimate_density_1d_wrap(
 	m_f, c("sample_source", "chi_angle", "sr_bb_hb"), "value", xlim=c(-180, 180), adjust=.35)

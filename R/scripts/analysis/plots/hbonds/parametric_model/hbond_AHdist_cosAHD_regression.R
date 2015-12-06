@@ -8,10 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "hbond_AHdist_cosAHD_regression",
@@ -42,7 +39,8 @@ WHERE
 
 f <- query_sample_sources(sample_sources, sele)
 
-d <- estimate_density_2d(f, c("sample_source", "don_chem_type", "acc_chem_type"), "cosAHD", "AHdist", histogram=TRUE, n_pts=100)
+d <- estimate_density_2d(
+	f, c("sample_source", "don_chem_type", "acc_chem_type"), "cosAHD", "AHdist", histogram=TRUE, n_pts=100)
 
 #d_ply(f, c("sample_source", "don_chem_type", "acc_chem_type"), function(df){
 #	d[d$sample_source==df$sample_source[1],

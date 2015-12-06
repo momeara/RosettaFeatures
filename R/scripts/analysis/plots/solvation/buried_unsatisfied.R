@@ -32,8 +32,7 @@ WHERE
 GROUP BY
   site.HBChemType;"
 f <- query_sample_sources(sample_sources, sele)
-f$don_chem_type_name <- don_chem_type_name_linear(f$don_chem_type)
-f$acc_chem_type_name <- acc_chem_type_name_linear(f$acc_chem_type)
+f$chem_type_name <- chem_type_name_linear(f$chem_type)
 f <- na.omit(f, method="r")
 
 print(summary(f))

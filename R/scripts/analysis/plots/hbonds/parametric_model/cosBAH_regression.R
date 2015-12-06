@@ -8,10 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
-
 
 feature_analyses <- c(feature_analyses, new("FeaturesAnalysis",
 id = "cosBAH_regression",
@@ -50,7 +47,7 @@ f <- rbind(f, transform(f, cosBAH = 2 - cosBAH))
 
 plot_parts <- list(
 	theme_bw(),
-	geom_vline(x=1, colour="darkgrey", size=.9),
+	geom_vline(xintercept=1, colour="darkgrey", size=.9),
   scale_x_continuous("Acceptor Base -- Acceptor -- Hydrogen cos(degrees)"),
   scale_y_continuous("-log(FeatureDensity)"))
 

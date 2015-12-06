@@ -453,7 +453,6 @@ compute_qq <- function(
 		data.frame(
 			probs=probs, quantiles=quantile(df[,variable], probs=probs), counts=nrow(df))
 	})
-}
 
 	merge(ref_q, new_q, by=c(merge_ids, "probs"), suffixes=c(".ref", ".new"))
 }

@@ -54,39 +54,41 @@ WHERE
 
 f <- query_sample_sources(sample_sources, sele)
 
-f <- transform(f,
-	don_chem_type_name = don_chem_type_name_linear(don_chem_type),
-	acc_chem_type_name = acc_chem_type_name_linear(acc_chem_type),
-	cosBAH = ifelse(hybrid %in% c("sp3", "ring"),
-		vector_dotprod(
-			vector_normalize(cbind(ax-(bx+b2x)/2, ay-(by+b2y)/2, az-(bz+b2z)/2)),
-			vector_normalize(cbind(hx-ax, hy-ay, hz-az))),
-		vector_dotprod(
-			vector_normalize(cbind(ax-bx, ay-by, az-bz)),
-			vector_normalize(cbind(hx-ax, hy-ay, hz-az)))),
-	chi = ifelse(hybrid %in% c("sp3", "ring"),
-		vector_dihedral(
-			cbind(b2x, b2y, b2z),
-			cbind((bx+b2x)/2, (by+b2y)/2, (bz+b2z)/2),
-			cbind(ax, ay, az),
-			cbind(hx, hy, hz)),
-		vector_dihedral(
-			cbind(b2x, b2y, b2z),
-			cbind(bx, by, bz),
-			cbind(ax, ay, az),
-			cbind(hx, hy, hz))))
-
-coords <- with(f,
-	data.frame(
-		sample_source = sample_source,
-		don_chem_type_name = don_chem_type_name,
-		acc_chem_type_name = acc_chem_type_name,
+coords <- f %>%
+	dplyr::mutate(
+		don_chem_type_name = don_chem_type_name_linear(don_chem_type),
+		acc_chem_type_name = acc_chem_type_name_linear(acc_chem_type),
+		cosBAH = ifelse(hybrid %in% c("sp3", "ring"),
+			vector_dotprod(
+				vector_normalize(cbind(ax-(bx+b2x)/2, ay-(by+b2y)/2, az-(bz+b2z)/2)),
+				vector_normalize(cbind(hx-ax, hy-ay, hz-az))),
+			vector_dotprod(
+				vector_normalize(cbind(ax-bx, ay-by, az-bz)),
+				vector_normalize(cbind(hx-ax, hy-ay, hz-az)))),
+		bah = acos(bah),
+		chi = ifelse(hybrid %in% c("sp3", "ring"),
+			vector_dihedral(
+				cbind(b2x, b2y, b2z),
+				cbind((bx+b2x)/2, (by+b2y)/2, (bz+b2z)/2),
+				cbind(ax, ay, az),
+				cbind(hx, hy, hz)),
+			vector_dihedral(
+				cbind(b2x, b2y, b2z),
+				cbind(bx, by, bz),
+				cbind(ax, ay, az),
+				cbind(hx, hy, hz))),
 		x = AHdist * sin(bah) * cos(chi),
 		y = AHdist * sin(bah) * sin(chi),
-		z = AHdist * cos(bah)))
+		z = AHdist * cos(bah)) %>%
+	dplyr::select(
+		sample_source,
+		don_chem_type_name,
+		acc_chem_type_name,
+		x, y, z)
 
-#safe memory
+#save memory
 f <- NULL
+gc()
 
 make_acc_plot_3d <- function(dens, full_path, n=200, alo=0.1, ahi=0.5) {
 	cat("Saving plot: ", full_path)

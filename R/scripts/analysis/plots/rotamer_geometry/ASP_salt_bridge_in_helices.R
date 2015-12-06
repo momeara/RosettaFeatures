@@ -8,8 +8,6 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 library(ggplot2)
-
-
 library(plyr)
 
 
@@ -65,7 +63,7 @@ p <- ggplot(data=dens) +
 	coord_equal(ratio=1) +
 	scale_x_continuous("chi 1") +
 	scale_y_continuous("chi 2") +
-	scale_fill_gradient("Density", low="white", high="black") +
+	scale_fill_gradient("Density", low="white", high="black")
 if(nrow(sample_sources) <= 3){
 	p <- p + theme(legend.position="bottom", legend.direction="horizontal")
 }

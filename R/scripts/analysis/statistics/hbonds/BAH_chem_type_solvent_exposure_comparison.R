@@ -28,8 +28,8 @@ SELECT
 	acc.HBChemType AS acc_chem_type,
 	don.HBChemType AS don_chem_type,
 	CASE
-		WHEN don_env.sasa_r140 == 0 && acc_env.sasa_r140 == 0 THEN 'Buried'
-		WHEN don_env.sasa_r140 > 0 && acc_env.sasa_r140 > 0 THEN 'Exposed'
+		WHEN don_env.sasa_r140 == 0 AND acc_env.sasa_r140 == 0 THEN 'Buried'
+		WHEN don_env.sasa_r140 > 0 AND acc_env.sasa_r140 > 0 THEN 'Exposed'
 		ELSE 'Partial' END AS sasa_burial,
 	CASE acc.HBChemType
 			WHEN 'hbacc_IMD' THEN 'ring' WHEN 'hbacc_IME' THEN 'ring'

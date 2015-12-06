@@ -153,7 +153,6 @@ do_stats <- function(
 			na.omit(f[,c("sample_source", id.vars, measure.var)], method="r"),
 			c("sample_source", id.vars),
 			function(df) {
-				print(summary(df))
 				mean_stat <- mean(df[,measure.var])
 				median_stat <- median(df[,measure.var])
 				primary_mode_stat <- NA
@@ -167,9 +166,9 @@ do_stats <- function(
 #				})
 				sd_stat <- sd(df[,measure.var])
 
-				cat(mean_stat, median_stat, primary_mode_stat, sd_stat, "\n")
-				print(paste(mean_stat, median_stat, primary_mode_stat, sd_stat, "\n"))
-				cat(class(mean_stat), class(median_stat), class(primary_mode_stat), class(sd_stat), "\n")
+#				cat(mean_stat, median_stat, primary_mode_stat, sd_stat, "\n")
+#				print(paste(mean_stat, median_stat, primary_mode_stat, sd_stat, "\n"))
+#				cat(class(mean_stat), class(median_stat), class(primary_mode_stat), class(sd_stat), "\n")
 
 				data.frame(
 					mean = mean_stat,
@@ -195,24 +194,24 @@ do_stats <- function(
 
 measure.vars <- data.frame(
 	var=c(
-#		"ADdist",
-#		"AHdist",
+		"ADdist",
+		"AHdist",
 		"AHD", "BAH", "B2AH", "vBAH",
-#		"B2Achi", "BAchi", "vBAchi", "AHchi",
+		"B2Achi", "BAchi", "vBAchi", "AHchi",
 		"HOutOfPlane"),
 	dim=c(
-#		"Distance",
-#		"Distance",
+		"Distance",
+		"Distance",
 		"Angle", "Angle", "Angle", "Angle",
-#		"Torsion", "Torsion", "Torsion", "Torsion",
+		"Torsion", "Torsion", "Torsion", "Torsion",
 		"Distance"))
 
 id.vars <- data.frame(
 	id.vars = c(
-#		"",
-#		"don_bb", "don_hybrid",
+		"",
+		"don_bb", "don_hybrid",
 		"don_chem_type_name",
-#		"acc_bb", "acc_hybrid",
+		"acc_bb", "acc_hybrid",
 		"acc_chem_type_name",
 		"don_hybrid acc_chem_type_name", "acc_hybrid don_chem_type_name",
 		"don_chem_type_name acc_chem_type_name",
