@@ -7,10 +7,6 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-
-
-library(ggplot2)
-library(grid)
 #Extending ggplot2
 #http://rstudio-pubs-static.s3.amazonaws.com/108934_8537676801dd4548a96f6451bae01e94.html
 GeomIndicator <- ggplot2::ggproto(
@@ -131,7 +127,7 @@ GeomIndicator <- ggplot2::ggproto(
 				lineheight=data$lineheight[1]),
 			check.overlap = check_overlap)})
 
-
+#' @export
 geom_indicator <- function (
 	mapping = NULL,
 	data = NULL,

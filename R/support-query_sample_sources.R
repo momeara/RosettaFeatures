@@ -8,6 +8,7 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+#' @export
 set_db_cache_size <- function(con, cache_size){
 	if(is.null(cache_size)){
 		stop("ERROR: unable to set database cache size because the cache_size is null.")
@@ -16,7 +17,7 @@ set_db_cache_size <- function(con, cache_size){
 		paste("PRAGMA cache_size=",as.integer(cache_size),";",sep=""))
 }
 
-
+#' @export
 query_sample_sources <- function(
 	sample_sources,
 	sele,
@@ -64,6 +65,7 @@ query_sample_sources <- function(
 	features
 }
 
+#' @export
 query_sample_sources_against_ref <- function(
 	sample_sources,
 	sele,

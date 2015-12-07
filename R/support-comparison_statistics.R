@@ -7,6 +7,7 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+#' @export
 ref_count <- function(a, b){
   data.frame(
     statistic_name = "ref_count",
@@ -14,6 +15,7 @@ ref_count <- function(a, b){
     p.value = NA)
 }
 
+#' @export
 new_count <- function(a, b){
   data.frame(
     statistic_name = "new_count",
@@ -21,7 +23,7 @@ new_count <- function(a, b){
     p.value = NA)
 }
 
-
+#' @export
 two_sided_ttest <- function(a, b){
   tryCatch({
     z <- t.test(a, b)
@@ -36,6 +38,7 @@ two_sided_ttest <- function(a, b){
     p.value = z$p.value)
 }
 
+#' @export
 kolmogorov_smirnov_test_boot <- function(a, b){
   tryCatch({
     z <- ks.boot(a, b)
@@ -54,8 +57,10 @@ kolmogorov_smirnov_test_boot <- function(a, b){
 }
 
 
-# Prefer to use the anderson_darling_2_sample comparison
-# cf https://asaip.psu.edu/Articles/beware-the-kolmogorov-smirnov-test
+#' Prefer to use the anderson_darling_2_sample comparison
+#' cf https://asaip.psu.edu/Articles/beware-the-kolmogorov-smirnov-test
+#'
+#' @export
 kolmogorov_smirnov_test <- function(a, b){
 	z <- NULL
   tryCatch({
@@ -77,6 +82,7 @@ kolmogorov_smirnov_test <- function(a, b){
 	}
 }
 
+#' @export
 histogram_kl_divergence <- function(a, b, nbins=50){
 	z <- NULL
 	tryCatch({
@@ -101,8 +107,10 @@ histogram_kl_divergence <- function(a, b, nbins=50){
 	}
 }
 
-# Here the inputs are probabilities over the sample space
-#assume evenly spaced partition of points
+#' Here the inputs are probabilities over the sample space
+#' assume evenly spaced partition of points
+#'
+#' @export
 smooth_kl_divergence <- function(x, ad, bd){
 	z <- sum(ad*log((ad+.0001)/(bd+.0001)))
 	data.frame(
@@ -111,7 +119,7 @@ smooth_kl_divergence <- function(x, ad, bd){
 		p.value=NA)
 }
 
-
+#' @export
 anderson_darling_2_sample <- function(a, b, nsamples=1000){
   if (!requireNamespace("adk", quietly = TRUE)) {
 		stop("The package 'adk' needed for this function to work. Please install it.", call. = FALSE)
@@ -137,7 +145,7 @@ anderson_darling_2_sample <- function(a, b, nsamples=1000){
 		p.value=z$adk[2,2]) # P-value, adjust for ties
 }
 
-
+#' @export
 earth_mover_distance_L1 <- function(a, b){
 
   if (!requireNamespace("earthmovdist", quietly = TRUE)) {
@@ -172,7 +180,7 @@ earth_mover_distance_L1 <- function(a, b){
 }
 
 
-
+#' @export
 comparison_statistics <- function(
 	sample_sources,
 	f,
@@ -309,10 +317,12 @@ Grouping by: ", paste(id.vars, collapse=" "), "
 }
 
 
-# Evaluate a two sample tests between different classes of samples
-# conditional on distinct groups of identifying variables.
-#   The class.vars is used to identify the classes of the samples
-#   The id.vars is used to split the classes in to comparison groups
+#' Evaluate a two sample tests between different classes of samples
+#' conditional on distinct groups of identifying variables.
+#'   The class.vars is used to identify the classes of the samples
+#'   The id.vars is used to split the classes in to comparison groups
+#'
+#' @export
 smooth_comparison_statistics <- function(
 	dens, id.vars, comp_fun){
 
@@ -336,10 +346,12 @@ smooth_comparison_statistics <- function(
 
 
 
-# Evaluate a two sample tests between different classes of samples
-# conditional on distinct groups of identifying variables.
-#   The class.vars is used to identify the classes of the samples
-#   The id.vars is used to split the classes in to comparison groups
+#' Evaluate a two sample tests between different classes of samples
+#' conditional on distinct groups of identifying variables.
+#'   The class.vars is used to identify the classes of the samples
+#'   The id.vars is used to split the classes in to comparison groups
+#'
+#' @export
 cross_validate_statistics <- function(
 	f, cv.var, id.vars, measure.vars, comp_fun){
 	if( !(cv.var %in% names(f))){

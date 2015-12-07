@@ -7,7 +7,7 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-
+#' @export
 compute_summary_statistics_1d <- function(
 	data,
 	ids,
@@ -34,8 +34,8 @@ compute_summary_statistics_1d <- function(
 		stop(paste("The value variable '", variable, "' is not a column name of the data. The value variable is used to compute the density estimation.", sep=""))
 	}
 
-	ldply(statistic_functions, function(stat_fun){
-		ddply(data, ids, function(df){
+	plyr::ldply(statistic_functions, function(stat_fun){
+		plyr::ddply(data, ids, function(df){
 			z <- stat_fun(df, variable, extra.args)
 			data.frame(statistic=names(z), value=z[1])
 		})

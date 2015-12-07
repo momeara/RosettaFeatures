@@ -8,10 +8,9 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
-# provides estimate_primary_mode_1d, which estimates the location of
-# 	the primary mode by binary searching the bandwidth of kernel
-# 	density estimation till there is just one mode.
-
+#' provides estimate_primary_mode_1d, which estimates the location of
+#' 	the primary mode by binary searching the bandwidth of kernel
+#' 	density estimation till there is just one mode.
 find_modes_in_density <- function(dens_y){
 	which(diff(sign(diff(dens_y)))==-2)
 }
@@ -98,40 +97,41 @@ locate_primary_mode <- function(
 }
 
 
-# For each set of rows grouped by the columns in ids, binary search
-# for the minimum kernel bandwidth that gives a single mode with
-# kernel density estimation.
-#
-# returns a data.frame with columns c(ids, "statistic") where
-#   "statistic" is the value of "variable" where the mode occurs in
-#   each group defined by ids.
-#
-# data: A data.frame with columns ids and variable
-#
-# ids: A vector of strings that are the column names of data that is
-# 	used to group the data to make multiple comparisons at once. See
-# 	the Plyr package for details.
-#
-# variable: A string for a numeric column of data where the primary
-# 	mode is to be computed.
-#
-# min_count: The minimum number of rows in group before the primary
-# 	mode is computed. This helps over-interpreting groups with very
-# 	few counts
-#
-# n_pts: The resolution of "variable" in measuring the location of the mode.
-#
-# sample_domain: The limits of "variable", when computing the primary
-# 	mode. If it isn't specified then take the whole range of
-# 	"variable" over all the data.
-#
-# banddwidth_tolerance: Stop the binary search of kernel density estimation
-#
-# debug: Print out convergence information in computing the primary
-# 	mode, and add the column "min_kernel_adjust" to the returned
-# 	data.frame of the value of the kernel bandwidth for each group.
-#
-# Extra parameters are passed to the density function.
+#'  For each set of rows grouped by the columns in ids, binary search
+#'  for the minimum kernel bandwidth that gives a single mode with
+#'  kernel density estimation.
+#'
+#'  returns a data.frame with columns c(ids, "statistic") where
+#'    "statistic" is the value of "variable" where the mode occurs in
+#'    each group defined by ids.
+#'
+#'  data: A data.frame with columns ids and variable
+#'
+#'  ids: A vector of strings that are the column names of data that is
+#'  	used to group the data to make multiple comparisons at once. See
+#'  	the Plyr package for details.
+#'
+#'  variable: A string for a numeric column of data where the primary
+#'  	mode is to be computed.
+#'
+#'  min_count: The minimum number of rows in group before the primary
+#'  	mode is computed. This helps over-interpreting groups with very
+#'  	few counts
+#'
+#'  n_pts: The resolution of "variable" in measuring the location of the mode.
+#'
+#'  sample_domain: The limits of "variable", when computing the primary
+#'  	mode. If it isn't specified then take the whole range of
+#'  	"variable" over all the data.
+#'
+#'  banddwidth_tolerance: Stop the binary search of kernel density estimation
+#'
+#'  debug: Print out convergence information in computing the primary
+#'  	mode, and add the column "min_kernel_adjust" to the returned
+#'  	data.frame of the value of the kernel bandwidth for each group.
+#'
+#'  Extra parameters are passed to the density function.
+#' @export
 estimate_primary_modes_1d <- function(
 	data,
 	ids,
@@ -170,6 +170,7 @@ estimate_primary_modes_1d <- function(
 	})
 }
 
+#' @export
 primary_modes_diff <- function(a, b, ...){
 	extra.args <- list(...)
 	data.frame(

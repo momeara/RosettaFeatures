@@ -8,6 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
+#' @export
 date_code <- function(d=NA){
 	# reference http://www.r-cookbook.com/node/17
 	if(is.na(d)) d <- Sys.Date()
@@ -22,6 +23,7 @@ date_code <- function(d=NA){
 
 # Save the last ggplot() object created. For each output format,
 # generate a plot and put in the output directory
+#' @export
 save_plots <- function(
 	features_analysis,
 	plot_id,
@@ -129,6 +131,7 @@ save_plots <- function(
 }
 
 # Egregious code duplication of ggsave to accomodate adding a footer
+#' @export
 ggsave_with_footer <- function (
 	filename = default_name(plot),
 	plot = last_plot(),
@@ -187,6 +190,7 @@ ggsave_with_footer <- function (
 }
 
 # add footer text to the lower right corner
+#' @export
 add_footer_text <- function(text){
 
 	# Broken by ggplot2 update to version 0.9.0.  FIXME!

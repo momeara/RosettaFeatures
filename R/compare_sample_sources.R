@@ -260,7 +260,7 @@ parse_analysis_scripts <- function(configuration, verbose=F){
 	feature_analyses
 }
 
-
+#' @export
 compare_sample_sources <- function(
 	config_filename,
 	db_engine=NULL,
@@ -308,6 +308,7 @@ compare_sample_sources <- function(
 	finalize_sample_sources(configuration, verbose=verbose)
 }
 
+#' @export
 compare_sample_sources_prepare_SGE_run <- function(
 	config_filename,
 	run_base,

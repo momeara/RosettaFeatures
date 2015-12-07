@@ -9,14 +9,14 @@
 
 
 
-#
-# prepare instances to be viewed in PyMol script to look at feature instances
-# The residues_of_interest should be a data.frame with the following columns:
-#   tag, id, chain, resNum, atom
-# See the error message below for more details
-#
-# Run by 'pymol instances.pml' in the distances directory.
 
+#'  prepare instances to be viewed in PyMol script to look at feature instances
+#'  The residues_of_interest should be a data.frame with the following columns:
+#'    tag, id, chain, resNum, atom
+#'  See the error message below for more details
+#'
+#'  Run by 'pymol instances.pml' in the distances directory.
+#' @export
 prepare_feature_instances <- function(
 	feature_instances_id,
 	sample_sources,

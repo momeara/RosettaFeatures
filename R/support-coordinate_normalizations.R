@@ -7,25 +7,31 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
+#' @export
 radial_3d_normalization <- function(x){ 1/(x^2*sum(1/x^2))}
 
+#' @export
 conical_3d_normalization <- function(x){(1/sin(x))*1/sum(1/(sin(x)))}
 
+#' @export
 uniform_normalization <- function(x){ rep(1/length(x),length(x)) }
 
-# normalize according to spherical volume unit
-# r, radial distance and p, polar angle
+#' normalize according to spherical volume unit
+#' r, radial distance and p, polar angle
+#' @export
 spherical_normalization <- function(r,p){ 1/( r^2 * sin(p) ) * 1/sum( r^2 * sin(p) )  }
 
+#' @export
 no_normalization <- function(x) rep(1,length(x))
 
 
 
-
+#' @export
 primary_modes_radial_3d_norm_diff <- function(a, b) {
 	primary_modes_diff(a, b, weight_fun=radial_3d_normalization)
 }
 
+#' @export
 primary_modes_conical_3d_norm_diff <- function(a, b) {
 	primary_modes_diff(a, b, weight_fun=radial_3d_normalization)
 }
@@ -33,11 +39,11 @@ primary_modes_conical_3d_norm_diff <- function(a, b) {
 
 
 
-# These the coordinates for the Lambert-Azmuthal plots:
-#   longitude (around) 30, 60, 90, 120 degrees
-#   latitude  (in-out) 30, 60, 90, 120 degrees (starting from the positive x-axis)
-
-# Equal Area Coordinate Grids
+#' These the coordinates for the Lambert-Azmuthal plots:
+#'   longitude (around) 30, 60, 90, 120 degrees
+#'   latitude  (in-out) 30, 60, 90, 120 degrees (starting from the positive x-axis)
+#'
+#' Equal Area Coordinate Grids
 major_long_coords <- function(
 	lat=c(pi/6, pi/2)
 ){
@@ -82,6 +88,7 @@ long_labels <- function() {
 		capy = 2*sin(lat/2)*sin(long))
 }
 
+#' @export
 polar_equal_area_grids_bw <- function(
 	scale=1,
 	label_scale=1,

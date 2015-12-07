@@ -71,20 +71,23 @@
 #
 #############################################################################
 
-#input:  Two arrays of dimension c(n, d)
-#output: An array of dimension c(n, 1) where the i'th element of the output is the
-#        the dot product of the i'th rows of the input
+#' input:  Two arrays of dimension c(n, d)
+#' output: An array of dimension c(n, 1) where the i'th element of the output is the
+#'        the dot product of the i'th rows of the input
+#' @export
 vector_dotprod <- function(a, b) rowSums(a*b)
 
-#input:  An array of dimensions c(n, d)
-#output: An array of dimension c(n, d) where if the i'th row of the input is (x1,x2, ..., xd)
-#        then the i'th of the output is (x1/norm, x2/norm, ..., xd/norm) where
-#        norm = sqrt(x1^2 + x2^2 + ... + xd^2)
+#' input:  An array of dimensions c(n, d)
+#' output: An array of dimension c(n, d) where if the i'th row of the input is (x1,x2, ..., xd)
+#'         then the i'th of the output is (x1/norm, x2/norm, ..., xd/norm) where
+#'         norm = sqrt(x1^2 + x2^2 + ... + xd^2)
+#' @export
 vector_normalize <- function(m) m / sqrt(rowSums(m^2))
 
-#input:  Two arrays each of dimension c(n, 3)
-#output: An array of dimension c(n,3)  where the i'th row of the output is
-#        the vector cross product of the i'th rows of the input vectors
+#' input:  Two arrays each of dimension c(n, 3)
+#' output: An array of dimension c(n,3)  where the i'th row of the output is
+#'        the vector cross product of the i'th rows of the input vectors
+#' @export
 vector_crossprod <- function( a, b ) {
 	result <- matrix( NA, nrow( a ), 3 )
 	result[,1] <- a[,2] * b[,3] - a[,3] * b[,2]
@@ -93,15 +96,17 @@ vector_crossprod <- function( a, b ) {
 	result
 }
 
-#input: two arrays each of dimension c(n, d) each representing points in d dimensions
-#output: An aray of dimension c(n,1) which is the euclidean distance between the between the points
+#' input: two arrays each of dimension c(n, d) each representing points in d dimensions
+#' output: An aray of dimension c(n,1) which is the euclidean distance between the between the points
+#' @export
 vector_distance <- function(a,b) {
 	sqrt(rowSums((a-b)^2))
 }
 
-#input:  4 arrays each of dimension c(n, 3)
-#output: An array of dimension c(n, 1) which is the dihedral angle about v2 -> v3
-#        between v1->v2 to v3->v4 using the right hand rule.
+#' input:  4 arrays each of dimension c(n, 3)
+#' output: An array of dimension c(n, 1) which is the dihedral angle about v2 -> v3
+#'        between v1->v2 to v3->v4 using the right hand rule.
+#' @export
 vector_dihedral <- function(v1, v2, v3, v4) {
 	w1 <- vector_normalize(v2-v1)
 	w2 <- vector_normalize(v3-v2)

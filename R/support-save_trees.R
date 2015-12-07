@@ -18,8 +18,9 @@ date_code <- function(d=NA){
 }
 
 
-# Save a data.frame as a table. For each output format,
-# generate a table and put in the output directory
+#' Save a data.frame as a table. For each output format,
+#'  generate a table and put in the output directory
+#' @export
 save_trees <- function(
 	features_analysis,
 	distance_matrix,

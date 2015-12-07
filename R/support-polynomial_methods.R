@@ -7,7 +7,7 @@
 # (c) For more information, see http://www.rosettacommons.org. Questions about this can be
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
-
+#' @export
 get_1d_polynomial_by_name <- function(
 	polynomials,
 	name
@@ -39,6 +39,8 @@ get_1d_polynomial_by_name <- function(
 #	print(paste("Polynomial ",model$name,": ", paste(p,sep=","), sep=""))
 	model
 }
+
+#' @export
 get_1d_polynomial <- function(
 	polynomials,
 	don_chem_type=NULL,
@@ -81,6 +83,7 @@ get_1d_polynomial <- function(
 	model
 }
 
+#' @export
 add_1d_polynomial_models <- function(polynomials,
 																		 densities,
 																		 variables,

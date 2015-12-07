@@ -8,7 +8,7 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
-
+#' @export
 estimate_density_1d <-function(
   data,
   ids,
@@ -78,6 +78,7 @@ estimate_density_1d <-function(
   plyr::ddply(data, ids, compute_density)
 }
 
+#' @export
 estimate_density_1d_wrap <-function(
   data,
   ids,
@@ -134,7 +135,7 @@ estimate_density_1d_wrap <-function(
   plyr::ddply(extended_data, ids, compute_density)
 }
 
-
+#' @export
 estimate_density_1d_reflect_boundary <-function(
   data,
   ids,
@@ -244,7 +245,7 @@ estimate_density_1d_reflect_boundary <-function(
 	z[,!(names(z) %in% "X0")]
 }
 
-
+#' @export
 estimate_density_1d_logspline <-function(
   data,
   ids,
@@ -302,7 +303,7 @@ estimate_density_1d_logspline <-function(
   plyr::ddply(data, ids, compute_density)
 }
 
-
+#' @export
 estimate_density_2d <-function(
 	data,
 	ids,
@@ -377,7 +378,7 @@ estimate_density_2d <-function(
     d
   })
 	if(scaled){
-		dens <- ddply(
+		dens <- plyr::ddply(
 			.data=dens,
 			.variables=ids,
 			.drop=FALSE,
@@ -386,20 +387,21 @@ estimate_density_2d <-function(
 	return(dens)
 }
 
-# Compute quantiles for specified 'variable' grouping by 'ids' columns
-# in 'variable'. The quantile for a real numer x is the fraction of
-# values for 'variable' that are less than x.
-#
-# If lengths(probs)==1, then "Ordinates for Probability Plotting" with
-# 'probs' probability points are used.
-#
-# Returns data.frame with the following columns
-#   ids, probs, quantiles, counts
-#
-# # for example:
-# q <- compute_quantiles(f, c("id_col1", "id_col2"), "var")
-#
-# ggplot(q) + geom_line(aes(x=quantiles*180/pi, y=probs))
+#'  Compute quantiles for specified 'variable' grouping by 'ids' columns
+#'  in 'variable'. The quantile for a real numer x is the fraction of
+#'  values for 'variable' that are less than x.
+#'
+#'  If lengths(probs)==1, then "Ordinates for Probability Plotting" with
+#'  'probs' probability points are used.
+#'
+#'  Returns data.frame with the following columns
+#'    ids, probs, quantiles, counts
+#'
+#'  # for example:
+#'  q <- compute_quantiles(f, c("id_col1", "id_col2"), "var")
+#'
+#'  ggplot(q) + geom_line(aes(x=quantiles*180/pi, y=probs))
+#' @export
 compute_quantiles <- function(
 	data,
 	ids,
@@ -425,7 +427,7 @@ compute_quantiles <- function(
 	})
 }
 
-
+#' @export
 compute_qq <- function(
 	ref_data,
 	new_data,
@@ -457,19 +459,20 @@ compute_qq <- function(
 	merge(ref_q, new_q, by=c(merge_ids, "probs"), suffixes=c(".ref", ".new"))
 }
 
-# Extract multiple, overlapping subsets of the data based on quantiles
-#
-# Output: The rows of the input data duplicated once for each window
-# it is contained in. The window id is in a column 'window.id' numbered
-# 1, 2, 3, ...
-#
-#[--------------------------------]
-#[----------]
-#      [----------]
-#           [----------]
-#                 [----------]
-#                      [----------]
-#
+#'  Extract multiple, overlapping subsets of the data based on quantiles
+#'
+#'  Output: The rows of the input data duplicated once for each window
+#'  it is contained in. The window id is in a column 'window.id' numbered
+#'  1, 2, 3, ...
+#'
+#' [--------------------------------]
+#' [----------]
+#'       [----------]
+#'            [----------]
+#'                  [----------]
+#'                       [----------]
+#'
+#' @export
 sliding_windows <- function(
 	data,
 	id.vars,
@@ -545,7 +548,7 @@ if(!is.numeric(overlap_fraction)){
 	})
 }
 
-
+#' @export
 distance_matrix <- function(
 	data,
 	id.var,
