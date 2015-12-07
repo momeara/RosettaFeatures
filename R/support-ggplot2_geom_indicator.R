@@ -12,7 +12,7 @@
 GeomIndicator <- ggplot2::ggproto(
 	"GeomIndicator", ggplot2::Geom,
 	required_aes = c("indicator"),
-	default_aes = aes(
+	default_aes = ggplot2::aes(
 		colour = "black",
 		xpos="right",
 		ypos="top",

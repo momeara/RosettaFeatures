@@ -13,7 +13,7 @@ Authors@R: person("Matthew", "O'Meara", email = "mattjomeara@gmail.com",
 URL: http://github.com/momeara/Stela
 BugReports: https://github.com/momeara/Stela/issues
 Depends:
-   R (>= 3.1.2)
+    R (>= 3.1.2)
 Imports:
     assertthat,
     assertr,
@@ -37,10 +37,10 @@ Imports:
     scales,
     doMC,
     viridis
-Collage:
-    'compare_sample_sources.R',
+Collage: 'compare_sample_sources.R',
     'features_analysis.R',
     'output_formats.R',
+    'utils.R',
     'support-comparison_statistics.R',
     'support-coordinate_normalizations.R',
     'support-density_estimation.R',
@@ -55,3 +55,4 @@ Collage:
     'support-save_plots.R',
     'support-save_tables.R',
     'support-vector_math.R'
+RoxygenNote: 5.0.1

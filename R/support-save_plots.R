@@ -8,19 +8,6 @@
 # (c) addressed to University of Washington UW TechTransfer, email: license@u.washington.edu.
 
 
-#' @export
-date_code <- function(d=NA){
-	# reference http://www.r-cookbook.com/node/17
-	if(is.na(d)) d <- Sys.Date()
-	pattern <- '20([[:digit:]]{2})-([[:digit:]]{2})-([[:digit:]]{2})'
-	paste(
-		sub(pattern, '\\1', d), sub(pattern, '\\2', d), sub(pattern, '\\3', d),
-		sep="")
-}
-
-
-
-
 # Save the last ggplot() object created. For each output format,
 # generate a plot and put in the output directory
 #' @export
