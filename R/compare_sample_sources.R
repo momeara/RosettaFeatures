@@ -172,7 +172,7 @@ initialize_analysis_scripts <- function(configuration, verbose=F){
 			stop(paste0("ERROR: No analysis scripts were speficied.\n", error_message, "\n"))
 	}
 
-	package_scripts_base <- paste(path.package("RosettaFeatures"), "inst", sep="/")
+	package_scripts_base <- paste(path.package("RosettaFeatures"), sep="/")
 	configuration$analysis_scripts <- plyr::llply(
 		configuration$analysis_scripts,
 		function(analysis_script){
