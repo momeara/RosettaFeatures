@@ -54,7 +54,7 @@ run=function(self, sample_sources, output_dir, output_formats){
 sele <- "
 SELECT
 	don_site.HBChemType AS don_chem_type,
-	don_site.HBChemType AS acc_chem_type,
+	acc_site.HBChemType AS acc_chem_type,
 	don_conf.chi3 AS chi3,
 	don_conf.chi2 AS chi2,
 	dssp_code.label AS don_dssp,

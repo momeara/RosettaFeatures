@@ -16,9 +16,6 @@ brief_description = "",
 feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
-
-
-
 sele <-"
 SELECT
 	don_atoms.base_x AS dx, don_atoms.base_y AS dy, don_atoms.base_z AS dz,

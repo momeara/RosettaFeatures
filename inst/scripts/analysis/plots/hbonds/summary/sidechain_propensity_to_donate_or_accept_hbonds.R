@@ -168,11 +168,11 @@ table_id <- "hb_chem_type_fraction_satisfied"
 p_sat <- ddply(f, .(chem_type_name, buried, sample_source), function(df){
 	data.frame(
 		n_sat = sum(df[df$satisfied == "Sat", "count"]),
-		p_sat = sum(df[df$satisfied == "Sat", "count"])/sum(df$count))
+		mean_sat = sum(df[df$satisfied == "Sat", "count"])/sum(df$count))
 })
 
 
-n_sat_wide <- dcast(p_sat, buried + chem_type_name ~ sample_source, value.var=n_sat, value="n_sat")
+n_sat_wide <- dcast(p_sat, buried + chem_type_name ~ sample_source, value.var="n_sat", value="n_sat")
 z <- names(n_sat_wide)
 names(n_sat_wide) <- c(
 	"buried", "chem_type_name",

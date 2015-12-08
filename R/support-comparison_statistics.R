@@ -313,7 +313,7 @@ Grouping by: ", paste(id.vars, collapse=" "), "
 	}
 	cast_formula <- as.formula(cast_formula_str)
 	cat("Casting result as: ", cast_formula_str, "\n", sep="")
-	cast(stats, cast_formula, value="statistic")
+	reshape2::dcast(stats, cast_formula, value="statistic")
 }
 
 

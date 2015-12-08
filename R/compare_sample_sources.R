@@ -330,8 +330,7 @@ compare_sample_sources_prepare_SGE_run <- function(
 #
 # This script submits each analysis script as a separate job to a Sun Grid Engine cluster
 
-qsub -t 1-3 -N features_analysis run_job.sh
-#qsub -t 1-$(ls -l jobs/ | wc -l) -N features_analysis run_job.sh
+qsub -t 1-$(ls -l jobs/ | wc -l) -tc 30 -N features_analysis run_job.sh
 ")
 
 	run_job.sh <-paste0("#/bin/bash

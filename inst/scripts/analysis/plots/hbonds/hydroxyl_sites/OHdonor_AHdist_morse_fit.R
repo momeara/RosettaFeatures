@@ -68,8 +68,8 @@ dens <- estimate_density_1d(
   ids = c("sample_source"),
   variable = "cosBAH")
 p <- ggplot(data=dens) + theme_bw() +
-	geom_line(aes(aes(x=acos(x)*180/pi, y=y, colour=sample_source)) +
-	geom_indicator(indicator=counts, colour=sample_source, group=sample_source)) +
+	geom_line(aes(x=acos(x)*180/pi, y=y, colour=sample_source)) +
+	geom_indicator(aes(indicator=counts, colour=sample_source, group=sample_source)) +
 	ggtitle("Hydroxyl Donor Hydrogen Bonds BAH Angle \n(normalized for equal weight per unit distance)") +
 	labs(x=expression(paste('Base -- Acceptor -- Hydrogen (degrees)')),
 	     y="Feature Density")

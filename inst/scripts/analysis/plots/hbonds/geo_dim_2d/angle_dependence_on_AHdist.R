@@ -194,7 +194,7 @@ if(!is.null(qs)){
 				theme_bw() +
 				scale_y_continuous("Fraction", limit=c(0,1), breaks=c(0,.25, .50, .75)) +
 				scale_x_continuous("Angle Deviation from Linear for Acceptor -- Hydrogen -- Donor (degrees)") +
-				scale_line_type_manual("Sample Source", c(3,1)) +
+				scale_linetype_manual("Sample Source", c(3,1)) +
 	#			geom_indicator(aes(indicator=counts), ypos=.9, yjust="bottom")) +
 				list(make_title_AHD(c(""))) +
 				scale_colour_discrete("AHdist Window")

@@ -21,7 +21,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-
 sele <-"
 SELECT
 	acc_atoms.base_x  AS abx,  acc_atoms.base_y  AS aby,  acc_atoms.base_z  AS abz,
@@ -197,10 +196,10 @@ narrow_output_formats <- transform(output_formats, width=height/1.5)
 save_plots(self, plot_id, sample_sources, output_dir, narrow_output_formats)
 
 plot_id = "sp2_hbond_BAH_BAchi_equal_area_log_scale_cxa_bb_by_seq_sep"
-sub_f <- f[
-	f$don_chem_type == "hbdon_PBA" & f$acc_chem_type == "hbacc_CXA",
-	c("sample_source", "seq_sep", "capx", "capy")]
-dens <- est_dens(sub_f, c("seq_sep", "sample_source"))
+dens <- f %>%
+	dplyr::filter(don_chem_type == "hbdon_PBA", acc_chem_type == "hbacc_CXA") %>%
+	dplyr::select(sample_source, seq_sep, capx, capy) %>%
+	est_dens(c("seq_sep", "sample_source"))
 ggplot(data=dens) + plot_parts_grid_log() +
 	facet_grid(seq_sep ~ sample_source) +
 	ggtitle("ASN/GLN-BB H-Bonds Base-Acceptor-Hydrogen Scaled Eq-Area Projection")
@@ -208,10 +207,10 @@ narrow_output_formats <- transform(output_formats, width=height/1.5)
 save_plots(self, plot_id, sample_sources, output_dir, narrow_output_formats)
 
 plot_id = "sp2_hbond_BAH_BAchi_equal_area_log_scale_bb_sc_by_don_chem_type"
-sub_f <- f[
-	f$don_chem_type != "hbdon_PBA" & f$acc_chem_type == "hbacc_PBA",
-	c("sample_source", "don_chem_type_name", "capx", "capy")]
-dens <- est_dens(sub_f, c("don_chem_type_name", "sample_source"))
+dens <- f %>%
+	dplyr::filter(don_chem_type == "hbdon_PBA", acc_chem_type == "hbacc_PBA") %>%
+	dplyr::select(sample_source, don_chem_type, capx, capy) %>%
+	est_dens(c("don_chem_type", "sample_source"))
 ggplot(data=dens) + plot_parts_grid_log() +
 	facet_grid(don_chem_type_name ~ sample_source) +
 	ggtitle("aBB-dSC H-Bonds Base-Acceptor-Hydrogen Scaled Eq-Area Projection")
@@ -219,10 +218,10 @@ narrow_output_formats <- transform(output_formats, width=height/2)
 save_plots(self, plot_id, sample_sources, output_dir, narrow_output_formats)
 
 plot_id = "sp2_hbond_BAH_BAchi_equal_area_log_scale_cxl_sc_by_don_chem_type"
-sub_f <- f[
-	f$don_chem_type != "hbdon_PBA" & f$acc_chem_type == "hbacc_CXL",
-	c("sample_source", "don_chem_type_name", "capx", "capy")]
-dens <- est_dens(sub_f, c("don_chem_type_name", "sample_source"))
+dens <- f %>%
+	dplyr::filter(don_chem_type == "hbdon_PBA", acc_chem_type == "hbacc_CXL") %>%
+	dplyr::select(sample_source, don_chem_type_name, capx, capy) %>%
+	est_dens(c("don_chem_type_name", "sample_source"))
 ggplot(data=dens) + plot_parts_grid_log() +
 	facet_grid(don_chem_type_name ~ sample_source) +
 	ggtitle("aCXL-dSC H-Bonds Base-Acceptor-Hydrogen Scaled Eq-Area Projection")
@@ -230,10 +229,10 @@ narrow_output_formats <- transform(output_formats, width=height/2)
 save_plots(self, plot_id, sample_sources, output_dir, narrow_output_formats)
 
 plot_id = "sp2_hbond_BAH_BAchi_equal_area_log_scale_cxa_sc_by_don_chem_type"
-sub_f <- f[
-	f$don_chem_type != "hbdon_PBA" & f$acc_chem_type == "hbacc_CXA",
-	c("sample_source", "don_chem_type_name", "capx", "capy")]
-dens <- est_dens(sub_f, c("don_chem_type_name", "sample_source"))
+dens <- f %>%
+	dplyr::filter(don_chem_type == "hbdon_PBA", acc_chem_type == "hbacc_CXA") %>%
+	dplyr::select(sample_source, don_chem_type_name, capx, capy) %>%
+	est_dens(c("don_chem_type_name", "sample_source"))
 ggplot(data=dens) + plot_parts_grid_log() +
 	facet_grid(don_chem_type_name ~ sample_source) +
 	ggtitle("aCXA-dSC H-Bonds Base-Acceptor-Hydrogen Scaled Eq-Area Projection")
@@ -247,7 +246,9 @@ save_plots(self, plot_id, sample_sources, output_dir, narrow_output_formats)
 
 
 plot_id = "sp2_hbond_BAH_BAchi_equal_area_log_scale_seq_sep"
-dens <- est_dens(f[f$acc_chem_type != "hbacc_PBA",], c("seq_sep", "sample_source"))
+dens <- f %>%
+	dplyr::filter(acc_chem_type != "hbacc_PBA") %>%
+	est_dens(c("seq_sep", "sample_source"))
 ggplot(data=dens) + plot_parts_grid_log() +
 	facet_grid(seq_sep ~ sample_source) +
 	ggtitle("Sp2 Sc Acc H-Bonds Base Acceptor Hydrogen Scaled EQ-Area Projection") +

@@ -65,7 +65,7 @@ coords <- f %>%
 			vector_dotprod(
 				vector_normalize(cbind(ax-bx, ay-by, az-bz)),
 				vector_normalize(cbind(hx-ax, hy-ay, hz-az)))),
-		bah = acos(bah),
+		bah = acos(cosBAH),
 		chi = ifelse(hybrid %in% c("sp3", "ring"),
 			vector_dihedral(
 				cbind(b2x, b2y, b2z),

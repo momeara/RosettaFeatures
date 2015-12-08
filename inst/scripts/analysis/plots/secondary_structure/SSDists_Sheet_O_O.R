@@ -139,7 +139,8 @@ DROP TABLE ee_bb_bb_hbonds;
 DROP TABLE antiparallel_close_contact_residue_pairs;
 DROP TABLE antiparallel_O_O;
 DROP TABLE parallel_close_contact_residue_pairs;
-DROP TABLE parallel_O_O;"
+DROP TABLE parallel_O_O_minus;
+DROP TABLE parallel_O_O_plus;"
 query_sample_sources(sample_sources, sele, warn_zero_rows=F)
 
 

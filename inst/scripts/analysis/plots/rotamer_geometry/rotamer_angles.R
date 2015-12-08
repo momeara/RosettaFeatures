@@ -75,7 +75,7 @@ m_f <- reshape2::melt(f, measure.vars=c("chi1", "chi2", "chi3", "chi4"), value.n
 print(str(m_f))
 
 dens <- estimate_density_1d(
-	m_f, c("sample_source", "res_type", "chi_angle", "nchi"), "value", xlim=c(-180, 180))
+	m_f, c("sample_source", "res_type", "chi_angle", "nchi"), "chi_angle", xlim=c(-180, 180))
 
 d_ply(dens, .(chi_angle), function(sub_f){
 	chi <- sub_f$chi_angle[1]

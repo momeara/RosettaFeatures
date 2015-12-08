@@ -154,9 +154,11 @@ ddply(dens, c("sample_source"), function(sub_dens){
 	save_plots(self, sub_plot_id, sample_sources, output_dir, output_formats)
 })
 
+cat("dens:\n")
+print(str(dens))
 
 plot_id = "hbond_chi_BAH_eq_polar_density"
-d_ply(dens, .(sample_source, don_chem_type_name, acc_chem_type_name), function(sub_dens){
+d_ply(dens, c("sample_source", "don_chem_type_name", "acc_chem_type_name"), function(sub_dens){
 	ss_id <- sub_dens$sample_source[1]
 
 	sub_plot_id <- paste(

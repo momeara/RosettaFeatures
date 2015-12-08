@@ -84,7 +84,7 @@ f <-  query_sample_sources(sample_sources, sele)
 
 plot_id <- "secondary_structure_counts"
 p <- ggplot(data=f) + theme_bw() +
-	geom_bar(aes(x=dssp, y=count, fill=sample_source), position="dodge") +
+	geom_bar(aes(x=dssp, y=count, fill=sample_source), position="dodge", stat="identity") +
 	coord_flip() +
 	ggtitle("DSSP Counts") +
 	labs(x = "DSSP Code", y = "Count")

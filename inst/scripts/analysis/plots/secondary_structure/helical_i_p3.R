@@ -51,9 +51,12 @@ f <- query_sample_sources(sample_sources, sele)
 
 counts <- f %>%
 	count(sample_source) %>%
-	mutate(counts=n)
+	mutate(counts=n) %>%
+	as.data.frame
 
-f <- f %>% left_join(counts,by=c("sample_source"))
+
+f <- f %>% left_join(counts,by=c("sample_source")) %>%
+	as.data.frame
 
 table_id <- "Alpha_helix_i_to_ip3_hbond_count"
 table_title <- "Counts of a-Helix i->i+3 H-bonds; B-Factor < 30"

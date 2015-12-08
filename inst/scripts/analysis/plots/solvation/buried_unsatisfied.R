@@ -9,6 +9,7 @@
 
 library(reshape2)
 library(ggplot2)
+source("../hbonds/hbonds_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",
 id = "buried_unsatisfied",

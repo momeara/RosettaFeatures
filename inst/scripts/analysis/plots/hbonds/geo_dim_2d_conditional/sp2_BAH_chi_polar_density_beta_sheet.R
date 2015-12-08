@@ -9,6 +9,7 @@
 
 library(ggplot2)
 library(plyr)
+library(dplyr)
 library(viridis)
 source("../hbond_geo_dim_scales.R")
 
@@ -150,7 +151,10 @@ alt_output_formats$width <- 8
 alt_output_formats$extension <- ".pdf"
 
 plot_id = "sp2_hbond_BAH_BAchi_equal_area_log_scale_beta_sheet_by_strand_orientation_sample_source"
-counts <- group_counts(f, c("strand_orientation", "sample_source"))
+counts <- f %>%
+	group_by(strand_orientation, sample_source) %>%
+	filter(sample.int(n()) <= 10000) %>%
+	ungroup()
 dens <- estimate_density_2d(f, c("strand_orientation", "sample_source"), "capx", "capy", min_count=20, n=raster_n, h=.08, scaled=TRUE)
 ggplot(data=dens) + plot_parts() +
 	facet_grid(strand_orientation ~ sample_source) +

@@ -9,6 +9,7 @@
 
 library(ggplot2)
 library(plyr)
+library(dplyr)
 source("../hbond_geo_dim_scales.R")
 
 feature_analyses <- c(feature_analyses, methods::new("FeaturesAnalysis",

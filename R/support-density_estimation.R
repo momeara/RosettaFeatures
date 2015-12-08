@@ -346,7 +346,7 @@ estimate_density_2d <-function(
 					paste(plyr::llply(df[1,ids], as.character), collapse=", "), " for '", nrow(df), "' instances.", sep=""))
 		}
 	  if (nrow(df) < min_count){
-      return(data.frame(x=NULL, y=NULL, z=NULL, counts=NULL))
+      return(data.frame())
     } else {
 			if(method=="histogram"){
 			  h <- gplots::hist2d(

@@ -20,8 +20,6 @@ feature_reporter_dependencies = c("HBondFeatures"),
 run=function(self, sample_sources, output_dir, output_formats){
 
 
-
-
 sele <- "
 SELECT
 	CASE WHEN site.satisfied == 1 THEN 'Sat' ELSE 'UnSat' END AS satisfied,
@@ -66,9 +64,9 @@ save_plots(self, plot_id, sample_sources, output_dir, output_formats)
 table_id <- "hb_chem_type_fraction_satisfied"
 p_sat <- ddply(f, .(chem_type_name, buried, sample_source), function(df){
 	data.frame(
-		p_sat = sum(df[df$satisfied == "Sat", "count"])/sum(df$count))
+		mean_sat = sum(df[df$satisfied == "Sat", "count"])/sum(df$count))
 })
-p_sat_wide <- dcast(p_sat, buried + chem_type_name ~ sample_source, value.var=p_sat, value="p_sat")
+p_sat_wide <- dcast(p_sat, buried + chem_type_name ~ sample_source, value.var="mean_sat", value="p_sat")
 save_tables(self, p_sat_wide, table_id, sample_sources, output_dir, output_formats)
 
 

@@ -76,8 +76,8 @@ do_analysis <- function(group_sele, bond_sele, id, title){
 			p_score = -log( p_bond / (p_don * p_acc) ) )
 	})
 
-	p_score$don_chem_type <- don_chem_type_name_linear(droplevels(p_score$don_chem_type))
-	p_score$acc_chem_type <- acc_chem_type_name_linear(droplevels(p_score$acc_chem_type))
+	p_score$don_chem_type <- don_chem_type_name_linear(p_score$don_chem_type)
+	p_score$acc_chem_type <- acc_chem_type_name_linear(p_score$acc_chem_type)
 	p_score <- na.omit(p_score, method="r")
 
 

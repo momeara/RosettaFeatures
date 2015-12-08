@@ -74,7 +74,7 @@ m_f <- reshape2::melt(f, measure.vars=c("chi1", "chi2"), value.name="chi_angle")
 print(str(m_f))
 
 dens <- estimate_density_1d_wrap(
-	m_f, c("sample_source", "chi_angle", "sr_bb_hb"), "value", xlim=c(-180, 180), adjust=.35)
+	m_f, c("sample_source", "chi_angle", "sr_bb_hb"), "chi_angle", xlim=c(-180, 180), adjust=.35)
 
 plot_id <-"rotamer_ASN_conditional_on_short_range_backbone_hbond_formation"
 p <- ggplot(data=dens) +
