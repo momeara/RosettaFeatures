@@ -126,6 +126,8 @@ save_tables <- function(
             sep="\t",
             row.names=F,
             quote=quote_strings)
+				} else {
+					stop(paste0("ERROR: Unrecognized table format: '", fmt$id, "' for .\n"))
 				}
 			}, error=function(e){
 				cat("\n")
